@@ -11,7 +11,7 @@ import { IDTemplate } from "../IDTemplate";
 
 export const Review = ({ handleBack }) => {
 
-  const { handleSubmit } = useSubmit();
+  
   
 
   return (
@@ -36,7 +36,7 @@ export const Review = ({ handleBack }) => {
       <IDTemplate/>
        
       {/* Form Buttons */}
-      <FormButtons submit handleBack={handleBack} handleNext={handleSubmit} />    
+      <FormButtons submit handleBack={handleBack}  />    
     </Box>
   )
 }

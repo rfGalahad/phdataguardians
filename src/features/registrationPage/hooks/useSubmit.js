@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { getDocs, collection, addDoc } from "firebase/firestore";
+/*import { getDocs, collection, addDoc } from "firebase/firestore";
 
-import { db } from "../../../services/firebase-config";
+/* import { db } from "../../../services/firebase-config.disable."; */
 import { useFormContext } from "../../../context/FormContext";
 
 
@@ -23,6 +23,7 @@ export const useSubmit = ( handleNext ) => {
     //Membership ID Generation
   }
 
+  /*
   const handleSubmit = async() => {
     try{
       await addDoc(membershipIDRef, {
@@ -43,6 +44,8 @@ export const useSubmit = ( handleNext ) => {
       console.error(err);
     }
   }
+
+  */
 
   
   useEffect(() => {
@@ -68,7 +71,6 @@ export const useSubmit = ( handleNext ) => {
     firstName, middleName, lastName, suffix,
     houseNumber, street, barangay, municipality, province,
     membershipType,
-    picture,
-    handleSubmit
+    picture
   }
 }
