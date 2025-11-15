@@ -1,18 +1,14 @@
 import { CheckCircle } from "@mui/icons-material";
 import { Box, Divider, Typography } from "@mui/material";
 
-import { useSubmit } from "../../hooks/useSubmit";
+import { IDTemplate } from "../IDTemplate";
 import { FormButtons } from "../../../../components/FormButtons";
 
-import { IDTemplate } from "../IDTemplate";
-
+import { useSubmit } from "../../hooks/useSubmit";
 
 
 
 export const Review = ({ handleBack }) => {
-
-  
-  
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>

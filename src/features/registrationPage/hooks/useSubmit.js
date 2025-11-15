@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-/*import { getDocs, collection, addDoc } from "firebase/firestore";
 
-/* import { db } from "../../../services/firebase-config.disable."; */
 import { useFormContext } from "../../../context/FormContext";
 
 
@@ -9,8 +7,6 @@ import { useFormContext } from "../../../context/FormContext";
 export const useSubmit = ( handleNext ) => {
 
   const { formData } = useFormContext();
-
-  const [memberList, setMemberList] = useState([]);
 
   const { firstName, middleName, lastName, suffix } = formData.personalInfo;
   const { houseNumber, street, barangay, municipality, province } = formData.addressDetails;
@@ -23,47 +19,8 @@ export const useSubmit = ( handleNext ) => {
     //Membership ID Generation
   }
 
-  /*
-  const handleSubmit = async() => {
-    try{
-      await addDoc(membershipIDRef, {
-        membershipID: firstName + membershipType + '0001',
-        firstName: firstName,
-        middleName: middleName || null,
-        lastName: lastName,
-        suffix: suffix || null,
-        houseNumber: houseNumber,
-        street: street,
-        barangay: barangay,
-        municipality: municipality,
-        province: province,
-        membershipType: membershipType
 
-      })
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
-  */
-
-  
-  useEffect(() => {
-    const getMemberList = async () => {
-      try {
-        const data = await getDocs(membershipIDRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(), 
-          id: doc.id
-        }))
-        setMemberList(filteredData)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-
-    getMemberList();
-  }, []);
   
 
 
