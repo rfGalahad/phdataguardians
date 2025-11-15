@@ -30,9 +30,16 @@ export const useForm = ( handleNext, requiredFields, sectionKey ) => {
     let value;
     
     if (newValue?.value !== undefined && newValue?.label !== undefined) {
-      value = field == 'suffix' ? newValue.value : newValue.label; // Dropdown
+      // Dropdown
+      value = field == 'suffix' ? newValue.value : newValue.label; 
     } else if (e?.target?.value !== undefined) {
-      value = e.target.value; //TextField
+      //TextField
+      if (field === 'contactNumber') {
+        const digitOnlyValue = e.target.value.replace(/\D/g, '');
+        value = digitOnlyValue.slice(0, 10);
+      } else {
+        value = e.target.value; 
+      }
     } else {
       value = newValue; 
     }

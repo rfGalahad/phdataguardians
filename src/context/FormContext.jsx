@@ -6,7 +6,8 @@ const initialFormData = {
   personalInfo: {},
   addressDetails: {},
   uploadPicture: {},
-  membershipType: {}
+  membershipType: {},
+  paymentInfo: {}
 }
 
 export const FormProvider = ({ children }) => {

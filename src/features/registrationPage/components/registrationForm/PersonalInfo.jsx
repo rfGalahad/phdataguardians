@@ -1,9 +1,9 @@
 import { Person } from "@mui/icons-material";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
-import { CustomDropdownField, CustomTextField } from "../../../../components/FormFields";
+import { Header } from "../Header";
+import { CustomDropdown, CustomTextField } from "../../../../components/FormFields";
 import { FormButtons } from "../../../../components/FormButtons";
-import { useFormContext } from "../../../../context/FormContext";
 
 import { useForm } from "../../hooks/useForm";
 import { PI_REQUIRED_FIELDS, SUFFIX_OPTIONS } from "../../constants/form";
@@ -11,6 +11,8 @@ import { PI_REQUIRED_FIELDS, SUFFIX_OPTIONS } from "../../constants/form";
 
 
 export const PersonalInfo = ({ handleNext }) => {
+
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
   const { 
     values, 
@@ -28,57 +30,61 @@ export const PersonalInfo = ({ handleNext }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* Header */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Person sx={{ color: '#053261' }}/>
-          <Typography variant='h5' fontWeight='600' color='#053261'>
-            Personal Information
-          </Typography>
-        </Box>
-        <Divider sx={{ borderColor: '#053261', borderBottomWidth: 2 }}/>
-      </Box>
+      <Header title={'Personal Information'} icon={<Person sx={{ color: '#053261' }}/>}/>
       
        {/* Form Content */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <CustomTextField
-          label={'First Name'}
-          onChange={handleChange('firstName')}
-          placeholder={'Enter your first name'}
-          helperText={errors.firstName}
+          label="First Name"
+          placeholder="e.g. Juan"
           value={values.firstName}
+          onChange={handleChange('firstName')}
           error={errors.firstName}
           required
         />
         <CustomTextField
-          label={'Middle Name'}
-          onChange={handleChange('middleName')}
-          placeholder={'Enter your first name'}
-          helperText={errors.middleName}
+          label="Middle Name"
+          placeholder="e.g. Santos"
           value={values.middleName}
+          onChange={handleChange('middleName')}
           error={errors.middleName}
         />
         <CustomTextField
           label={'Last Name'}
+          placeholder={'e.g. Dela Cruz'}
           onChange={handleChange('lastName')}
-          placeholder={'Enter your first name'}
-          helperText={errors.lastName}
           value={values.lastName}
           error={errors.lastName}
           required
         />
-        <CustomDropdownField
-          label={'Suffix'}
+        <CustomDropdown
+          label="Suffix"
+          placeholder="e.g. Jr., Sr., III"
           onChange={(e, newValue) => handleChange('suffix')(e, newValue)}
           options={SUFFIX_OPTIONS}
-          placeholder={'Enter your suffix'}
-          helperText={errors.suffix}
           value={values.suffix}
           error={errors.suffix}
         />
+        <CustomTextField
+          label={'Email Address'}
+          placeholder={'e.g. sample@email.com'}
+          onChange={handleChange('emailAddress')}
+          value={values.emailAddress}
+          error={errors.emailAddress}
+          required
+        />
+        <CustomTextField
+          label={'Contact Number'}
+          placeholder={'XXX-XXX-XXXX'}
+          prefix={'+63'}
+          onChange={handleChange('contactNumber')}
+          value={values.contactNumber}
+          error={errors.contactNumber}
+        />
+      </Box>
 
-        {/* Form Buttons */}
-        <FormButtons disabled handleNext={handleSubmit} />
-      </Box>      
+      {/* Form Buttons */}
+      <FormButtons disabled handleNext={handleSubmit} />      
     </Box>
   )
 }

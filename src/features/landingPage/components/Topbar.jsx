@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -44,10 +43,10 @@ export const Topbar = ({ isScrolled }) => {
   
   const navItems = [
     { label: 'Home', id: 'home' },
-    { label: 'Services', id: 'services' },
     { label: 'About', id: 'about' },
-    { label: 'Testimonials', id: 'testimonials' },
     { label: 'Membership', id: 'membership' },
+    { label: 'Services', id: 'services' },
+    { label: 'Data Breach Report', id: 'report' },
     { label: 'Contact', id: 'contact' }
   ];
   
@@ -60,7 +59,7 @@ export const Topbar = ({ isScrolled }) => {
       }}
     >
       <Container maxWidth="lg">
-        <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Company Logo */}
           <CompanyLogo />
 
@@ -86,22 +85,6 @@ export const Topbar = ({ isScrolled }) => {
                   {item.label}
                 </Button>
               ))}
-              
-              {/* Get Started Button */}
-              <Button
-                variant='contained'
-                component={Link}
-                to='/privacy-notice'
-                sx={{
-                  borderRadius: 1,
-                  backgroundColor: '#F7CF13',
-                  color: '#053261',
-                  fontWeight: 600,
-                  ml: 2
-                }}
-              >
-                Get Started
-              </Button>
             </Box>
           )}
 
@@ -112,7 +95,7 @@ export const Topbar = ({ isScrolled }) => {
                 size="large"
                 edge="end"
                 onClick={handleMenuOpen}
-                sx={{ color: '#333' }}
+                sx={{ color: '#ffffff' }}
               >
                 <MenuIcon />
               </IconButton>
@@ -147,22 +130,6 @@ export const Topbar = ({ isScrolled }) => {
                     {item.label}
                   </MenuItem>
                 ))}
-                
-                <MenuItem
-                  onClick={() => handleNavClick('get-started')}
-                  sx={{
-                    py: 1.5,
-                    px: 3,
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#1976d2',
-                    '&:hover': {
-                      backgroundColor: '#e3f2fd'
-                    }
-                  }}
-                >
-                  Get Started
-                </MenuItem>
               </Menu>
             </>
           )}

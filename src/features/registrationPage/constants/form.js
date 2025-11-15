@@ -9,11 +9,16 @@ export const SUFFIX_OPTIONS = [
 
 export const PI_REQUIRED_FIELDS = [
   'firstName',
-  'lastName'
+  'lastName',
+  'emailAddress',
 ];
 
 export const AD_REQUIRED_FIELDS = [
   'province',
   'municipality',
   'barangay'
+];
+
+export const PAYMENT_REQUIRED_FIELDS = [
+  'referenceNumber'
 ];

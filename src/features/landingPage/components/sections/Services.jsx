@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Fade, Grow } from "@mui/material"
+import { Box, Grid, Typography, Fade, Grow, Button } from "@mui/material"
 import { 
   Security as SecurityIcon,
   School as SchoolIcon,
@@ -7,7 +7,8 @@ import {
   ReportProblem as ReportProblemIcon,
   Assessment as AssessmentIcon,
   Public as PublicIcon,
-  Computer as ComputerIcon
+  Computer as ComputerIcon,
+  ArrowForward
 } from "@mui/icons-material"
 
 import { useAnimation } from "../../hooks/useAnimation";
@@ -67,7 +68,7 @@ export const Services = () => {
     <Box
       ref={sectionRef}
       sx={{
-        mt: '100vh',
+        
         display: 'flex',
         justifyContent: 'center',
         py: 8,
@@ -132,6 +133,10 @@ export const Services = () => {
                   <Typography variant='subtitle1' sx={{ color: '#404040', wordWrap: 'break-word', whiteSpace: 'normal', flex: 1}}>
                     {item.description}
                   </Typography>
+
+                  <Button sx={{ justifyContent: 'flex-start', color: '#053261', p: 0 }} >
+                    Learn More <ArrowForward sx={{ ml: 1, fontSize: 16, color: '#053261' }}/>
+                  </Button>
                 </Box>
               </Grow>
             </Grid>

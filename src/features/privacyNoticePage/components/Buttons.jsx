@@ -6,14 +6,14 @@ import {
 
 
 
-export const Buttons = ({ agree, handleNext }) => {
+export const Buttons = ({ proceed, handleNext }) => {
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Button 
         variant='outlined'
         component={Link} 
         to='/'
-        sx={{ flex: 1 }}
+        sx={{ flex: 1, borderColor: '#053261', color: '#053261' }}
       >
         Cancel
       </Button>
@@ -22,8 +22,8 @@ export const Buttons = ({ agree, handleNext }) => {
         variant='contained' 
         endIcon={<ArrowForwardIcon/>}
         onClick={handleNext}
-        disabled={!agree}
-        sx={{ flex: 3 }}
+        disabled={!proceed}
+        sx={{ flex: 3, backgroundColor: '#053261' }}
       >
         Continue to Registration
       </Button>

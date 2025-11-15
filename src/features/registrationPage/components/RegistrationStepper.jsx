@@ -12,7 +12,8 @@ import {
   LocationOn as LocationOnIcon,
   CameraAlt as CameraAltIcon, 
   School as SchoolIcon,
-  CheckCircle as CheckCircleIcon
+  CheckCircle as CheckCircleIcon,
+  Payment as PaymentIcon
 } from '@mui/icons-material';
 
 // Custom Connector
@@ -61,7 +62,8 @@ function CustomStepIcon(props) {
     2: <LocationOnIcon />,
     3: <CameraAltIcon />,
     4: <SchoolIcon />,
-    5: <CheckCircleIcon />,
+    5: <PaymentIcon />,
+    6: <CheckCircleIcon />,
   };
 
   return (

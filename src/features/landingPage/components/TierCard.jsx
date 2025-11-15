@@ -1,4 +1,4 @@
-import { Box,  Button,  Typography } from '@mui/material'
+import { Box,  Button,  Typography, Grow } from '@mui/material'
 import { 
   Check as CheckIcon, 
   School as SchoolIcon,
@@ -63,83 +63,54 @@ const getInitialBenefits = (tier) => {
 }
 
 
-export const TierCard = ({ tier, cost }) => {
+export const TierCard = ({ tier, cost, isVisible }) => {
 
   const benefits = getInitialBenefits(tier);
   const TierIcon  = getIcon(tier);
 
-  const isPopular = tier === 'Professionals';
-
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        background: '#FFFFFF',
-        border: isPopular ? '3px solid #F7CF13' : 'none',
-        borderRadius: 2,
-        p: 3,
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      { isPopular ? (<Box sx={{
-        position: 'absolute',
-        top: -10,
-        left: '50%', 
-        transform: 'translateX(-50%)',
-
-        backgroundColor: '#F7CF13', 
-        borderRadius: 1,
-        width: 'auto',
-        px: 1,
-        py: 0.5,
-      }}>
-        <Typography variant='body2' sx={{ color: '#053261', fontWeight: '600', textAlign: 'center' }}>
-          POPULAR
-        </Typography>
-      </Box>) : null }
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {TierIcon}
-        <Typography variant="subtitle1" sx={{ fontWeight: '600', color: '#053261', mb: 2 }}>
-          {tier}
-        </Typography>
-
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h4" sx={{ fontWeight: '700', color: '#053261', mb: 1 }}>
-            ₱{cost}
-          </Typography>
-          <Typography variant="body1" sx={{ fontWeight: 'semi-bold', color: '#8C8C8C', textAlign: 'center' }}>
-            /Annual
-          </Typography>
-        </Box>
-      </Box>
-
-      <Box 
+    <Grow in={isVisible} timeout={1400} style={{ transformOrigin: '0 0 0' }}>
+      <Box
         sx={{
-          minHeight: 150,
+          position: 'relative',
+          background: '#FFFFFF',
+          borderRadius: 2,
+          p: 3,
+          display: 'flex',
+          flexDirection: 'column'
         }}
       >
-        {benefits.map((benefit, index) => (
-          <Box key={index} sx={{ display: 'flex', gap: 1, mb: 1 }}>
-            <CheckIcon sx={{ fontSize: 16,  color: '#F7CF13' }}/>
-            <Typography variant='caption'>
-              {benefit}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {TierIcon}
+          <Typography variant="subtitle1" sx={{ fontWeight: '600', color: '#053261', mb: 2 }}>
+            {tier}
+          </Typography>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h4" sx={{ fontWeight: '700', color: '#053261', mb: 1 }}>
+              ₱{cost}
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'semi-bold', color: '#8C8C8C', textAlign: 'center' }}>
+              /Annual
             </Typography>
           </Box>
-        ))} 
-      </Box>
+        </Box>
 
-      <Button 
-        variant='contained' 
-        sx={{ 
-          backgroundColor:  isPopular ? '#F7CF13' : '#053261', 
-          color: isPopular ? '#053261' : '#F7CF13',
-          fontWeight: isPopular ? '600' : '500',
-        }}>
-        Register
-      </Button>
-    </Box>
-    
+        <Box 
+          sx={{
+            minHeight: 150,
+          }}
+        >
+          {benefits.map((benefit, index) => (
+            <Box key={index} sx={{ display: 'flex', gap: 1, mb: 1 }}>
+              <CheckIcon sx={{ fontSize: 16,  color: '#F7CF13' }}/>
+              <Typography variant='body2'>
+                {benefit}
+              </Typography>
+            </Box>
+          ))} 
+        </Box>
+      </Box>
+    </Grow>
   )
 }

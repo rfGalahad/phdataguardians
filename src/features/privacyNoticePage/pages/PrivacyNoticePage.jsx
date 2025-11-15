@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { Box, Container, Divider, Fade } from '@mui/material';
 
-import { PrivacyCards } from '../components/PrivacyCards';
-import { FullPrivacyPolicy } from '../components/FullPrivacyPolicy';
-
+import { Header } from '../components/Header';
 import { Buttons } from '../components/Buttons';
 import { AgreeCheckbox } from '../components/AgreeCheckbox';
-import { Header } from '../components/Header';
+import { PrivacyPolicyNotice } from '../components/PrivacyPolicyNotice';
 
 import { usePrivacyNotice } from '../hooks/usePrivacyNotice';
+
 import BackgroundImage from '../../../assets/pdgBG.png';
 
 
@@ -15,18 +15,21 @@ import BackgroundImage from '../../../assets/pdgBG.png';
 export const PrivacyNoticePage = () => {
 
   const {
-    agree,
+    proceed,
     showHeader,
     showDetails,
-    handleChange,
+    setProceed,
     handleNext
   } = usePrivacyNotice()
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  
   return (
     <Box 
       sx={{ 
+        minHeight: '100vh',
         backgroundImage: `url(${BackgroundImage})`, 
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -58,21 +61,17 @@ export const PrivacyNoticePage = () => {
               borderRadius: 2 
             }}
           >
-            {/* Privacy Cards */}
-            <PrivacyCards/>
-
-            <Divider/>
-
-            {/* Full Privacy Policy */}
-            <FullPrivacyPolicy/>
-
-            <Divider/>
+            
+            {/* Privacy Application Notice */}
+            <PrivacyPolicyNotice/>
 
             {/* Checkbox */}
-            <AgreeCheckbox agree={agree} handleChange={handleChange}/>
+            <AgreeCheckbox agree={setProceed}/>
+
+            <Divider/>
 
             {/* Buttons */}
-            <Buttons agree={agree} handleNext={handleNext}/>
+            <Buttons proceed={proceed} handleNext={handleNext}/>
           </Box>
           </div>
         </Fade>

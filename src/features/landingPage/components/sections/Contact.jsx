@@ -12,7 +12,15 @@ export const Contact = () => {
 
   return (
     <Box ref={sectionRef} sx={{ backgroundColor: '#FFFFFF', py: 8, px: 4 }}>
-      <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: 3 
+        }}
+      >
         {/* Contact Us - Heading */}
         <Fade in={isVisible} timeout={800}>
           <Box
@@ -37,11 +45,12 @@ export const Contact = () => {
           sx={{
             width: '100%',
             display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
             gap: 3
           }}
         >
           {/* Send Message Form */}
-          <Slide direction="right" in={isVisible} timeout={1000}>
+          <Fade in={isVisible} timeout={1000}>
             <Box 
               sx={{ 
                 flex: 1, 
@@ -68,7 +77,7 @@ export const Contact = () => {
                 {/* Form fields can be added here */}
               </Box>
             </Box>
-          </Slide>
+          </Fade>
 
           {/* Get in Touch Section */}
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -87,7 +96,7 @@ export const Contact = () => {
 
             {/* Contact Details */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <Slide direction="left" in={isVisible} timeout={1400}>
+              <Fade in={isVisible} timeout={1400}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <EmailOutlined sx={{ color: '#F7CF13'}}/>
@@ -99,9 +108,9 @@ export const Contact = () => {
                     members@phdataguardians.org
                   </Typography>
                 </Box>
-              </Slide>
+              </Fade>
 
-              <Slide direction="left" in={isVisible} timeout={1550}>
+              <Fade in={isVisible} timeout={1550}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Phone sx={{ color: '#F7CF13'}}/>
@@ -113,9 +122,9 @@ export const Contact = () => {
                     (+63) 929 344 5296
                   </Typography>
                 </Box>
-              </Slide>
+              </Fade>
 
-              <Slide direction="left" in={isVisible} timeout={1700}>
+              <Fade in={isVisible} timeout={1700}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <LocationPin sx={{ color: '#F7CF13'}}/>
@@ -127,7 +136,7 @@ export const Contact = () => {
                     C5 Ext. Paranaque City, Metro Manila
                   </Typography>
                 </Box>
-              </Slide>
+              </Fade>
             </Box>
 
             {/* Business Hours */}

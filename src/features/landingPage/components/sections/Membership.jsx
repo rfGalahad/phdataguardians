@@ -1,8 +1,10 @@
-import { Box, Grid, Typography, Fade, Grow } from "@mui/material";
-import { TaskAlt as TaskAltIcon } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { Box, Grid, Typography, Fade, Button, useMediaQuery } from "@mui/material";
 
 import { TierCard } from "../TierCard";
 import { useAnimation } from "../../hooks/useAnimation";
+
+import MembershipCardImage1 from '../../../../assets/MembershipCard.png';
 
 
 
@@ -10,12 +12,8 @@ export const Membership = () => {
 
   const { isVisible, sectionRef } = useAnimation({ threshold: 0.1 });
 
-  const membershipBenefits = [
-    'Access to Free training sessions, webinars, and workshops (Free Certificate and CPD units).',
-    'Be the first to receive announcements on free events, conferences.',
-    'Opportunities to join projects, research initiatives.',
-    'PDG T-shirt and Membership ID'
-  ];
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
 
   return (
     <Box
@@ -29,98 +27,84 @@ export const Membership = () => {
     >
       <Box 
         sx={{
+          width: '100%',
           maxWidth: '1200px',
           display: 'flex',
           flexDirection: 'column',
           gap: 6
         }}
       >
-        {/* Join Us Heading */}
-        <Fade in={isVisible} timeout={800}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 2
-            }}
-          >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#F7CF13' }}>
-              Join Us
-            </Typography>
-            <Typography variant="subtitle1" sx={{ fontWeight: 'semi-bold', color: '#FFFFFF', textAlign: 'center' }}>
-              Become a member of Philippine Data Guardians and gain access to exclusive training, resources, 
-              and networking opportunities.
-            </Typography>
-          </Box>
-        </Fade>
-
-        {/* Membership Benefits */}
-        <Fade in={isVisible} timeout={1000}>
-          <Box
-            sx={{
-              border: '1px solid white',
-              borderRadius: 2,
-              background: 'rgba(255, 255, 255, 0.1)',
-              p: 3,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="h5" sx={{ fontWeight: '600', color: '#FFFFFF', mb: 2 }}>
-              MEMBERSHIP BENEFITS
-            </Typography>
-
-            {membershipBenefits.map((benefit, index) => (
-              <Grow
-                key={index}
-                in={isVisible}
-                timeout={1200 + (index * 150)}
-                style={{ transformOrigin: '0 0 0' }}
-              >
-                <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                  <TaskAltIcon sx={{ color: '#F7CF13'}}/>
-                  <Typography variant="body1" sx={{ fontWeight: 'semi-bold', color: '#FFFFFF', textAlign: 'justify' }}>
-                    {benefit}
+        {/* Become a Member & Membership ID  */}
+        <Box
+          sx={{
+            maxHeight: {xs: 'auto', md: '350px'},
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 6,
+          }}
+        >
+          {/* Become a Member - Heading */}
+          <Fade in={isVisible} timeout={1000}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, color: 'white' }}>
+              <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <Typography variant= {isMobile ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#F7CF13', mb: {xs: 2, md: 0} }}>
+                    Become a Member
                   </Typography>
-                </Box>
-              </Grow>
-            ))}
-          </Box>
-        </Fade>
+                  <Box>
+                    <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify', mb: 2 }}>
+                      Be part of a community that champions data privacy and cybersecurity in the Philippines. At Philippine Data Guardians, 
+                      we believe that protecting personal data and promoting responsible digital practices is a shared responsibility. 
+                      By joining us, you take an active role in shaping a safer, more secure digital environment for everyone.
+                    </Typography>
+                    <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
+                      Become a verified PDG Member and get your personalized Digital ID. This grants you access to members-only 
+                      events, resources, discounts, and e-certificates.
+                    </Typography>
+                  </Box>
+                <Button 
+                  component={Link}
+                  to='/privacy-notice'
+                  variant='outlined' 
+                  sx={{ color: '#F7CF13', borderColor: '#F7CF13', mt: {xs: 2, md: 0}}}
+                >
+                  Register 
+                </Button>
+              </Box>
+            </Box>
+          </Fade>
 
-        {/* Tier List */}
-        <Grid container spacing={2} sx={{ width: '100%' }}>
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Grow in={isVisible} timeout={1400} style={{ transformOrigin: '0 0 0' }}>
-              <Box>
-                <TierCard tier="Student/Academic" cost="300"/>
-              </Box>
-            </Grow>
+          {/* Images */}
+          <Fade in={isVisible} timeout={800}>
+            <Box
+              component='img'
+              src={MembershipCardImage1}
+              sx={{ width: '100%', height: '100%', borderRadius: 2, boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.4)' }}
+            />
+          </Fade>
+        </Box>
+
+        {/* Membership Tier List */}
+        <Box>
+          <Typography variant='h5' sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold', color: '#F7CF13' }}>
+            Membership Tiers
+          </Typography>
+
+          <Grid container spacing={2} sx={{ width: '100%' }}>
+            <Grid size={{ xs: 12, md: 3 }}>
+              <TierCard tier="Student/Academic" cost="300" isVisible={isVisible}/>
+            </Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
+              <TierCard tier="Professionals" cost="500" isVisible={isVisible}/>
+            </Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
+              <TierCard tier="Student Organization" cost="1,000" isVisible={isVisible}/>
+            </Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
+              <TierCard tier="Institutional Organization" cost="3,000" isVisible={isVisible}/>
+            </Grid>
           </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Grow in={isVisible} timeout={1550} style={{ transformOrigin: '0 0 0' }}>
-              <Box>
-                <TierCard tier="Professionals" cost="500"/>
-              </Box>
-            </Grow>
-          </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Grow in={isVisible} timeout={1700} style={{ transformOrigin: '0 0 0' }}>
-              <Box>
-                <TierCard tier="Student Organization" cost="1,000"/>
-              </Box>
-            </Grow>
-          </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
-            <Grow in={isVisible} timeout={1850} style={{ transformOrigin: '0 0 0' }}>
-              <Box>
-                <TierCard tier="Institutional Organization" cost="3,000"/>
-              </Box>
-            </Grow>
-          </Grid>
-        </Grid>
+        </Box>
+      
       </Box>
     </Box>
   )

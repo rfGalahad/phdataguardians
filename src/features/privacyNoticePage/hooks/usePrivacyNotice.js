@@ -7,7 +7,7 @@ export const usePrivacyNotice = () => {
 
   const navigate = useNavigate();
 
-  const [agree, setAgree] = useState(false);
+  const [proceed, setProceed] = useState(false);
   const [showHeader, setShowHeader] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -16,7 +16,7 @@ export const usePrivacyNotice = () => {
   }
 
   const handleNext = () => {
-    if (agree) {
+    if (proceed) {
       navigate('/registration'); 
     } else {
       alert('Please agree to the privacy notice before continuing.');
@@ -35,9 +35,10 @@ export const usePrivacyNotice = () => {
 
 
   return {
-    agree,
+    proceed,
     showHeader,
     showDetails,
+    setProceed,
     handleChange,
     handleNext
   }

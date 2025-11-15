@@ -1,5 +1,5 @@
-import { TaskAlt as TaskAltIcon } from "@mui/icons-material";
-import { Box, Button, Typography, Pagination, Fade, Slide, Grow } from "@mui/material";
+import { Launch, TaskAlt as TaskAltIcon } from '@mui/icons-material';
+import { Box, Button, Typography, Pagination, Fade, Slide, Grow } from '@mui/material';
 
 import { useAbout } from '../../hooks/useAbout';
 import { useAnimation } from '../../hooks/useAnimation';
@@ -31,7 +31,7 @@ export const About = () => {
     <Box
       ref={sectionRef}
       sx={{
-        background: '#FFFFFF',
+        mt: '100vh',
         display: 'flex',
         justifyContent: 'center',
         py: 8,
@@ -47,19 +47,19 @@ export const About = () => {
         }}
       >
         {/* Images */}
-        <Slide direction="right" in={isVisible} timeout={800}>
-          <Box sx={{ flex: 1, position: "relative" }}>
+        <Slide direction='right' in={isVisible} timeout={800}>
+          <Box sx={{ flex: 1, position: 'relative' }}>
             <Box
-              component="img"
+              component='img'
               src={images[currentIndex]}
-              sx={{ width: "100%", borderRadius: 2 }}
+              sx={{ width: '100%', borderRadius: 2 }}
             />
 
             {/* Pagination Dots */}
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
+                display: 'flex',
+                justifyContent: 'center',
                 mt: 2,
               }}
             >
@@ -67,25 +67,26 @@ export const About = () => {
                 count={images.length}
                 page={currentIndex + 1}
                 onChange={handlePageChange}
-                size="small"
-                color="primary"
+                size='small'
+                color='primary'
+                sx={{ '& .MuiPaginationItem-root': { color: 'white' } }}
               />
             </Box>
           </Box>
         </Slide>
 
         {/* About Us */}
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4, color: 'white' }}>
           <Fade in={isVisible} timeout={1000}>
             <Box>
-              <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#053261', mb: 3 }}>
+              <Typography variant='h3' sx={{ fontWeight: 'bold', color: '#F7CF13', mb: 3 }}>
                 About Us
               </Typography>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'semi-bold', textAlign: 'justify', mb: 2 }}>
-                At <span style={{ color: '#053261', fontWeight: '600'}}>Philippine Data Guardians</span>, we specialize in delivering tailored data privacy and cybersecurity 
+              <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify', mb: 2 }}>
+                At <span style={{ color: '#F7CF13', fontWeight: '600'}}>Philippine Data Guardians</span>, we specialize in delivering tailored data privacy and cybersecurity 
                 strategies designed to meet the unique needs of government agencies, SMEs, and community organizations.
               </Typography>
-              <Typography variant="subtitle1" sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
+              <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
                 Leveraging deep expertise in local regulations and global best practices, we help organizations achieve 
                 compliance, strengthen resilience, and build trust in an increasingly digital world. Our mission is simple: 
                 to protect your data, ensure regulatory compliance, and empower you to operate securely and confidently.
@@ -112,8 +113,13 @@ export const About = () => {
           </Box>
           
           <Fade in={isVisible} timeout={2000}>
-            <Button variant='contained' sx={{ background: '#053261'}}>
-              Learn more about us
+            <Button 
+              variant='outlined' 
+              sx={{ color: '#F7CF13', borderColor: '#F7CF13'}}
+              onClick={() => window.open('https://www.facebook.com/profile.php?id=61578893785140', '_blank')}
+            >
+              Visit our Facebook Page 
+              <Launch sx={{ ml: 1, fontSize: 16, color: '#F7CF13' }}/>
             </Button>
           </Fade>
         </Box>

@@ -1,8 +1,12 @@
 import { CameraAlt, CloudUpload, Close } from "@mui/icons-material";
 import { Box, Divider, Typography, IconButton } from "@mui/material";
 
+import { Header } from "../Header";
 import { FormButtons } from "../../../../components/FormButtons";
+
 import { useUpload } from "../../hooks/useUpload";
+
+
 
 
 
@@ -25,15 +29,7 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* Header */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <CameraAlt sx={{ color: '#053261' }}/>
-          <Typography variant='h5' fontWeight='600' color='#053261'>
-            Upload Picture
-          </Typography>
-        </Box>
-        <Divider sx={{ borderColor: '#053261', borderBottomWidth: 2 }}/>
-      </Box>
+      <Header title={'Upload Picture'} icon={<CameraAlt sx={{ color: '#053261' }}/>}/>
       
       {/* Upload Picture */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
