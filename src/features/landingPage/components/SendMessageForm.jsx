@@ -38,6 +38,7 @@ export const SendMessageForm = () => {
   return (
     <Box 
       component={'form'}
+      onSubmit={handleSubmit}
       sx={{ 
         flex: 1, 
         background: 'white',
