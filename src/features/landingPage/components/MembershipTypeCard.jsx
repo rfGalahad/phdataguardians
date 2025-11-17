@@ -34,6 +34,7 @@ export const MembershipTypeCard = () => {
     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
         {MembershipType.map((type, index) => (
           <GlareHover
+            key={index}
             glareColor="#ffffff"
             glareOpacity={0.3}
             glareAngle={-30}
@@ -42,7 +43,6 @@ export const MembershipTypeCard = () => {
             playOnce={false}
           >
             <Box 
-              key={index}
               sx={{ 
                 backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
                 backdropFilter: 'blur(10px)', // Glass blur effect

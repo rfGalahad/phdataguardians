@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box, Typography, Divider, Button } from "@mui/material"
+import { Box, Typography, Divider, Button, CircularProgress } from "@mui/material"
 import { CustomTextField } from "../../../components/FormFields"
+import { SuccessDialog } from "./SuccessDialog";
 
 
 
@@ -11,14 +12,46 @@ export const SendMessageForm = () => {
     fullName: "",
     email: "",
     message: "",
+    botField: "",
   });
+
+  const [errors, setErrors] = useState({});
+  const [isSending, setIsSending] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (formData.fullName.trim().length < 3) {
+      newErrors.fullName = "Full name must be at least 3 characters.";
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    if (formData.message.trim().length === 0) {
+      newErrors.message = "Message is required.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
+    validate();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validate()) return;
+
+    // Honeypot check
+    if (formData.botField.trim() !== "") return;
+
+    setIsSending(true);
 
     const data = new FormData();
     data.append("form-name", "contact");
@@ -26,13 +59,20 @@ export const SendMessageForm = () => {
     data.append("email", formData.email);
     data.append("message", formData.message);
 
-    await fetch("/", {
-      method: "POST",
-      body: data,
-    });
+    try {
+      await fetch("/", {
+        method: "POST",
+        body: data,
+      });
 
-    alert("Message sent!");
-    setFormData({ fullName: "", email: "", message: "" });
+      setOpenSuccess(true);
+      setFormData({ fullName: "", email: "", message: "", botField: "" });
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+
+    setIsSending(false);
   };
 
   return (
@@ -64,31 +104,44 @@ export const SendMessageForm = () => {
 
       {/* FORM FIELDS */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, height: '100%' }}>
+        {/* Honeypot (hidden) */}
+        <input
+          type="text"
+          name="bot-field"
+          style={{ display: "none" }}
+          onChange={(e) => handleChange("botField", e.target.value)}
+        />
+
         <CustomTextField
-          label='Full Name'
-          placeholder='Enter your full name'
+          label="Full Name"
+          placeholder="Enter your full name"
           name="fullName"
           required
+          error={Boolean(errors.fullName)}
+          helperText={errors.fullName}
           value={formData.fullName}
           onChange={(e) => handleChange("fullName", e.target.value)}
         />
 
         <CustomTextField
-          label='Email Address'
-          placeholder='Enter your email address'
+          label="Email Address"
+          placeholder="Enter your email address"
           name="email"
           required
+          error={Boolean(errors.email)}
+          helperText={errors.email}
           value={formData.email}
           onChange={(e) => handleChange("email", e.target.value)}
         />
 
         <CustomTextField
-          label='Message'
-          placeholder='Tell us your concern...'
-          helperText='500 characters max.'
+          label="Message"
+          placeholder="Tell us your concern..."
+          helperText={errors.message || "500 characters max."}
           name="message"
           multiline
           required
+          error={Boolean(errors.message)}
           value={formData.message}
           onChange={(e) => handleChange("message", e.target.value)}
         />
@@ -106,8 +159,18 @@ export const SendMessageForm = () => {
           } 
         }}
       >
-        Send Message
+        {isSending ? (
+          <CircularProgress size={22} sx={{ color: "white" }} />
+        ) : (
+          "Send Message"
+        )}
       </Button>
+
+      {/* SUCCESS DIALOG */}
+      <SuccessDialog
+        openSuccess={openSuccess}
+        setOpenSuccess={setOpenSuccess}
+      />
     </Box>
   )
 }
