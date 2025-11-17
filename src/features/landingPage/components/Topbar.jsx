@@ -19,6 +19,7 @@ import { CompanyLogo } from './CompanyLogo';
 export const Topbar = ({ isScrolled }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
+  
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
@@ -55,7 +56,10 @@ export const Topbar = ({ isScrolled }) => {
       position='sticky' 
       elevation={isScrolled ? 2 : 0}
       sx={{ 
-        backgroundColor: isScrolled ? '#053261' :'transparent',
+        backgroundColor: isScrolled ? '#053261' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(6px)' : 'none',
+        transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease',
+        boxShadow: isScrolled ? 2 : 'none',
       }}
     >
       <Container maxWidth="lg">

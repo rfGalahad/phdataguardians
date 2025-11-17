@@ -1,111 +1,106 @@
-import { Link } from "react-router-dom";
-import { Box, Grid, Typography, Fade, Button, useMediaQuery } from "@mui/material";
+import { Box, Grid, Typography, Fade, useMediaQuery, Container } from "@mui/material";
 
 import { TierCard } from "../TierCard";
+import { MembershipTypeCard } from "../MembershipTypeCard";
+
 import { useAnimation } from "../../hooks/useAnimation";
 
-import MembershipCardImage1 from '../../../../assets/MembershipCard.png';
+import MembershipIDCard from '../../../../assets/MembershipCard.png';
 
+
+const tierList = [
+  { title: "Student/Academic", cost: "300" },
+  { title: "Professionals", cost: "500" },
+  { title: "Student Organization", cost: "1,000" },
+  { title: "Institutional Organization", cost: "3,000" }
+];
 
 
 export const Membership = () => {
 
-  const { isVisible, sectionRef } = useAnimation({ threshold: 0.1 });
+  const { 
+    isVisible, 
+    sectionRef 
+  } = useAnimation({ threshold: 0.1 });
 
   const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
+  
 
   return (
-    <Box
+    <Container 
+      maxWidth='lg'
       ref={sectionRef}
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
-        py: 8,
-        px: 4
+        gap: 6
       }}
     >
-      <Box 
+      {/* HEADER & MEMBERSHIP ID  */}
+      <Box
         sx={{
-          width: '100%',
-          maxWidth: '1200px',
           display: 'flex',
-          flexDirection: 'column',
-          gap: 6
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: 4,
+          alignItems: 'end',
         }}
       >
-        {/* Become a Member & Membership ID  */}
-        <Box
-          sx={{
-            maxHeight: {xs: 'auto', md: '350px'},
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 6,
-          }}
-        >
-          {/* Become a Member - Heading */}
-          <Fade in={isVisible} timeout={1000}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, color: 'white' }}>
-              <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <Typography variant= {isMobile ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#F7CF13', mb: {xs: 2, md: 0} }}>
-                    Become a Member
-                  </Typography>
-                  <Box>
-                    <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify', mb: 2 }}>
-                      Be part of a community that champions data privacy and cybersecurity in the Philippines. At Philippine Data Guardians, 
-                      we believe that protecting personal data and promoting responsible digital practices is a shared responsibility. 
-                      By joining us, you take an active role in shaping a safer, more secure digital environment for everyone.
-                    </Typography>
-                    <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
-                      Become a verified PDG Member and get your personalized Digital ID. This grants you access to members-only 
-                      events, resources, discounts, and e-certificates.
-                    </Typography>
-                  </Box>
-                <Button 
-                  component={Link}
-                  to='/privacy-notice'
-                  variant='outlined' 
-                  sx={{ color: '#F7CF13', borderColor: '#F7CF13', mt: {xs: 2, md: 0}}}
-                >
-                  Register 
-                </Button>
-              </Box>
-            </Box>
-          </Fade>
+        {/* Become a Member - Heading */}
+        <Fade in={isVisible} timeout={1000}>
+          <Box sx={{ 
+            flex: 2,
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 2, 
+            color: 'white'
+          }}>
+            <Typography variant={isMobile ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#F7CF13', mb: {xs: 2, md: 0} }}>
+              Join Our Community
+            </Typography>
+            <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
+              Be part of a community that champions data privacy and cybersecurity in the Philippines. At Philippine Data Guardians, 
+              we believe that protecting personal data and promoting responsible digital practices is a shared responsibility. 
+              By joining us, you take an active role in shaping a safer, more secure digital environment for everyone.
+            </Typography>
+            <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: 'justify' }}>
+              We welcome individuals, professionals, organizations, and advocates who share our mission of advancing data protection and compliance.
+            </Typography>
+          </Box>
+        </Fade>
 
-          {/* Images */}
-          <Fade in={isVisible} timeout={800}>
+        {/* Membership ID Card Image */}
+        <Fade in={isVisible} timeout={1000}>
+          <Box sx={{ flex: 1, }}>
             <Box
               component='img'
-              src={MembershipCardImage1}
-              sx={{ width: '100%', height: '100%', borderRadius: 2, boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.4)' }}
-            />
-          </Fade>
-        </Box>
-
-        {/* Membership Tier List */}
-        <Box>
-          <Typography variant='h5' sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold', color: '#F7CF13' }}>
-            Membership Tiers
-          </Typography>
-
-          <Grid container spacing={2} sx={{ width: '100%' }}>
-            <Grid size={{ xs: 12, md: 3 }}>
-              <TierCard tier="Student/Academic" cost="300" isVisible={isVisible}/>
-            </Grid>
-            <Grid size={{ xs: 12, md: 3 }}>
-              <TierCard tier="Professionals" cost="500" isVisible={isVisible}/>
-            </Grid>
-            <Grid size={{ xs: 12, md: 3 }}>
-              <TierCard tier="Student Organization" cost="1,000" isVisible={isVisible}/>
-            </Grid>
-            <Grid size={{ xs: 12, md: 3 }}>
-              <TierCard tier="Institutional Organization" cost="3,000" isVisible={isVisible}/>
-            </Grid>
-          </Grid>
-        </Box>
-      
+              src={MembershipIDCard}
+              sx={{ 
+                width: '100%',
+                borderRadius: 2, 
+                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.4)',
+              }}
+          />
+          </Box>
+        </Fade>
       </Box>
-    </Box>
+
+      {/* MEMBERSHIP TYPE CARD */}
+      <MembershipTypeCard/>
+
+      {/* MEMBERSHIP TIER LIST */}
+      <Grid container spacing={2}>
+        {tierList.map((item, index) => (
+          <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }} >
+            <TierCard 
+              tier={item.title} 
+              cost={item.cost} 
+              isVisible={isVisible}
+            />
+          </Grid>
+        ))}
+      </Grid>      
+    </Container>
   )
 }

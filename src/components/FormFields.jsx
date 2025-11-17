@@ -179,10 +179,11 @@ export const CustomTextField = ({
   value,
   error,
   required = false,
+  multiline = false,
   ...props
 }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', color: '#404040' }}>
+    <div style={{ height: multiline ? '100%' : 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', color: '#404040' }}>
       {/* Label */}
       {label && (
         <label 
@@ -201,8 +202,9 @@ export const CustomTextField = ({
       <div
         style={{
           width: '100%',
+          height: multiline ?'100%' : 'auto',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: multiline ? 'flex-start' : 'center',
           backgroundColor: '#FFFFFF',
           border: error ? '1px solid red' : '1px solid #D9D9D9',
           borderRadius: '6px',
@@ -229,7 +231,8 @@ export const CustomTextField = ({
             outline: 'none',
             color: '#404040',
             padding: prefix ? '16px 0' : '16px',
-            width: '100%'
+            width: '100%',
+            
           }}
           {...props}
         />

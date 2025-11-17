@@ -48,26 +48,26 @@ export const LandingPage = () => {
     <Box 
       sx={{ 
         position: 'relative', 
-        background: `linear-gradient(90deg, #053261 2%, #1E3A8A 50%, #371C87 100%)` 
+        background: `linear-gradient(90deg, #053261 2%, #1E3A8A 50%, #371C87 100%)`
       }}
     >
       <Topbar isScrolled={isScrolled}/>
       <Box id="home" sx={{ scrollMarginTop: '64px' }}>
         <HeroSection/>
       </Box>
-      <Box id="about" sx={{ scrollMarginTop: '64px' }}>
+      <Box id="about" sx={{ scrollMarginTop: '64px', mt: 12 }}>
         <About/>
       </Box>
-      <Box id="membership" sx={{ scrollMarginTop: '64px' }}>
+      <Box id="membership" sx={{ scrollMarginTop: '64px', mt: 12 }}>
         <Membership/>
       </Box>
-      <Box id="services" sx={{ scrollMarginTop: '64px' }}>
+      <Box id="services" sx={{ scrollMarginTop: '64px', mt: 12 }}>
         <Services/>
       </Box>
-      <Box id="report" sx={{ scrollMarginTop: '64px' }}>
+      <Box id="report" sx={{ scrollMarginTop: '64px', mt: 12 }}>
         <DataBreach/>
       </Box>
-      <Box id="contact" sx={{ scrollMarginTop: '64px' }}>
+      <Box id="contact" sx={{ scrollMarginTop: '64px', mt: 12 }}>
         <Contact/>
       </Box>
       <Footer/>
