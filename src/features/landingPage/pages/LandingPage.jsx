@@ -2,14 +2,14 @@ import { useState, useEffect } from "react"
 import { Box, Fab, Zoom } from "@mui/material"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-import { Topbar } from "../components/Topbar"
-import { HeroSection } from "../components/sections/HeroSection"
-import { Services } from "../components/sections/Services"
-import { About } from "../components/sections/About"
-import { Membership } from "../components/sections/Membership"
-import { Contact } from "../components/sections/Contact"
-import { Footer } from "../components/sections/Footer"
-import { DataBreach } from "../components/sections/DataBreach"
+import { Topbar } from "../components/topbar/Topbar"
+import { HeroSection } from "../components/heroSection/HeroSection"
+import { Services } from "../components/serviceSection/Services"
+import { About } from "../components/aboutSection/About"
+import { Membership } from "../components/membershipSection/Membership"
+import { Contact } from "../components/contactSection/Contact"
+import { Footer } from "../components/footerSection/Footer"
+import { DataBreach } from "../components/dataBreachSection/DataBreach"
 
 
 
