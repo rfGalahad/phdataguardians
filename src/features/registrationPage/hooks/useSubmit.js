@@ -1,10 +1,7 @@
 import { supabase } from '../../../supabaseClient';
 import { useFormContext } from "../../../context/FormContext";
 
-
-
-export const useSubmit = ( handleNext ) => {
-
+export const useSubmit = () => {
   const { formData } = useFormContext();
 
   const { firstName, middleName, lastName, suffix } = formData.personalInfo;
@@ -16,9 +13,12 @@ export const useSubmit = ( handleNext ) => {
   const pictureFile = formData.uploadPicture;
 
   const generateMembershipID = async () => {
+    console.log('🔵 [generateMembershipID] Starting...');
     const year = new Date().getFullYear();
+    console.log(`📅 Current year: ${year}`);
 
     // Get the latest membership_id from Members table
+    console.log(`🔍 Querying for latest ID with pattern: PDG-${year}-%`);
     const { data, error } = await supabase
       .from('Members')
       .select('membership_id')
@@ -27,27 +27,61 @@ export const useSubmit = ( handleNext ) => {
       .limit(1);
 
     if (error) {
-      console.error('Error fetching last ID:', error);
+      console.error('❌ Error fetching last ID:', error);
       return null;
     }
+
+    console.log(`📦 Query result:`, data);
 
     let newNumber = 1;
 
     if (data && data.length > 0) {
-      const lastId = data[0].membership_id; // ex: PDG-2025-003
-      const lastNumber = parseInt(lastId.split('-')[2]); // 003
+      const lastId = data[0].membership_id;
+      console.log(`✅ Found last ID: ${lastId}`);
+      const lastNumber = parseInt(lastId.split('-')[2]);
+      console.log(`🔢 Extracted last number: ${lastNumber}`);
       newNumber = lastNumber + 1;
+      console.log(`➕ Incrementing to: ${newNumber}`);
+    } else {
+      console.log('⚠️ No previous IDs found, starting from 1');
     }
 
     const padded = String(newNumber).padStart(3, '0');
+    const newID = `PDG-${year}-${padded}`;
+    console.log(`🆔 Generated new ID: ${newID}`);
 
-    return `PDG-${year}-${padded}`;
+    // Double-check this ID doesn't exist
+    console.log(`🔐 Double-checking if ID already exists...`);
+    const { data: checkData, error: checkError } = await supabase
+      .from('Members')
+      .select('membership_id')
+      .eq('membership_id', newID);
+
+    if (checkError) {
+      console.error('❌ Error during duplicate check:', checkError);
+    }
+
+    console.log(`📋 Duplicate check result:`, checkData);
+
+    if (checkData && checkData.length > 0) {
+      console.error(`🚫 ID ${newID} already exists! Retrying...`);
+      return generateMembershipID(); // Retry recursively
+    }
+
+    console.log(`✅ [generateMembershipID] Complete - ID: ${newID}`);
+    return newID;
   };
 
   const uploadPhoto = async (membershipID, file) => {
+    console.log(`🖼️ [uploadPhoto] Starting for membershipID: ${membershipID}`);
+    console.log(`📄 File name: ${file.name}`);
+
     const fileExt = file.name.split('.').pop();
     const fileName = `${membershipID}.${fileExt}`;
     const filePath = `photos/${fileName}`;
+
+    console.log(`📂 File path: ${filePath}`);
+    console.log(`⬆️ Uploading to bucket...`);
 
     // Upload file to bucket
     const { error: uploadError } = await supabase.storage
@@ -55,35 +89,58 @@ export const useSubmit = ( handleNext ) => {
       .upload(filePath, file, { upsert: true });
 
     if (uploadError) {
-      console.error('Upload error:', uploadError);
+      console.error('❌ Upload error:', uploadError);
       return null;
     }
 
+    console.log(`✅ [uploadPhoto] Complete - Path: ${filePath}`);
     return filePath;
   };
 
   const getPublicUrl = (path) => {
+    console.log(`🌐 [getPublicUrl] Getting public URL for: ${path}`);
     const { data } = supabase.storage
       .from('member-photos')
-      .getPublicUrl(path); 
+      .getPublicUrl(path);
 
+    console.log(`🔗 Public URL: ${data.publicUrl}`);
     return data.publicUrl;
   };
 
-
   const submitForm = async () => {
-    const membershipID = await generateMembershipID();
-    if (!membershipID) return;
+    console.log('═════════════════════════════════════════');
+    console.log('🚀 [submitForm] Starting form submission');
+    console.log('═════════════════════════════════════════');
 
+    const membershipID = await generateMembershipID();
+    if (!membershipID) {
+      console.error('❌ Failed to generate membership ID');
+      return;
+    }
+
+    console.log(`\n📸 Step 1: Uploading photo...`);
     // UPLOAD PHOTO - SUPABASE STORAGE
     const path = await uploadPhoto(membershipID, pictureFile);
-    if (!path) return;
+    if (!path) {
+      console.error('❌ Failed to upload photo');
+      return;
+    }
 
+    console.log(`\n🔗 Step 2: Getting public URL...`);
     // GET PHOTO URL
     const photoUrl = getPublicUrl(path);
 
-
     try {
+      console.log(`\n💾 Step 3: Inserting into Members table...`);
+      console.log('Data:', {
+        membership_id: membershipID,
+        first_name: firstName,
+        middle_name: middleName,
+        last_name: lastName,
+        suffix,
+        photo_url: photoUrl
+      });
+
       // INSERT MEMBERS TABLE
       const { error: memberError } = await supabase
         .from("Members")
@@ -98,7 +155,21 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (memberError) return console.error("Member ERROR:", memberError);
+      if (memberError) {
+        console.error("❌ Members table ERROR:", memberError);
+        return;
+      }
+      console.log("✅ Members table inserted successfully");
+
+      console.log(`\n💾 Step 4: Inserting into Address table...`);
+      console.log('Data:', {
+        membership_id: membershipID,
+        house_number: houseNumber,
+        street_name: street,
+        barangay,
+        city_municipality: municipality,
+        province,
+      });
 
       // INSERT ADDRESS TABLE
       const { error: addressError } = await supabase
@@ -114,7 +185,18 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (addressError) return console.error("Member ERROR:", addressError);
+      if (addressError) {
+        console.error("❌ Address table ERROR:", addressError);
+        return;
+      }
+      console.log("✅ Address table inserted successfully");
+
+      console.log(`\n💾 Step 5: Inserting into Payment table...`);
+      console.log('Data:', {
+        membership_id: membershipID,
+        membership_tier: membershipType,
+        reference_number: referenceNumber
+      });
 
       // INSERT PAYMENT TABLE
       const { error: paymentError } = await supabase
@@ -127,19 +209,36 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (paymentError) return console.error("Member ERROR:", paymentError);
+      if (paymentError) {
+        console.error("❌ Payment table ERROR:", paymentError);
+        return;
+      }
+      console.log("✅ Payment table inserted successfully");
+
+      console.log(`\n💾 Step 6: Inserting into Digital_ID table...`);
+      console.log('Data:', { membership_id: membershipID });
 
       // INSERT DIGITAL ID TABLE
-      await supabase.from("Digital_ID").insert([
-        { membership_id: membershipID }
-      ]);
+      const { error: digitalIDError } = await supabase
+        .from("Digital_ID")
+        .insert([
+          { membership_id: membershipID }
+        ]);
+
+      if (digitalIDError) {
+        console.error("❌ Digital_ID table ERROR:", digitalIDError);
+        return;
+      }
+      console.log("✅ Digital_ID table inserted successfully");
+
+      console.log('═════════════════════════════════════════');
+      console.log('✅ [submitForm] ALL STEPS COMPLETED SUCCESSFULLY!');
+      console.log('═════════════════════════════════════════');
 
     } catch (err) {
-      console.error("Insert error:", err);
+      console.error("❌ Insert error:", err);
     }
   };
-
-
 
   return {
     firstName, middleName, lastName, suffix,
