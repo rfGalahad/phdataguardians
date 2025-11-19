@@ -64,10 +64,19 @@ export const Review = ({ handleBack }) => {
       <IDTemplate/>
        
       {/* FORM BUTTONS */}
-      <FormButtons submit handleBack={handleBack} handleNext={handleSubmit} />    
+      <FormButtons 
+        submit 
+        loading={loading}
+        handleBack={handleBack}
+        handleNext={handleSubmit} 
+      />    
 
       {/* RESULT MODAL */}
-      <ResultModal open={modalOpen} type={modalType} onClose={handleModalClose} />
+      <ResultModal 
+        open={modalOpen} 
+        type={modalType} 
+        onClose={handleModalClose} 
+      />
     </Box>
   )
 }
