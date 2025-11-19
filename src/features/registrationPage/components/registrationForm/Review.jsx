@@ -28,7 +28,6 @@ export const Review = ({ handleBack }) => {
       await submitForm();
       setModalType('success');
       setModalOpen(true);
-      navigate('/');
     } catch (error) {
       console.error('Submit error:', error);
       setModalType('error');
@@ -38,7 +37,10 @@ export const Review = ({ handleBack }) => {
     }
   };
 
-  const handleModalClose = () => { setModalOpen(false) };
+  const handleModalClose = () => { 
+    setModalOpen(false)
+    navigate('/')
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>

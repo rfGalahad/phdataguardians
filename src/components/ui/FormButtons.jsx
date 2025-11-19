@@ -26,6 +26,7 @@ export const FormButtons = ({
         Back
       </Button>
       <Button 
+        disabled={loading}
         variant='contained'
         onClick={handleNext} 
         sx={{

@@ -89,7 +89,7 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (memberError) throw memberError;
+      if (memberError) return console.error("Member ERROR:", memberError);
 
       // INSERT ADDRESS TABLE
       const { error: addressError } = await supabase
@@ -105,7 +105,7 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (addressError) throw addressError;
+      if (addressError) return console.error("Member ERROR:", addressError);
 
       // INSERT PAYMENT TABLE
       const { error: paymentError } = await supabase
@@ -118,7 +118,7 @@ export const useSubmit = ( handleNext ) => {
           },
         ]);
 
-      if (paymentError) throw paymentError;
+      if (paymentError) return console.error("Member ERROR:", paymentError);
 
       // INSERT DIGITAL ID TABLE
       await supabase.from("Digital_ID").insert([
