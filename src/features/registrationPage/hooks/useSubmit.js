@@ -62,6 +62,15 @@ export const useSubmit = ( handleNext ) => {
     return filePath;
   };
 
+  const getPublicUrl = (path) => {
+    const { data } = supabase.storage
+      .from('member-photos')
+      .getPublicUrl(path); 
+
+    return data.publicUrl;
+  };
+
+
   const submitForm = async () => {
     const membershipID = await generateMembershipID();
     if (!membershipID) return;
