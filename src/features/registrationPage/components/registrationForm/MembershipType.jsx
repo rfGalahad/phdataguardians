@@ -1,9 +1,9 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { School } from '@mui/icons-material';
 
 import { Header } from '../Header';
 import { MembershipTypeCard } from '../MembershipTypeCard';
-import { FormButtons } from '../../../../components/FormButtons';
+import { FormButtons } from '../../../../components/ui/FormButtons';
 
 import { useMembership } from '../../hooks/useMembership';
 

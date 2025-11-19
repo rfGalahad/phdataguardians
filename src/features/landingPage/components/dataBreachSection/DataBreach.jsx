@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Fade, useMediaQuery, Container } from '@mui/material';
 
 import { useAnimation } from '../../hooks/useAnimation';
@@ -41,7 +42,16 @@ export const DataBreach = () => {
             A secure and transparent platform designed to help individuals and organizations report, monitor, 
             and resolve data breaches efficiently.
           </Typography>
-          <Button variant='contained' sx={{ fontWeight: 600, color: '#053261', backgroundColor: '#F7CF13'}}>
+          <Button 
+            component={Link}
+            to='/dataBreachReport'
+            variant='contained' 
+            sx={{ 
+              fontWeight: 600, 
+              color: '#053261', 
+              backgroundColor: '#F7CF13'
+            }}
+          >
             Report a Data Breach 
           </Button>
         </Box>

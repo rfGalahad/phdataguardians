@@ -92,6 +92,8 @@ export const HeroSection = () => {
                 Join Us Now
               </Button>
               <Button 
+                component={Link}
+                to='/dataBreachReport'
                 variant='outlined' 
                 sx={{ 
                   color: '#F7CF13',

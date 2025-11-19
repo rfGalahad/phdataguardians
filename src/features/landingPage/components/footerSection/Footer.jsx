@@ -4,12 +4,12 @@ import { Email, Facebook, LinkedIn, LocationOn, Phone } from "@mui/icons-materia
 import Logo from '../../../../assets/pdgLogo.png';
 
 const quickLinks = [
-  { title: 'Home', path: '/' },
-  { title: 'About', path: '/about' },
-  { title: 'Membership', path: '/membership' },
-  { title: 'Services', path: '/services' },
-  { title: 'Data Breach Report', path: '/' },
-  { title: 'Contact', path: '/contact' },
+  { label: 'Home', id: 'home' },
+  { label: 'About', id: 'about' },
+  { label: 'Membership', id: 'membership' },
+  { label: 'Services', id: 'services' },
+  { label: 'Data Breach Report', id: 'report' },
+  { label: 'Contact', id: 'contact' }
 ];  
 
 const services = [
@@ -40,6 +40,16 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
+
+  const handleNavClick = (section) => {
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
     <Box sx={{ background: '#053261' }}>
@@ -99,20 +109,22 @@ export const Footer = () => {
               ))}
             </Box>
           </Box>
-
+          
           {/* QUICK LINKS */}
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Typography variant="subtitle1" fontWeight="bold" sx={{ color: '#F7CF13' }}>
               Quick Links
             </Typography>
+
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               {quickLinks.map((link) => (
-                <Link 
-                  key={link.title}
-                  href={link.path} 
-                  underline="hover" 
+                <Link
+                  key={link.id}
+                  onClick={() => handleNavClick(link.id)}
+                  underline="hover"
                   color="inherit"
                   sx={{
+                    cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     '&:hover': {
                       color: '#F7CF13',
@@ -120,8 +132,8 @@ export const Footer = () => {
                     }
                   }}
                 >
-                  <Typography variant='body2'>
-                    {link.title}
+                  <Typography variant="body2">
+                    {link.label}
                   </Typography>
                 </Link>
               ))}

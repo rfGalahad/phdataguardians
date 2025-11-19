@@ -2,8 +2,8 @@ import { Person } from "@mui/icons-material";
 import { Box, useMediaQuery } from "@mui/material";
 
 import { Header } from "../Header";
-import { CustomDropdown, CustomTextField } from "../../../../components/FormFields";
-import { FormButtons } from "../../../../components/FormButtons";
+import { CustomDropdown, CustomTextField } from "../../../../components/ui/FormFields";
+import { FormButtons } from "../../../../components/ui/FormButtons";
 
 import { useForm } from "../../hooks/useForm";
 import { PI_REQUIRED_FIELDS, SUFFIX_OPTIONS } from "../../constants/form";

@@ -2,13 +2,13 @@ import { CheckCircle } from "@mui/icons-material";
 import { Box, Divider, Typography } from "@mui/material";
 
 import { IDTemplate } from "../IDTemplate";
-import { FormButtons } from "../../../../components/FormButtons";
+import { FormButtons } from "../../../../components/ui/FormButtons";
 
 import { useSubmit } from "../../hooks/useSubmit";
 
 
 
-export const Review = ({ handleBack }) => {
+export const Review = ({ handleBack }) => { 
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>

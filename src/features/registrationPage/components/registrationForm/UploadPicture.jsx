@@ -2,7 +2,7 @@ import { CameraAlt, CloudUpload, Close } from "@mui/icons-material";
 import { Box, Divider, Typography, IconButton } from "@mui/material";
 
 import { Header } from "../Header";
-import { FormButtons } from "../../../../components/FormButtons";
+import { FormButtons } from "../../../../components/ui/FormButtons";
 
 import { useUpload } from "../../hooks/useUpload";
 

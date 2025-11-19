@@ -80,7 +80,7 @@ export const Contact = () => {
         </Fade>
 
         {/* CONTACT DETAILS */}
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: {xs: 3, md: 0}, justifyContent: {md: 'space-between'} }}>
           {/* CONTACTS */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {contactItem.map((item, index) => (

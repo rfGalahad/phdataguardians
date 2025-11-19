@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Typography, Divider, Button, CircularProgress } from '@mui/material'
-import { CustomTextField } from '../../../../components/FormFields'
+import { CustomTextField } from '../../../../components/ui/FormFields'
 import { SuccessDialog } from './SuccessDialog';
 
 

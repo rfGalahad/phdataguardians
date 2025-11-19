@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 
 import { Header } from "../Header";
 import { QRDetails } from "../QRDetails";
-import { CustomTextField } from "../../../../components/FormFields";
-import { FormButtons } from "../../../../components/FormButtons";
+import { CustomTextField } from "../../../../components/ui/FormFields";
+import { FormButtons } from "../../../../components/ui/FormButtons";
 
 import { useForm } from "../../hooks/useForm";
 import { PAYMENT_REQUIRED_FIELDS } from "../../constants/form";
