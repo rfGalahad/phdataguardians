@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import { supabase } from '../../../supabaseClient';
 import { useFormContext } from "../../../context/FormContext";
 
@@ -126,9 +124,6 @@ export const useSubmit = ( handleNext ) => {
       await supabase.from("Digital_ID").insert([
         { membership_id: membershipID }
       ]);
-
-
-      handleNext();
 
     } catch (err) {
       console.error("Insert error:", err);

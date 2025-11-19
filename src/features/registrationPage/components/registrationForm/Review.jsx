@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "@mui/icons-material";
 import { Box, Divider, Typography } from "@mui/material";
 
@@ -17,6 +18,8 @@ export const Review = ({ handleBack }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
 
+  const navigate = useNavigate();
+
   const { submitForm } = useSubmit();
 
   const handleSubmit = async () => {
@@ -25,6 +28,7 @@ export const Review = ({ handleBack }) => {
       await submitForm();
       setModalType('success');
       setModalOpen(true);
+      navigate('/');
     } catch (error) {
       console.error('Submit error:', error);
       setModalType('error');
@@ -34,12 +38,7 @@ export const Review = ({ handleBack }) => {
     }
   };
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-    if (modalType === 'success') {
-      handleBack(); // or navigate to success page
-    }
-  };
+  const handleModalClose = () => { setModalOpen(false) };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
