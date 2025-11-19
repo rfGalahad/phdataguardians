@@ -17,26 +17,30 @@ export const useSubmit = () => {
     const year = new Date().getFullYear();
     console.log(`📅 Current year: ${year}`);
 
-    // Get the latest membership_id from Members table
-    console.log(`🔍 Querying for latest ID with pattern: PDG-${year}-%`);
-    const { data, error } = await supabase
+    // Get ALL membership_ids and filter manually
+    console.log(`🔍 Querying ALL membership IDs...`);
+    const { data: allIds, error } = await supabase
       .from('Members')
-      .select('membership_id')
-      .like('membership_id', `PDG-${year}-%`)
-      .order('membership_id', { ascending: false })
-      .limit(1);
+      .select('membership_id');
 
     if (error) {
-      console.error('❌ Error fetching last ID:', error);
+      console.error('❌ Error fetching IDs:', error);
       return null;
     }
 
-    console.log(`📦 Query result:`, data);
+    console.log(`📦 All IDs in database:`, allIds);
+
+    // Filter IDs for current year
+    const currentYearIds = allIds
+      .filter(row => row.membership_id.startsWith(`PDG-${year}-`))
+      .sort();
+    
+    console.log(`📋 IDs for year ${year}:`, currentYearIds);
 
     let newNumber = 1;
 
-    if (data && data.length > 0) {
-      const lastId = data[0].membership_id;
+    if (currentYearIds.length > 0) {
+      const lastId = currentYearIds[currentYearIds.length - 1].membership_id;
       console.log(`✅ Found last ID: ${lastId}`);
       const lastNumber = parseInt(lastId.split('-')[2]);
       console.log(`🔢 Extracted last number: ${lastNumber}`);
@@ -47,25 +51,24 @@ export const useSubmit = () => {
     }
 
     const padded = String(newNumber).padStart(3, '0');
-    const newID = `PDG-${year}-${padded}`;
+    let newID = `PDG-${year}-${padded}`;
     console.log(`🆔 Generated new ID: ${newID}`);
 
-    // Double-check this ID doesn't exist
-    console.log(`🔐 Double-checking if ID already exists...`);
-    const { data: checkData, error: checkError } = await supabase
-      .from('Members')
-      .select('membership_id')
-      .eq('membership_id', newID);
-
-    if (checkError) {
-      console.error('❌ Error during duplicate check:', checkError);
+    // Keep incrementing until we find an ID that doesn't exist
+    let attempts = 0;
+    const maxAttempts = 100;
+    
+    while (allIds.some(row => row.membership_id === newID) && attempts < maxAttempts) {
+      console.warn(`⚠️ ID ${newID} already exists, incrementing...`);
+      newNumber++;
+      const newPadded = String(newNumber).padStart(3, '0');
+      newID = `PDG-${year}-${newPadded}`;
+      attempts++;
     }
 
-    console.log(`📋 Duplicate check result:`, checkData);
-
-    if (checkData && checkData.length > 0) {
-      console.error(`🚫 ID ${newID} already exists! Retrying...`);
-      return generateMembershipID(); // Retry recursively
+    if (attempts >= maxAttempts) {
+      console.error('❌ Could not generate unique ID after 100 attempts');
+      return null;
     }
 
     console.log(`✅ [generateMembershipID] Complete - ID: ${newID}`);
