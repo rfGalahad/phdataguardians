@@ -1,8 +1,14 @@
-import { Box, Button } from "@mui/material"
+import { Box, Button, CircularProgress } from "@mui/material"
 
 
 
-export const FormButtons = ({ submit = false, disabled = false, handleBack, handleNext }) => {
+export const FormButtons = ({ 
+  submit = false, 
+  disabled = false,
+  loading = false,
+  handleBack, 
+  handleNext 
+}) => {
 
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
@@ -28,7 +34,16 @@ export const FormButtons = ({ submit = false, disabled = false, handleBack, hand
           '&:hover': { backgroundColor: '#042146' } 
         }}
       >
-        {submit ? 'Submit': 'Next'}
+        {loading ? (
+          <>
+            <CircularProgress size={20} sx={{ color: 'white', mr: 1 }} />
+            {submit ? 'Submitting...' : 'Processing...'}
+          </>
+        ) : submit ? (
+          'Submit'
+        ) : (
+          'Next'
+        )}
       </Button>
     </Box>
   )

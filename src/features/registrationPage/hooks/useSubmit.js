@@ -11,6 +11,7 @@ export const useSubmit = ( handleNext ) => {
 
   const { firstName, middleName, lastName, suffix } = formData.personalInfo;
   const { houseNumber, street, barangay, municipality, province } = formData.addressDetails;
+  const referenceNumber = formData.paymentInfo.referenceNumber;
   const membershipType = formData.membershipType.type;
   const picture = URL.createObjectURL(formData.uploadPicture);
 
@@ -86,8 +87,7 @@ export const useSubmit = ( handleNext ) => {
             middle_name: middleName,
             last_name: lastName,
             suffix,
-            membership_tier: membershipType,
-            photo_url: photoUrl,   // <----- Store here
+            photo_url: photoUrl
           },
         ]);
 
@@ -108,6 +108,19 @@ export const useSubmit = ( handleNext ) => {
         ]);
 
       if (addressError) throw addressError;
+
+      // INSERT PAYMENT TABLE
+      const { error: paymentError } = await supabase
+        .from("Payment")
+        .insert([
+          {
+            membership_id: membershipID,
+            membership_tier: membershipType,
+            reference_number: referenceNumber
+          },
+        ]);
+
+      if (paymentError) throw paymentError;
 
       // INSERT DIGITAL ID TABLE
       await supabase.from("Digital_ID").insert([

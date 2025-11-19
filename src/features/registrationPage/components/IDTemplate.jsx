@@ -1,8 +1,11 @@
-import { Box, Typography } from "@mui/material";
-import { useSubmit } from "../hooks/useSubmit";
 import QRCode from 'react-qr-code';
-import Logo from '../../../assets/pdgLogo.png';
+import { Box, Typography } from "@mui/material";
 import { School } from "@mui/icons-material";
+
+import { useSubmit } from "../hooks/useSubmit";
+
+import Logo from '../../../assets/pdgLogo.png';
+
 
 
 
