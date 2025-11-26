@@ -8,7 +8,7 @@ import provinceData from '../data/province.json';
 
 export const useAddressOptions = (values) => {
   
-  // Base Options
+  // PROVINCE DROPDOWN LIST
   const PROVINCE_OPTIONS = useMemo(() => {
     return provinceData.map(province => ({
       label: province.province_name,
@@ -17,6 +17,7 @@ export const useAddressOptions = (values) => {
     }));
   }, []);
 
+  // CITY/MUNICIPALITY DROPDOWN LIST
   const MUNICIPALITY_OPTIONS = useMemo(() => {
     return municipalityData.map(municipality => ({
       label: municipality.municipality_name,
@@ -25,6 +26,7 @@ export const useAddressOptions = (values) => {
     }));
   }, []);
 
+  // BARANGAY DROPDOWN LIST
   const BARANGAY_OPTIONS = useMemo(() => {
     return barangayData.map(barangay => ({
       label: barangay.barangay_name,
@@ -33,7 +35,13 @@ export const useAddressOptions = (values) => {
     }));
   }, []);
 
-  // Filtered Options
+
+  // SELECTED IDs
+  const selectedProvince = values.province;
+  const selectedMunicipality = values.municipality;
+
+
+  // MUNICIPALITIES UNDER SELECTED PROVINCE
   const FILTERED_MUNICIPALITY_OPTIONS = useMemo(() => {
 
     const selectedProvince = PROVINCE_OPTIONS.find(
@@ -50,6 +58,7 @@ export const useAddressOptions = (values) => {
     return [];
   }, [values.province, PROVINCE_OPTIONS, MUNICIPALITY_OPTIONS]);
 
+  // BARANGAYS UNDER SELECTED CITY/MUNICPALITY 
   const FILTERED_BARANGAY_OPTIONS = useMemo(() => {
     
     const selectedMunicipality = MUNICIPALITY_OPTIONS.find(
@@ -66,9 +75,8 @@ export const useAddressOptions = (values) => {
     return [];
   }, [values.municipality, MUNICIPALITY_OPTIONS, BARANGAY_OPTIONS]);
 
-  const selectedProvince = values.province;
-  const selectedMunicipality = values.municipality;
 
+  // CONTROLS WHAT FIELDS TO SHOW
   const showMunicipality = selectedProvince;
   const showBarangay = showMunicipality && selectedMunicipality;
   const showStreet = showBarangay && values.barangay;

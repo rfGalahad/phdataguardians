@@ -11,7 +11,7 @@ export const DashboardLayout = () => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
   const containerStyle = isMobile 
   ? {
@@ -45,10 +45,12 @@ export const DashboardLayout = () => {
       <Sidebar
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
+        isMobile={isMobile}
       />
       <Box 
         sx={{ 
           gridArea: 'main',
+          height: '100%',
           background: '#F7F9FC'
         }}
       >

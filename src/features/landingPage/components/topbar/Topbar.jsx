@@ -82,7 +82,8 @@ export const Topbar = ({ isScrolled }) => {
                     '&:hover': { 
                       borderBottom: '2px solid #F7CF13',
                       backgroundColor: 'transparent',
-                      borderRadius: 0
+                      borderRadius: 0,
+                      color: '#F7CF13'
                     }
                   }}
                 >

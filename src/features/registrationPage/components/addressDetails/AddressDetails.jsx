@@ -7,6 +7,7 @@ import { FormButtons } from "../../../../components/ui/FormButtons";
 
 import { useForm } from '../../hooks/useForm';
 import { useAddressOptions } from "../../hooks/useAddressOptions";
+
 import { AD_REQUIRED_FIELDS } from "../../constants/form";
 
 
@@ -38,10 +39,10 @@ export const AddressDetails = ({ handleBack, handleNext }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      {/* Header */}
+      {/* HEADER */}
       <Header title={'Address Details'} icon={<LocationOn sx={{ color: '#053261' }}/>} />
       
-       {/* Form Content */}
+       {/* FORM CONTENT */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <CustomDropdown
           label='Province'
@@ -95,7 +96,8 @@ export const AddressDetails = ({ handleBack, handleNext }) => {
           </>
         )}
       </Box>
-      {/* Form Buttons */}
+
+      {/* FORM BUTTONS */}
       <FormButtons handleBack={handleBack} handleNext={handleSubmit} />      
     </Box>
   )

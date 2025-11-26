@@ -28,6 +28,7 @@ export const PrivacyPolicyNotice = () => {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {notice.map((item, index) => (
         <Box
+          key={index}
           sx={{ 
             display: 'flex', 
             flexDirection: 'column', 

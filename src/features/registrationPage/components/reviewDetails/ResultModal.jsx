@@ -17,7 +17,9 @@ export const ResultModal = ({ open, type, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
+
+      {/* DIALOG TITLE */}
+      <Box sx={{ textAlign: 'center', p: 2 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
           {isSuccess ? (
             <CheckCircle sx={{ fontSize: 48, color: '#10b981' }} />
@@ -28,8 +30,11 @@ export const ResultModal = ({ open, type, onClose }) => {
         <Typography variant="h6" fontWeight="600">
           {isSuccess ? 'Submission Successful!' : 'Submission Failed'}
         </Typography>
-      </DialogTitle>
+      </Box>
+
       <Divider />
+
+      {/* DIALOG CONTENT */}
       <DialogContent sx={{ pt: 2 }}>
         <Typography color="textSecondary">
           {isSuccess
@@ -37,6 +42,8 @@ export const ResultModal = ({ open, type, onClose }) => {
             : 'An error occurred while submitting your registration. Please try again or contact support.'}
         </Typography>
       </DialogContent>
+
+      {/* DIALOG ACTION BUTTONS */}
       <DialogActions sx={{ p: 2 }}>
         <Button
           variant="contained"

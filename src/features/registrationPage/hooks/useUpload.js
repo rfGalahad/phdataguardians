@@ -12,6 +12,7 @@ export const useUpload = ( handleNext ) => {
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState("");
 
+  // VALIDATE IMAGE IF SIZE < 5MB && TYPES = JPEG, JPG, PNG 
   const validateFile = (file) => {
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     const maxSize = 5 * 1024 * 1024; // 5MB
@@ -26,6 +27,7 @@ export const useUpload = ( handleNext ) => {
     return null;
   };
 
+  //
   const handleFiles = (file) => {
     setError('');
 
@@ -35,20 +37,18 @@ export const useUpload = ( handleNext ) => {
       setImagePreview(null);
       return setError(validationError);
     }
-    console.log('IMAGE', file);
     setImage(file);
     setImagePreview(URL.createObjectURL(file));
-    console.log('File successfully prepared:', file.name);
   };
 
+  // 
   const handleFileInput = (e) => {
-    console.log('Hi');
-    // e.target.value = null;
     if (e.target.files && e.target.files.length > 0) {
       handleFiles(e.target.files[0]);
     }
   };
 
+  // ALLOWS IMAGES TO DRAG
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,6 +59,7 @@ export const useUpload = ( handleNext ) => {
     }
   };
 
+  // ALLOWS IMAGE TO DROP
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -69,6 +70,7 @@ export const useUpload = ( handleNext ) => {
     }
   };
 
+  // REMOVES THE UPLOADED IMAGE
   const removeImage = () => {
     if (imagePreview) URL.revokeObjectURL(imagePreview);
 
@@ -77,6 +79,7 @@ export const useUpload = ( handleNext ) => {
     setError('');
   };
 
+  // STORES THE IMAGE INTO THE FORM CONTEXT (UploadPicture)
   const handleSubmit = () => {
     if (!image) {
       return setError('Please upload a picture');
@@ -89,20 +92,16 @@ export const useUpload = ( handleNext ) => {
   useEffect(() => {
     const item = formData?.uploadPicture;
 
-    // 1. Stop early if there's no saved file
     if (!item) return;
 
-    // 2. If the stored value is a File object
     if (item instanceof File) {
       const objectUrl = URL.createObjectURL(item);
       setImage(item);
       setImagePreview(objectUrl);
 
-      // cleanup to prevent memory leaks
       return () => URL.revokeObjectURL(objectUrl);
     }
 
-    // 3. If the stored value is a string (like a base64 URL or image URL)
     if (typeof item === 'string') {
       setImagePreview(item);
     }

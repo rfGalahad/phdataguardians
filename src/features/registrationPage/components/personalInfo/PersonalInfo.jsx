@@ -12,8 +12,6 @@ import { PI_REQUIRED_FIELDS, SUFFIX_OPTIONS } from "../../constants/form";
 
 export const PersonalInfo = ({ handleNext }) => {
 
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
-
   const { 
     values, 
     errors, 
@@ -25,14 +23,14 @@ export const PersonalInfo = ({ handleNext }) => {
     'personalInfo'
   );
 
-  
+
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      {/* Header */}
+      {/* HEADER */}
       <Header title={'Personal Information'} icon={<Person sx={{ color: '#053261' }}/>}/>
       
-       {/* Form Content */}
+       {/* FORM CONTENT */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <CustomTextField
           label="First Name"
@@ -75,7 +73,7 @@ export const PersonalInfo = ({ handleNext }) => {
         />
         <CustomTextField
           label={'Contact Number'}
-          placeholder={'XXX-XXX-XXXX'}
+          placeholder={'923-456-7890'}
           prefix={'+63'}
           onChange={handleChange('contactNumber')}
           value={values.contactNumber}
@@ -83,7 +81,7 @@ export const PersonalInfo = ({ handleNext }) => {
         />
       </Box>
 
-      {/* Form Buttons */}
+      {/* FORM BUTTONS */}
       <FormButtons disabled handleNext={handleSubmit} />      
     </Box>
   )

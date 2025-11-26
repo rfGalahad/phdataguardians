@@ -2,7 +2,7 @@ import { Info, Payment as PaymentIcon } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 
 import { Header } from "../Header";
-import { QRDetails } from "../QRDetails";
+import { QRDetails } from "./QRDetails";
 import { CustomTextField } from "../../../../components/ui/FormFields";
 import { FormButtons } from "../../../../components/ui/FormButtons";
 
@@ -28,13 +28,13 @@ export const PaymentInfo = ({ handleBack, handleNext }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      {/* Header */}
+      {/* HEADER */}
       <Header title={'Payment Information'} icon={<PaymentIcon sx={{ color: '#053261' }}/>}/>
 
-      {/* QR Details */}
+      {/* PAYMENT QR DETAILS */}
       <QRDetails/>
       
-       {/* Form Content */}
+      {/* FORM CONTENT */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', backgroundColor: '#FFF3CD', border: '1px solid #FFEEBA', borderRadius: 2, p: 2 }}>
           <Info sx={{ color: '#856404' }}/>
@@ -52,7 +52,7 @@ export const PaymentInfo = ({ handleBack, handleNext }) => {
         />
       </Box>
 
-      {/* Form Buttons */}
+      {/* FORM BUTTONS */}
       <FormButtons handleBack={handleBack} handleNext={handleSubmit} />      
     </Box>
   )

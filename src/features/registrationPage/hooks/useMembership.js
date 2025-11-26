@@ -9,11 +9,13 @@ export const useMembership = ( handleNext ) => {
   const [ selected, setSelected ] = useState(null);
   const [ error, setError ] = useState(false);
 
-  const handleCardSelect = (type) => {
-    setSelected(type);
-    updateFormData('membershipType', { type });
+  // SAVE SELECTED MEMBERSHIP TIER TO FORM DATA (membershipTier)
+  const handleCardSelect = (tier) => {
+    setSelected(tier);
+    updateFormData('membershipTier', { tier });
   };
 
+  // REDIRECTS TO NEXT FORM STEP 
   const handleSubmit = () => {
     if (selected) {
       handleNext();
@@ -22,10 +24,11 @@ export const useMembership = ( handleNext ) => {
     }
   };
 
+  // LOAD SELECTED MEMBERSHIP TIER
   useEffect(() => {
-    const sectionData = formData?.membershipType.type;
+    const sectionData = formData?.membershipTier?.tier;
     if (sectionData) setSelected(sectionData);
-  }, []);
+  }, [formData]);
 
 
   return {

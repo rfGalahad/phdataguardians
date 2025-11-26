@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 
 import { RegistrationStepper } from '../components/RegistrationStepper';
-import { PersonalInfo } from '../components/registrationForm/PersonalInfo';
-import { AddressDetails } from '../components/registrationForm/AddressDetails';
-import { UploadPicture } from '../components/registrationForm/UploadPicture';
-import { MembershipType } from '../components/registrationForm/MembershipType';
-import { PaymentInfo } from '../components/registrationForm/PaymentInfo';
-import { Review } from '../components/registrationForm/Review';
+import { PersonalInfo } from '../components/personalInfo/PersonalInfo';
+import { AddressDetails } from '../components/addressDetails/AddressDetails';
+import { UploadPicture } from '../components/uploadPicture/UploadPicture';
+import { MembershipTier } from '../components/membershipInfo/MembershipTier';
+import { PaymentInfo } from '../components/paymentInfo/PaymentInfo';
+import { Review } from '../components/reviewDetails/Review';
 
 import { FormProvider } from '../../../context/FormContext';
 
@@ -60,7 +60,7 @@ export const RegistrationPage = ({  }) => {
         color: 'white'
       }}>
       <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-        {/* Header */}
+        {/* HEADER */}
         <Box mb={6}>
           <Typography variant= {isMobile ? 'h6' : 'h4'} color="#F7CF13" fontWeight="bold" mb={2}>
             PDG Membership
@@ -70,20 +70,20 @@ export const RegistrationPage = ({  }) => {
           </Typography>
         </Box>
 
-        {/* Custom Stepper */}
+        {/* CUSTOM STEPPER */}
         <RegistrationStepper 
           steps={steps} 
           activeStep={activeStep} 
           onStepClick={handleStepClick}
         />
 
-        {/* Current Step Content */}
+        {/* MULTI-STEP FORM */}
         <Box sx={{ background: 'white', p: {xs: 2, md: 4}, borderRadius: 2 }}>
           <FormProvider>
             { page === 1 && (<PersonalInfo handleNext={handleNext}/>)}
             { page === 2 && (<AddressDetails handleBack={handleBack} handleNext={handleNext}/>)}
             { page === 3 && (<UploadPicture handleBack={handleBack} handleNext={handleNext}/>)}
-            { page === 4 && (<MembershipType handleBack={handleBack} handleNext={handleNext}/>)}
+            { page === 4 && (<MembershipTier handleBack={handleBack} handleNext={handleNext}/>)}
             { page === 5 && (<PaymentInfo handleBack={handleBack} handleNext={handleNext}/>)}
             { page === 6 && (<Review handleBack={handleBack} handleNext={handleNext}/>)}
           </FormProvider>

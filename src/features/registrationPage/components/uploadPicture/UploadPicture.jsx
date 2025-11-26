@@ -1,10 +1,10 @@
-import { CameraAlt, CloudUpload, Close } from "@mui/icons-material";
-import { Box, Divider, Typography, IconButton } from "@mui/material";
+import { CameraAlt, CloudUpload, Close } from '@mui/icons-material';
+import { Box, Typography, IconButton } from '@mui/material';
 
-import { Header } from "../Header";
-import { FormButtons } from "../../../../components/ui/FormButtons";
+import { Header } from '../Header';
+import { FormButtons } from '../../../../components/ui/FormButtons';
 
-import { useUpload } from "../../hooks/useUpload";
+import { useUpload } from '../../hooks/useUpload';
 
 
 
@@ -28,12 +28,12 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      {/* Header */}
+      {/* HEADER */}
       <Header title={'Upload Picture'} icon={<CameraAlt sx={{ color: '#053261' }}/>}/>
       
-      {/* Upload Picture */}
+      {/* UPLOAD PICTURE */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {/* Drag & Drop Zone */}
+        {/* DRAG & DROP ZONE */}
         {!image ? (
           <Box
             onDragEnter={handleDrag}
@@ -66,10 +66,10 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
               Supported formats: JPG, JPEG, PNG (Max 5MB each)
             </Typography>
             <input
-              id="file-input"
-              type="file"
+              id='file-input'
+              type='file'
               multiple
-              accept="image/jpeg,image/jpg,image/png"
+              accept='image/jpeg,image/jpg,image/png'
               onChange={handleFileInput}
               style={{ display: 'none' }}
             />
@@ -127,14 +127,14 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
             </Box>
           }
 
-        {/* Error Message */}
+        {/* ERROR MESSAGE */}
         {error && (
           <Typography color='error' variant='body2'>
             {error}
           </Typography>
         )}
 
-        {/* Form Buttons */}
+        {/* FORM BUTTONS */}
         <FormButtons handleBack={handleBack} handleNext={handleSubmit}  />
       </Box>      
     </Box>

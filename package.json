@@ -16,6 +16,7 @@
     "@fontsource/inter": "^5.2.8",
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
+    "@mui/x-data-grid": "^8.18.0",
     "@neondatabase/serverless": "^1.0.2",
     "@supabase/supabase-js": "^2.83.0",
     "firebase": "^12.3.0",
@@ -23,7 +24,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-qr-code": "^2.0.18",
-    "react-router-dom": "^7.9.3"
+    "react-router-dom": "^7.9.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

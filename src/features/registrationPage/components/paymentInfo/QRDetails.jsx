@@ -1,15 +1,15 @@
 import { Box, Typography } from "@mui/material"
 
-import GCashQR from '../../../assets/GCashQR.png';
-import GCashLogo from '../../../assets/GCashLogo.jpeg';
-import BankQR from '../../../assets/BankQR.png';
-import BankLogo from '../../../assets/BPILogo.jpg';
+import GCashQR from '../../../../assets/GCashQR.png';
+import GCashLogo from '../../../../assets/GCashLogo.jpeg';
+import BankQR from '../../../../assets/BankQR.png';
+import BankLogo from '../../../../assets/BPILogo.jpg';
 
 
 
 export const QRDetails = () => {
   return (
-    <Box sx={{ width: '100%', display: 'flex', gap: 4 }}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: {xs: 'column', md: 'row'}, gap: 4 }}>
       {/* GCash Details */}
       <Box sx={{ flex: 1, border: '1px solid #1550CF', borderRadius: 2, overflow: 'hidden' }}>
         {/* Header */}

@@ -180,6 +180,8 @@ export const CustomTextField = ({
   error,
   required = false,
   multiline = false,
+  light = false,
+  password = false,
   ...props
 }) => {
   return (
@@ -190,7 +192,7 @@ export const CustomTextField = ({
           style={{ 
             fontSize: '14px', 
             fontWeight: 500, 
-            color: '#404040',
+            color: light ? 'white' : '#404040',
             marginBottom: '8px'
           }}
         >
@@ -220,7 +222,7 @@ export const CustomTextField = ({
 
         {/* Input */}
         <input
-          type='text'
+          type={password ? 'password' : 'text'}
           value={value}
           placeholder={placeholder}
           onChange={onChange}

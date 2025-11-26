@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-
 import {
   Drawer,
   List,
@@ -9,81 +8,75 @@ import {
   ListItemText,
   Toolbar,
   Box,
-  IconButton,
+  Tooltip
 } from '@mui/material';
-
 import { 
   Dashboard, 
-  PrivacyTip, 
-  Assignment,
-  Settings, 
   Person,
-  Badge
+  HourglassEmpty
 } from '@mui/icons-material';
 
 import pdgLogo from '../../assets/pdgLogo-Dashboard.png';
-
+import collapsedLogo from '../../assets/pdgLogo.png';
 
 const navItems = [
-  { text: 'Dashboard', icon: <Dashboard />, path: '/dashboard' },
-  { text: 'ID Generator', icon: <Badge />, path: '/dashboard/settings' },
-  { text: 'Manage Reports', icon: <Assignment />, path: '/dashboard/settings' },
-  { text: 'Manage Accounts', icon: <Person />, path: '/dashboard/settings' },
-  { text: 'Manage Settings', icon: <Settings />, path: '/dashboard/settings' },
-  { text: 'Data Breach Report', icon: <PrivacyTip />, path: '/dashboard/analytics' },
-  { text: 'Reports', icon: <Assignment />, path: '/dashboard/settings' },
+  { text: 'Dashboard', icon: <Dashboard />, path: '/admin/dashboard' },
+  { text: 'Pending Members', icon: <HourglassEmpty />, path: '/admin/managePendingMembers' },
+  { text: 'PDG Members', icon: <Person />, path: '/admin/manageMembers' }
 ];
 
-
-
-export const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
+export const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
 
   const { pathname } = useLocation(); 
 
+  const collapsed = mobileOpen && !isMobile;
+
+
   const drawerContent = (
     <Box>
-      <Toolbar sx={{ justifyContent: 'space-between', p: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
         <Box
           component="img"
-          src={pdgLogo}
+          src={collapsed ? collapsedLogo : pdgLogo}
           alt="PDG Logo"
-          height={64}
+          height={collapsed ? 32 : 64}
         />
-      </Toolbar>
-
+      </Box>
 
       <List>
         {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={item.path}
-              selected={pathname === item.path}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#133B65",
-                },
-                "&.Mui-selected": {
-                  borderLeft: '5px solid #F7CF13',
-                  backgroundColor: "#0A4179",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#133B65",
-                },
-              }}
-            >
-              <ListItemIcon
+          <Tooltip key={item.text} title={item.text}>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                selected={pathname === item.path}
                 sx={{
-                  minWidth: 40,
-                  color: pathname === item.path ? "#F7CF13" : "white"
+                  "&:hover": {
+                    backgroundColor: "#133B65",
+                  },
+                  "&.Mui-selected": {
+                    borderLeft: collapsed ? 'none' : '5px solid #F7CF13',
+                    backgroundColor: "#0A4179",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#133B65",
+                  },
                 }}
               >
-                {item.icon}
-              </ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 40,
+                    color: pathname === item.path ? "#F7CF13" : "white"
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
 
-              <ListItemText primary={item.text}/>
-            </ListItemButton>
-          </ListItem>
+                {!collapsed && <ListItemText primary={item.text}/>}
+              </ListItemButton>
+            </ListItem>
+          </Tooltip>
         ))}
       </List>
     </Box>
@@ -118,7 +111,7 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
           display: { xs: 'none', md: 'block' },
           '& .MuiDrawer-paper': { 
             position: 'relative',
-            width: 256, 
+            width: collapsed ? 60 : 256, 
             boxSizing: 'border-box',
             backgroundColor: '#0B2A4B', 
             color: 'white'
