@@ -8,7 +8,7 @@ import { ManageTable } from "../../../components/common/ManageTable";
 import { SnackbarNotifier } from "../../../components/common/SnackbarNotifier";
 
 import { useMembers } from "../hooks/useMembers";
-import { GenerateIdDialog } from "../components/GenerateIDDialog";
+import { GenerateIdDialog } from "../components/GenerateIdDialog";
 
 
 const columns = [
