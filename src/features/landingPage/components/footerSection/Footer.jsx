@@ -1,5 +1,5 @@
-import { Box, Container, Divider, Grid, Link, Typography, useMediaQuery, IconButton } from "@mui/material";
-import { Email, Facebook, LinkedIn, LocationOn, Phone } from "@mui/icons-material";
+import { Box, Container, Divider, Link, Typography, IconButton } from '@mui/material';
+import { Email, Facebook, LinkedIn, LocationOn, Phone } from '@mui/icons-material';
 
 import Logo from '../../../../assets/pdgLogo.png';
 
@@ -54,7 +54,7 @@ export const Footer = () => {
   return (
     <Box sx={{ background: '#053261' }}>
       <Container 
-        maxWidth="lg" 
+        maxWidth='lg' 
         sx={{ 
           mt: 12,
           py: 4, 
@@ -64,22 +64,23 @@ export const Footer = () => {
         <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, gap: 4 }}>
           {/* COMPANY LOGO & DESCRIPTION */}
           <Box sx={{ flex: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {/* Company Description */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Box
-                component="img"
+                component='img'
                 src={Logo}
-                alt="Logo"
+                alt='Logo'
                 sx={{ height: 24 }}
               />
               <Typography
-                variant="subtitle1"
-                component="div"
+                variant='subtitle1'
+                component='div'
                 sx={{ fontWeight: 'bold', fontSize: { xs: '0.875rem', md: '1rem' } }}
               >
-                PHILIPPINE DATA <span style={{ color: "#F7CF13" }}>GUARDIANS</span>
+                PHILIPPINE DATA <span style={{ color: '#F7CF13' }}>GUARDIANS</span>
               </Typography>
             </Box>
-            <Typography variant="body2" sx={{ textAlign: 'justify', lineHeight: 1.7 }}>
+            <Typography variant='body2' sx={{ textAlign: 'justify', lineHeight: 1.7 }}>
               Protecting your data, ensuring compliance, and empowering secure operations in the digital world.
             </Typography>
             
@@ -88,10 +89,10 @@ export const Footer = () => {
               {socialLinks.map((social) => (
                 <IconButton
                   key={social.label}
-                  component="a"
+                  component='a'
                   href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target='_blank'
+                  rel='noopener noreferrer'
                   aria-label={social.label}
                   sx={{
                     color: '#FFFFFF',
@@ -112,7 +113,7 @@ export const Footer = () => {
           
           {/* QUICK LINKS */}
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Typography variant="subtitle1" fontWeight="bold" sx={{ color: '#F7CF13' }}>
+            <Typography variant='subtitle1' fontWeight='bold' sx={{ color: '#F7CF13' }}>
               Quick Links
             </Typography>
 
@@ -121,8 +122,8 @@ export const Footer = () => {
                 <Link
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}
-                  underline="hover"
-                  color="inherit"
+                  underline='hover'
+                  color='inherit'
                   sx={{
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
@@ -132,7 +133,7 @@ export const Footer = () => {
                     }
                   }}
                 >
-                  <Typography variant="body2">
+                  <Typography variant='body2'>
                     {link.label}
                   </Typography>
                 </Link>
@@ -142,7 +143,7 @@ export const Footer = () => {
 
           {/* CONTACT INFO */}
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Typography variant="subtitle1" fontWeight="bold" sx={{ color: '#F7CF13' }}>
+            <Typography variant='subtitle1' fontWeight='bold' sx={{ color: '#F7CF13' }}>
               Contact Us
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
@@ -180,6 +181,21 @@ export const Footer = () => {
           <Typography variant='body2' sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
             © {new Date().getFullYear()} Philippine Data Guardians. All rights reserved.
           </Typography>
+          <Link
+            href='/admin/login'
+            underline='hover'
+            sx={{
+              cursor: 'pointer',
+              color: '#F7CF13',
+              fontSize: '0.875rem',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                opacity: 0.8,
+              }
+            }}
+          >
+            Admin
+          </Link>
           <Typography variant='body2' sx={{ color: '#F7CF13', textAlign: { xs: 'center', sm: 'right' } }}>
             Securing your digital future.
           </Typography>
