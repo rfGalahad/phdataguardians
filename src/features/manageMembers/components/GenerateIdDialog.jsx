@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useReactToPrint } from "react-to-print";
 import {
   Dialog,
   DialogTitle,
@@ -24,7 +25,8 @@ export const GenerateIdDialog = ({
   close
 }) => {
 
-  const printRef = useRef(null);
+  const contentRef = useRef(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   const handlePrint = () => {
     const printWindow = window.open('', '', 'height=600,width=800');
@@ -77,9 +79,11 @@ export const GenerateIdDialog = ({
       </DialogTitle>
 
       {/* DIALOG CONTENT */}
-      <Box sx={{ py: 4, display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5' }}>
-        <IDTemplate selectedMember={selectedMemberID}/>
-      </Box>
+      <div ref={contentRef}>
+        <Box sx={{ py: 4, display: 'flex', justifyContent: 'center', bgcolor: '#f5f5f5' }}>
+          <IDTemplate selectedMember={selectedMemberID}/>
+        </Box>
+      </div>
 
       {/* DIALOG ACTIONS */}
       <DialogActions sx={{ p: 2, gap: 1 }}>
@@ -91,7 +95,7 @@ export const GenerateIdDialog = ({
           Download
         </Button>
         <Button
-          onClick={handlePrint}
+          onClick={() => reactToPrintFn()}
           variant="contained"
           startIcon={<PrintIcon />}
         >
