@@ -62,6 +62,7 @@ export const useEmailDialog = ({ tierName, tierPrice } = {}) => {
   });
 
   const handleProceed = async () => {
+
     const err = validate(email);
 
     if (err) { 
@@ -70,6 +71,10 @@ export const useEmailDialog = ({ tierName, tierPrice } = {}) => {
     }
 
     dispatch({ type: ACTIONS.SET_LOADING, value: true });
+
+    sessionStorage.setItem('checkout_email', email);
+    sessionStorage.setItem('checkout_price', tierPrice);
+    sessionStorage.setItem('checkout_name', tierName);
 
     try {
       await initiateCheckout({ 
