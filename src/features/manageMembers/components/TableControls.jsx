@@ -1,5 +1,3 @@
-import { Box, TextField, InputAdornment, Autocomplete, Button } from "@mui/material";
-import { Delete, Search } from "@mui/icons-material";
 
 const tiers = ['All', 'Student/Academe', 'Professionals', 'Organization']
 const paymentStatus = ['All', 'Pending', 'Rejected']

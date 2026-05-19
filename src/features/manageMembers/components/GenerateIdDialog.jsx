@@ -1,22 +1,8 @@
 import { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
-import {
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  Button,
-  Box,
-  Typography,
-  IconButton
-} from '@mui/material';
-import { 
-  Print as PrintIcon, 
-  Download as DownloadIcon, 
-  CreditCard, 
-  Close 
-} from '@mui/icons-material';
 
-import { IDTemplate } from './IDTemplate';
+
+
 
 
 

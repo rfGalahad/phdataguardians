@@ -1,25 +1,24 @@
 import { Link } from 'react-router-dom';
-import { Box, Button, Typography, Fade, useMediaQuery, Container } from '@mui/material';
 
-import { useAnimation } from '../../hooks/useAnimation';
+import { Box, Button, Container, Typography } from '@mui/material';
 
-import DashboardPreviewImage from '../../../../assets/DashboardPreview.png';
+import { DATA_BREACH_DASHBOARD_PREVIEW } from '@/constants/cloudinaryConstants';
+import { useAnimation } from '@/hooks/useAnimation';
+import { getCloudinaryUrl } from '@/services/cloudinary';
 
 
+export const DataBreach = ({ id, isMobile }) => {
 
-export const DataBreach = () => {
-
-  const { 
-    isVisible, 
+  const {  
+    animate,
     sectionRef 
   } = useAnimation({ threshold: 0.1 });
 
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
-  
-
+  const DashboardPreviewImage = getCloudinaryUrl(DATA_BREACH_DASHBOARD_PREVIEW)
 
   return (
     <Container
+      id={id}
       maxWidth='lg'
       ref={sectionRef}
       sx={{
@@ -30,41 +29,51 @@ export const DataBreach = () => {
       }}
     >
       {/* HEADING */}
-      <Fade in={isVisible} timeout={1000}>
-        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
-          <Typography 
-            variant= {isMobile ? 'h4' : 'h3'} 
-            sx={{ fontWeight: 'bold', color: '#F7CF13', mb: 2, textAlign: 'center' }}
-          >
-            Report and Track Data Breaches
-          </Typography>
-          <Typography variant='subtitle1' sx={{ fontWeight: 'semi-bold', textAlign: {xs: 'center', md: 'justify'}, mb: 2 }}>
-            A secure and transparent platform designed to help individuals and organizations report, monitor, 
-            and resolve data breaches efficiently.
-          </Typography>
-          <Button 
-            component={Link}
-            to='/dataBreachReport'
-            variant='contained' 
-            sx={{ 
-              fontWeight: 600, 
-              color: '#053261', 
-              backgroundColor: '#F7CF13'
-            }}
-          >
-            Report a Data Breach 
-          </Button>
-        </Box>
-      </Fade>
+      <Box 
+        sx={{ 
+          width: '100%', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          color: 'white',
+          ...animate(300)
+        }}
+      >
+        <Typography
+          variant= {isMobile ? 'h5' : 'h4'} 
+          sx={{ fontWeight: 'bold', color: '#F7CF13', mb: 2, textAlign: 'center' }}
+        >
+          Report and Track Data Breaches
+        </Typography>
+        <Typography variant='subtitle2' sx={{ fontWeight: 'semi-bold', textAlign: {xs: 'center', md: 'justify'}, mb: 2 }}>
+          A secure and transparent platform designed to help individuals and organizations report, monitor, 
+          and resolve data breaches efficiently.
+        </Typography>
+        <Button 
+          component={Link}
+          to='/data-breach-report'
+          variant='contained' 
+          sx={{ 
+            fontWeight: 600, 
+            color: '#053261', 
+            backgroundColor: '#F7CF13'
+          }}
+        >
+          Report a Data Breach 
+        </Button>
+      </Box>
 
       {/* IMAGE */}
-      <Fade in={isVisible} timeout={800}>
-        <Box
-          component='img'
-          src={DashboardPreviewImage}
-          sx={{ height: '100%', borderRadius: 2, boxShadow: '0px 12px 32px rgba(0, 0, 0, 0.4)', }}
-        />
-      </Fade>
+      <Box
+        component='img'
+        src={DashboardPreviewImage}
+        sx={{ 
+          height: '100%', 
+          borderRadius: 2, 
+          boxShadow: '0px 12px 32px rgba(0, 0, 0, 0.4)' ,
+          ...animate(600)
+        }}
+      />
     </Container>
   );
 };

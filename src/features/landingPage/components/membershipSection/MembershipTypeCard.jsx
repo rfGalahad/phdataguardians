@@ -1,15 +1,14 @@
-import { Box, Typography } from "@mui/material";
-import { 
-  Check as CheckIcon, 
-} from '@mui/icons-material'
+import { Check as CheckIcon } from "@mui/icons-material"
+import { Box, Typography } from "@mui/material"
 
-import GlareHover from "../../../../components/animations/GlareHover";
+import GlareHover from "@/components/animations/GlareHover"
+
 
 
 
 export const MembershipTypeCard = () => {
 
-  const MembershipType = [
+  const MEMBERSHIP_TYPE = [
     {
       title: 'Become a Member',
       description: 'Actively participates in our community to learn, share, and implement best practices in data privacy and cybersecurity.',
@@ -32,7 +31,7 @@ export const MembershipTypeCard = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-        {MembershipType.map((type, index) => (
+        {MEMBERSHIP_TYPE.map((type, index) => (
           <GlareHover
             key={index}
             glareColor="#ffffff"
@@ -44,25 +43,21 @@ export const MembershipTypeCard = () => {
           >
             <Box 
               sx={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
-                backdropFilter: 'blur(10px)', // Glass blur effect
-                WebkitBackdropFilter: 'blur(10px)', // Safari support
-                border: '1px solid rgba(255, 255, 255, 0.2)', // Subtle border
-                borderRadius: 2, // Optional: rounded corners
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)', // Soft shadow
-
                 display: 'flex', 
                 flexDirection: 'column',
-                p: 3
+                p: 3,
+                width: '100%',
+                border: '1px solid rgba(255, 255, 255, 0.2)', 
+                borderRadius: 2,
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)', 
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)', 
+                WebkitBackdropFilter: 'blur(10px)', 
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: '600', color: '#F7CF13', mb: 1 }}>
                 {type.title}
               </Typography>
-              <Typography variant="body1" sx={{ color: 'white' }}>
-                {type.description}
-              </Typography>
-
               {/* BENEFITS LIST */}
               <Box sx={{ mt: 2 }}>
                 {type.benefits.map((benefit, index) => (

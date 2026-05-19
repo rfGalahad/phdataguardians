@@ -1,13 +1,16 @@
-import { Info, Payment as PaymentIcon } from "@mui/icons-material";
-import { Box, Typography } from "@mui/material";
+import { Payment } from "@mui/icons-material";
+import { Box, Stack } from "@mui/material";
 
-import { Header } from "../Header";
-import { QRDetails } from "./QRDetails";
-import { CustomTextField } from "../../../../components/ui/FormFields";
-import { FormButtons } from "../../../../components/ui/FormButtons";
+import { FormButtons } from "@/components/ui/buttons/FormButtons";
+import { CustomAlert } from "@/components/ui/feedback/CustomAlert";
+import { CustomTextField } from "@/components/ui/inputs";
 
-import { useForm } from "../../hooks/useForm";
 import { PAYMENT_REQUIRED_FIELDS } from "../../constants/form";
+import { useForm } from "../../hooks/useForm";
+import { Header } from "../Header";
+
+import { QRDetails } from "./QRDetails";
+
 
 
 
@@ -24,24 +27,22 @@ export const PaymentInfo = ({ handleBack, handleNext }) => {
     'paymentInfo'
   );
 
-  
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* HEADER */}
-      <Header title={'Payment Information'} icon={<PaymentIcon sx={{ color: '#053261' }}/>}/>
+      <Header 
+        title={'Payment Information'} 
+        icon={<Payment sx={{ color: '#053261' }}/>}
+      />
 
       {/* PAYMENT QR DETAILS */}
       <QRDetails/>
       
       {/* FORM CONTENT */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', backgroundColor: '#FFF3CD', border: '1px solid #FFEEBA', borderRadius: 2, p: 2 }}>
-          <Info sx={{ color: '#856404' }}/>
-          <Typography variant='body2' color='#856404'>
-            Save your reference number or screenshot of transaction for future references.
-          </Typography>
-        </Box>
+      <Stack spacing={2} px={3}>
+        <CustomAlert severity="warning" sx={{ mb: 4 }}>
+          Save your reference number or screenshot of transaction for future references.
+        </CustomAlert>
         <CustomTextField
           label={'Reference Number'}
           placeholder={'e.g. 1234-5678-9012'}
@@ -50,7 +51,7 @@ export const PaymentInfo = ({ handleBack, handleNext }) => {
           error={errors.referenceNumber}
           required
         />
-      </Box>
+      </Stack>
 
       {/* FORM BUTTONS */}
       <FormButtons handleBack={handleBack} handleNext={handleSubmit} />      

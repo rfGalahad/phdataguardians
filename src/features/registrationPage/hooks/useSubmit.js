@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+
 import { v4 as uuidv4 } from 'uuid';
 
-import { supabase } from '../../../services/supabaseClient';
-import { useFormContext } from "../../../context/FormContext";
-
+import { useFormContext } from "@/context/FormContext";
+import { supabase } from '@/services/supabaseClient';
 
 
 // CONSTANT
 const STORAGE_BUCKET = 'member-photos';
 const PHOTO_FOLDER = 'photos';
-const MAX_ID_ATTEMPTS = 100;
 
 // ERROR MESSAGES
 const ERROR_MESSAGES = {
@@ -45,61 +44,6 @@ export const useSubmit = () => {
     setModalOpen(false);
     if (modalType === 'success') {
       navigate('/');
-    }
-  };
-
-  // GENERATE TEMPORARY ID
-  const generateTemporaryID = async () => {
-    try {
-      const ID_PREFIX = 'TEMP';
-      const year = new Date().getFullYear();
-
-      // Fetch ALL IDs for the year (TEMP + PDG)
-      const { data: allIds, error: fetchError } = await supabase
-        .from('Members')
-        .select('membership_id')
-        .like('membership_id', `%-${year}-%`);
-
-      if (fetchError) {
-        throw new Error(`Database fetch error: ${fetchError.message}`);
-      }
-
-      // Extract the numeric suffix from both TEMP and PDG
-      const suffixes = allIds
-        .map(row => {
-          const parts = row.membership_id.split('-');
-          return parseInt(parts[2], 10);
-        })
-        .filter(n => !isNaN(n))
-        .sort((a, b) => a - b);
-
-      // Determine the next increment number
-      let newNumber = 1;
-      if (suffixes.length > 0) {
-        newNumber = suffixes[suffixes.length - 1] + 1;
-      }
-
-      let newID = `${ID_PREFIX}-${year}-${String(newNumber).padStart(3, '0')}`;
-
-      // Prevent duplicates (TEMP or PDG)
-      let attempts = 0;
-      while (
-        allIds.some(row => row.membership_id === newID) &&
-        attempts < MAX_ID_ATTEMPTS
-      ) {
-        newNumber++;
-        newID = `${ID_PREFIX}-${year}-${String(newNumber).padStart(3, '0')}`;
-        attempts++;
-      }
-
-      if (attempts >= MAX_ID_ATTEMPTS) {
-        throw new Error('Could not generate unique ID after maximum attempts');
-      }
-
-      return newID;
-
-    } catch (err) {
-      throw new Error(`${ERROR_MESSAGES.ID_GENERATION}: ${err.message}`);
     }
   };
 

@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { Close, Check, Person } from '@mui/icons-material';
-import { Dialog, Box, Typography, Paper, Chip, Button, DialogTitle, IconButton, CircularProgress, Badge, Alert } from '@mui/material';
 
-import picture1 from '../../../assets/pdgLogo.png';
+import picture1 from '@/assets/pdg-logo.png';
 
 
 

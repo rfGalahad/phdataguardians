@@ -1,13 +1,6 @@
-import { Box, IconButton, Chip, Typography } from "@mui/material";
-import { Delete, School, Visibility, Work } from "@mui/icons-material";
-
-import { TableControls } from "../components/TableControls";
-import { MemberDetailsDialog } from "../components/MemberDetailsDialog";
-import { ConfirmDeleteDialog } from "../components/ConfirmDeleteDialog";
-import { ManageTable } from "../../../components/common/ManageTable";
-import { SnackbarNotifier } from "../../../components/common/SnackbarNotifier";
 
 import { usePendingMembers } from "../hooks/usePendingMembers";
+
 
 
 const columns = [

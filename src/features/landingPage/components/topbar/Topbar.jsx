@@ -1,19 +1,20 @@
 import { useState } from 'react';
+
+import { Menu as MenuIcon } from '@mui/icons-material'
 import {
   AppBar,
-  Toolbar,
-  Button,
   Box,
+  Button,
   IconButton,
   Menu,
   MenuItem,
-  useTheme,
+  Toolbar,
   useMediaQuery,
-  Container
+  useTheme
 } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
 
 import { CompanyLogo } from './CompanyLogo';
+
 
 
 export const Topbar = ({ isScrolled }) => {
@@ -23,13 +24,8 @@ export const Topbar = ({ isScrolled }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
   
   const handleNavClick = (section) => {
     const element = document.getElementById(section);
@@ -42,13 +38,15 @@ export const Topbar = ({ isScrolled }) => {
     handleMenuClose();
   };
   
-  const navItems = [
+  const NAV_ITEMS = [
     { label: 'Home', id: 'home' },
     { label: 'About', id: 'about' },
     { label: 'Membership', id: 'membership' },
     { label: 'Services', id: 'services' },
     { label: 'Data Breach Report', id: 'report' },
-    { label: 'Contact', id: 'contact' }
+    { label: 'Contact', id: 'contact' },
+    { label: 'Articles', id: 'articles' },
+    { label: 'Infographics', id: 'infographics' }
   ];
   
   return (
@@ -62,15 +60,14 @@ export const Topbar = ({ isScrolled }) => {
         boxShadow: isScrolled ? 2 : 'none',
       }}
     >
-      <Container maxWidth="lg">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Company Logo */}
-          <CompanyLogo />
+          <CompanyLogo/>
 
           {/* Desktop Navigation */}
           {!isMobile && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              {navItems.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <Button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
@@ -118,7 +115,7 @@ export const Topbar = ({ isScrolled }) => {
                   }
                 }}
               >
-                {navItems.map((item) => (
+                {NAV_ITEMS.map((item) => (
                   <MenuItem
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
@@ -139,7 +136,7 @@ export const Topbar = ({ isScrolled }) => {
             </>
           )}
         </Toolbar>
-      </Container>
+
     </AppBar>
   );
 };

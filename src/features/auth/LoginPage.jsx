@@ -1,14 +1,12 @@
-import { Box, Button, Container, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Typography } from '@mui/material';
 
-import { CustomTextField } from '../../components/ui/FormFields';
+import BackgroundImage from '@/assets/pdg-background.png';
+import { CustomTextField } from '@/components/ui/inputs';
+import { LOGO_PDG_1 } from '@/constants/cloudinaryConstants';
+import { getCloudinaryUrl } from '@/services/cloudinary';
+
 import { useLogin } from './useLogin';
-
-import pdgLogo from '../../assets/pdgLogo.png';
-import BackgroundImage from '../../assets/pdgBG.png';
-
-
-
-
+  
 
 export const LoginPage = () => {
 
@@ -19,6 +17,8 @@ export const LoginPage = () => {
     handleChange,
     handleLogin
   } = useLogin();
+
+  const pdgLogo = getCloudinaryUrl(LOGO_PDG_1);
 
   return (
     <Box
@@ -97,20 +97,6 @@ export const LoginPage = () => {
           >
             {loading ? <CircularProgress size={26} /> : "Login"}
           </Button>
-
-          {/* FORGOT PASSWORD */}
-          <Typography
-            sx={{
-              mt: 2,
-              color: "white",
-              textAlign: "center",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-            onClick={() => navigate('/admin/manageMembers')}
-          >
-            Forgot Password?
-          </Typography>
         </Box>
       </Container>
     </Box>

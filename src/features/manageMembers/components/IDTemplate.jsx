@@ -1,9 +1,6 @@
-import QRCode from 'react-qr-code';
 
-import { Box, Typography } from "@mui/material";
-import { School, Work } from "@mui/icons-material";
 
-import Logo from '../../../assets/pdgLogo.png';
+import Logo from '@/assets/pdg-logo.png';
 
 
 

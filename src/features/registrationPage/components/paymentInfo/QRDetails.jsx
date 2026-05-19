@@ -1,19 +1,23 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography } from '@mui/material';
 
-import GCashQR from '../../../../assets/GCashQR.png';
-import GCashLogo from '../../../../assets/GCashLogo.jpeg';
-import BankQR from '../../../../assets/BankQR.png';
-import BankLogo from '../../../../assets/BPILogo.jpg';
+import { LOGO_BPI, LOGO_GCASH, QR_BPI, QR_GCASH } from '@/constants/cloudinaryConstants';
+import { getCloudinaryUrl } from '@/services/cloudinary';
 
 
 
 export const QRDetails = () => {
+
+  const BankQR = getCloudinaryUrl(QR_BPI);
+  const GCashQR = getCloudinaryUrl(QR_GCASH);
+  const BankLogo = getCloudinaryUrl(LOGO_BPI);
+  const GCashLogo = getCloudinaryUrl(LOGO_GCASH);
+
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: {xs: 'column', md: 'row'}, gap: 4 }}>
+    <Box sx={{ px: 3, width: '100%', display: 'flex', flexDirection: {xs: 'column', md: 'row'}, gap: 4 }}>
       {/* GCash Details */}
-      <Box sx={{ flex: 1, border: '1px solid #1550CF', borderRadius: 2, overflow: 'hidden' }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #1550CF', borderRadius: 2, overflow: 'hidden' }}>
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, backgroundColor: '#1550CF', py: 1, px: 2 }}>
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: 2, backgroundColor: '#1550CF', py: 1, px: 2 }}>
           <Box
             component={'img'}
             src={GCashLogo}
@@ -53,9 +57,9 @@ export const QRDetails = () => {
       </Box>
 
       {/* Bank Details */}
-      <Box sx={{ flex: 1, border: '1px solid #E92B2B', borderRadius: 2, overflow: 'hidden' }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #E92B2B', borderRadius: 2, overflow: 'hidden' }}>
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, backgroundColor: '#E92B2B', py: 1, px: 2 }}>
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: 2, backgroundColor: '#E92B2B', py: 1, px: 2 }}>
           <Box
             component={'img'}
             src={BankLogo}
@@ -83,7 +87,7 @@ export const QRDetails = () => {
           height={250} 
         /> 
 
-        <Typography variant='subtitle1' color='#E92B2B' fontWeight={600}>
+        <Typography variant='subtitle1' color='#E92B2B' textAlign='center' fontWeight={600}>
           PDG
         </Typography>
       </Box>

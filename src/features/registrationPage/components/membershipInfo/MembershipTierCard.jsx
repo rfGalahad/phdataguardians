@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material'
 import { 
-  Check as CheckIcon, 
+  Check as CheckIcon,
   School as SchoolIcon,
   Work as WorkIcon
 } from '@mui/icons-material'
+import { Box, Typography } from '@mui/material';
 
 const TIERS = {
   'Student/Academe': {

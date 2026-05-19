@@ -1,0 +1,20 @@
+export const MEMBERSHIP_ID_CARD = 'membership-card_rr8jmf';
+export const HERO_BACKGROUND ='hero-background_tamc7s';
+export const PDG_BACKGROUND = 'pdg-background_babmmc';
+export const PDG_BANNER = 'pdg-banner_a5un7z';
+export const LOGO_PDG_1 = 'logo-pdg-1_gojiba';
+export const LOGO_PDG_2 = 'logo-pdg-2_rx8px3';
+export const LOGO_GCASH = 'logo-gcash_spekqp';
+export const LOGO_BPI = 'logo-bpi_zg2n1n';
+export const QR_GCASH = 'qr-gcash_umfety';
+export const QR_BPI = 'qr-bpi_fpltai';
+export const DATA_BREACH_DASHBOARD_PREVIEW = 'data-breach-dashboard-preview_wdisnh';
+
+export const BG_TECH_SOLUTIONS = 'tech-solutions_xc7lwx';
+export const BG_RESEARCH_ADVOCACY = 'research-advocacy_piddv2';
+export const BG_PRIVACY_TRAINING = 'privacy-training_g6tzwi';
+export const BG_PIA_SERVICE = 'pia-service_xdwbze';
+export const BG_POLICY_DEVELOPMENT = 'policy-development_ekvblg';
+export const BG_COMPLIANCE_CONSULTING = 'compliance-consulting_bobjm4';
+export const BG_AUDIT_ASSESSMENT = 'audit-assessment_gvk3ah';
+export const BG_BREACH_RESPONSE = 'breach-response_gmhr7b';

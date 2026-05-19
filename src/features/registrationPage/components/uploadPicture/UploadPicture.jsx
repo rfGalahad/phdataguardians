@@ -1,10 +1,10 @@
-import { CameraAlt, CloudUpload, Close } from '@mui/icons-material';
-import { Box, Typography, IconButton } from '@mui/material';
+import { CameraAlt, Close as CloseIcon, CloudUpload } from '@mui/icons-material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 
-import { Header } from '../Header';
-import { FormButtons } from '../../../../components/ui/FormButtons';
+import { FormButtons } from '@/components/ui/buttons/FormButtons';
 
 import { useUpload } from '../../hooks/useUpload';
+import { Header } from '../Header';
 
 
 
@@ -23,16 +23,18 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
     removeImage,
     handleSubmit
   } = useUpload(handleNext);
-
   
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* HEADER */}
-      <Header title={'Upload Picture'} icon={<CameraAlt sx={{ color: '#053261' }}/>}/>
+      <Header 
+        title={'Upload Picture'} 
+        icon={<CameraAlt sx={{ color: '#053261' }}/>}
+      />
       
       {/* UPLOAD PICTURE */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Stack spacing={2} px={3}>
         {/* DRAG & DROP ZONE */}
         {!image ? (
           <Box
@@ -75,13 +77,8 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
             />
           </Box>
           ) : 
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <Box sx={{ position: 'relative', }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{ position: 'relative' }}>
                 <Box
                   component={'img'}
                   src={imagePreview}
@@ -109,7 +106,7 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
                     }
                   }}
                 >
-                  <Close fontSize='small' />
+                  <CloseIcon fontSize='small' />
                 </IconButton>
                 <Box 
                   sx={{
@@ -133,10 +130,10 @@ export const UploadPicture = ({ handleBack, handleNext }) => {
             {error}
           </Typography>
         )}
+      </Stack>
 
-        {/* FORM BUTTONS */}
-        <FormButtons handleBack={handleBack} handleNext={handleSubmit}  />
-      </Box>      
+      {/* FORM BUTTONS */}
+      <FormButtons handleBack={handleBack} handleNext={handleSubmit}  />
     </Box>
   );
 };

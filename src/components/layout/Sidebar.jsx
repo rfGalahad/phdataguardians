@@ -1,23 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Box,
-  Tooltip
-} from '@mui/material';
-import { 
-  Dashboard, 
-  Person,
-  HourglassEmpty
-} from '@mui/icons-material';
 
-import pdgLogo from '../../assets/pdgLogo-Dashboard.png';
-import collapsedLogo from '../../assets/pdgLogo.png';
+import collapsedLogo from '@/assets/pdg-logo.png';
+import pdgLogo from '@/assets/pdgLogo-Dashboard.png';
 
 const navItems = [
   { text: 'Dashboard', icon: <Dashboard />, path: '/admin/dashboard' },

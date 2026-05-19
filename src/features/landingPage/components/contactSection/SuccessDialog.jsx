@@ -1,5 +1,14 @@
-import { IconButton, Button, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from "@mui/material";
-import { Close, CheckCircleOutline } from '@mui/icons-material';
+import { 
+  CheckCircle as CheckCircleIcon, 
+  Close as CloseIcon 
+} from "@mui/icons-material";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogTitle, 
+  IconButton,
+  Typography 
+} from "@mui/material";
 
 
 
@@ -25,7 +34,7 @@ export const SuccessDialog = ({ openSuccess, setOpenSuccess }) => {
           color: (theme) => theme.palette.grey[500],
         }}
       >
-        <Close />
+        <CloseIcon/>
       </IconButton>
 
       <DialogTitle 
@@ -41,7 +50,7 @@ export const SuccessDialog = ({ openSuccess, setOpenSuccess }) => {
           color: '#388E3C'
         }}
       >
-        <CheckCircleOutline color='success' sx={{ fontSize: 24 }} />
+        <CheckCircleIcon color='success' sx={{ fontSize: 24 }} />
         Message Sent!
       </DialogTitle>
 

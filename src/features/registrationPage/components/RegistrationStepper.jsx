@@ -1,158 +1,234 @@
-import { 
-  Box, 
-  Stepper, 
-  Step, 
-  StepLabel,
-  StepConnector,
-  stepConnectorClasses,
-  styled,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
-import { 
-  Person as PersonIcon, 
-  LocationOn as LocationOnIcon,
-  CameraAlt as CameraAltIcon, 
-  School as SchoolIcon,
-  CheckCircle as CheckCircleIcon,
-  Payment as PaymentIcon
-} from '@mui/icons-material';
+import { CameraAlt, CheckCircle, LocationOn, Payment, Person, School } from '@mui/icons-material';
 
-// Custom Connector
-const CustomConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundColor: '#F7CF13',
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundColor: '#F7CF13',
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor: 'rgba(255, 255, 255)',
-    borderRadius: 1,
-  },
-  [theme.breakpoints.down('sm')]: {
-    [`&.${stepConnectorClasses.alternativeLabel}`]: {
-      top: 18,
-    },
-  },
-}));
+const ICONS = [Person, LocationOn, CameraAlt, School, Payment, CheckCircle];
 
-// Custom Step Icon
-const CustomStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  backgroundColor: ownerState.active || ownerState.completed ? '#F7CF13' : 'rgba(255, 255, 255)',
-  zIndex: 1,
-  color: '#053261',
-  width: 50,
-  height: 50,
-  display: 'flex',
-  borderRadius: '50%',
-  justifyContent: 'center',
-  alignItems: 'center',
-  transition: 'all 0.3s ease',
-  boxShadow: ownerState.active || ownerState.completed ? '0 4px 10px rgba(247, 207, 19, 0.3)' : 'none',
-  [theme.breakpoints.down('md')]: {
-    width: 44,
-    height: 44,
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: 36,
-    height: 36,
-  },
-  [theme.breakpoints.down(380)]: {
-    width: 32,
-    height: 32,
-  },
-}));
-
-function CustomStepIcon(props) {
-  const { active, completed, className, icon } = props;
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTiny = useMediaQuery(theme.breakpoints.down(380));
-
-  const icons = {
-    1: <PersonIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-    2: <LocationOnIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-    3: <CameraAltIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-    4: <SchoolIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-    5: <PaymentIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-    6: <CheckCircleIcon sx={{ fontSize: isTiny ? 16 : isSmall ? 18 : 24 }} />,
-  };
-
+export const RegistrationStepper = ({
+  steps = ['Personal', 'Location', 'Photo', 'Education', 'Payment', 'Complete'],
+  activeStep = 0,
+  onStepClick,
+}) => {
   return (
-    <CustomStepIconRoot ownerState={{ completed, active }} className={className}>
-      {icons[String(icon)]}
-    </CustomStepIconRoot>
-  );
-}
+    <div className="reg-stepper">
+      <style>{`
+        .reg-stepper {
+          --active:     #F7CF13;
+          --active-glow: rgba(247, 207, 19, 0.25);
+          --done-label: rgba(247, 207, 19, 0.65);
+          --idle-bg:    rgba(255, 255, 255, 0.14);
+          --idle-border:rgba(255, 255, 255, 0.2);
+          --idle-label: rgba(255, 255, 255, 0.38);
+          --icon-on:    #053261;
+          --icon-off:   rgba(255, 255, 255, 0.4);
+          width: 100%;
+          margin-bottom: 2rem;
+        }
 
-export const RegistrationStepper = ({ steps = [
-  'Personal',
-  'Location',
-  'Photo',
-  'Education',
-  'Payment',
-  'Complete'
-], activeStep = 0 }) => {
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMobile = useMediaQuery(theme.breakpoints.down(600));
+        /* ── Desktop ───────────────────────────── */
+        .rs-desktop {
+          display: flex;
+          align-items: flex-start;
+        }
 
-  return (
-    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 4 }}>
-      <Stepper 
-        activeStep={activeStep} 
-        alternativeLabel={!isMobile}
-        orientation='horizontal'
-        connector={!isMobile ? <CustomConnector /> : null}
-        sx={{
-          [`&.MuiStepper-root`]: {
-            padding: isMobile ? '0' : '24px 0',
-          }
-        }}
-      >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel 
-              StepIconComponent={CustomStepIcon}
-              sx={{
-                '& .MuiStepLabel-label': {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontWeight: 500,
-                  mt: 1,
-                  fontSize: isMobile ? '0.75rem' : isSmall ? '0.875rem' : '1rem',
-                  display: isMobile ? 'inline-block' : 'block',
-                  whiteSpace: isMobile ? 'nowrap' : 'normal',
-                  overflow: isMobile ? 'hidden' : 'visible',
-                  textOverflow: isMobile ? 'ellipsis' : 'clip',
-                },
-                '& .MuiStepLabel-label.Mui-active': {
-                  color: '#F7CF13',
-                  fontWeight: 600,
-                },
-                '& .MuiStepLabel-label.Mui-completed': {
-                  color: '#F7CF13',
-                  fontWeight: 600,
-                },
-                '& .MuiStepLabel-iconContainer': {
-                  paddingRight: isSmall ? 1 : 2,
-                },
-              }}
+        .rs-step {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          cursor: default;
+        }
+        .rs-step.is-done { cursor: pointer; }
+
+        /* connector */
+        .rs-step::after {
+          content: '';
+          position: absolute;
+          top: 19px;
+          left: calc(50% + 22px);
+          right: calc(-50% + 22px);
+          height: 2px;
+          border-radius: 2px;
+          background: var(--idle-bg);
+          transition: background 0.35s ease;
+        }
+        .rs-step:last-child::after { display: none; }
+        .rs-step.is-done::after    { background: var(--active); }
+
+        /* icon circle */
+        .rs-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          z-index: 1;
+          background: var(--idle-bg);
+          border: 1.5px solid var(--idle-border);
+          transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+        }
+        .rs-step.is-active .rs-icon {
+          background: var(--active);
+          border-color: transparent;
+          transform: scale(1.12);
+          box-shadow: 0 0 0 4px var(--active-glow), 0 4px 14px var(--active-glow);
+        }
+        .rs-step.is-done .rs-icon {
+          background: var(--active);
+          border-color: transparent;
+          box-shadow: 0 0 0 3px var(--active-glow);
+        }
+
+        /* label */
+        .rs-label {
+          margin-top: 16px;
+          font-size: 0.67rem;
+          font-weight: 500;
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+          text-align: center;
+          color: var(--idle-label);
+          transition: color 0.3s ease;
+          line-height: 1.3;
+        }
+        .rs-step.is-active .rs-label { color: var(--active); font-weight: 700; }
+        .rs-step.is-done   .rs-label { color: var(--done-label); }
+
+        /* ── Mobile ────────────────────────────── */
+        .rs-mobile { display: none; }
+
+        .rs-mob-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        }
+        .rs-mob-name  { font-size: 0.85rem; font-weight: 700; color: var(--active); }
+        .rs-mob-count { font-size: 0.72rem; font-weight: 600; color: var(--idle-label); }
+
+        .rs-track {
+          display: flex;
+          gap: 3px;
+          margin-bottom: 14px;
+        }
+        .rs-seg {
+          flex: 1;
+          height: 3px;
+          border-radius: 2px;
+          background: rgba(255,255,255,0.15);
+          transition: background 0.3s ease;
+        }
+        .rs-seg.is-done   { background: var(--active); }
+        .rs-seg.is-active { background: rgba(247,207,19,0.45); }
+
+        .rs-mini-row {
+          display: flex;
+          justify-content: space-between;
+        }
+        .rs-mini {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255,255,255,0.1);
+          border: 1.5px solid transparent;
+          transition: all 0.25s ease;
+          cursor: default;
+          position: relative;
+        }
+        .rs-mini.is-done   { background: var(--active); cursor: pointer; }
+        .rs-mini.is-active {
+          background: var(--active);
+          border-color: var(--active-glow);
+          transform: scale(1.15);
+          box-shadow: 0 0 10px var(--active-glow);
+        }
+        .rs-mini-tip {
+          position: absolute;
+          bottom: calc(100% + 6px);
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(5,50,97,0.92);
+          color: #fff;
+          font-size: 0.65rem;
+          font-weight: 600;
+          white-space: nowrap;
+          padding: 3px 8px;
+          border-radius: 4px;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+        .rs-mini:hover .rs-mini-tip { opacity: 1; }
+
+        @media (max-width: 600px) {
+          .rs-desktop { display: none; }
+          .rs-mobile  { display: block; }
+        }
+      `}</style>
+
+      {/* ── Desktop stepper ─────────────────────────── */}
+      <div className="rs-desktop">
+        {steps.map((label, i) => {
+          const Icon = ICONS[i];
+          const isActive = i === activeStep;
+          const isDone   = i < activeStep;
+          const cls = `rs-step${isActive ? ' is-active' : isDone ? ' is-done' : ''}`;
+
+          return (
+            <div
+              key={label}
+              className={cls}
+              onClick={() => isDone && onStepClick?.(i)}
+              title={isDone ? `Go back to ${label}` : undefined}
             >
-              {isMobile ? '' : label}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
-  )
-}
+              <div className="rs-icon">
+                {Icon && (
+                  <Icon sx={{ fontSize: 18, color: isActive || isDone ? '#053261' : 'rgba(255,255,255,0.4)', transition: 'color 0.3s ease' }} />
+                )}
+              </div>
+              <span className="rs-label">{label}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Mobile stepper ──────────────────────────── */}
+      <div className="rs-mobile">
+        <div className="rs-mob-header">
+          <span className="rs-mob-name">{steps[activeStep]}</span>
+          <span className="rs-mob-count">{activeStep + 1} / {steps.length}</span>
+        </div>
+
+        <div className="rs-track">
+          {steps.map((_, i) => (
+            <div
+              key={i}
+              className={`rs-seg${i < activeStep ? ' is-done' : i === activeStep ? ' is-active' : ''}`}
+            />
+          ))}
+        </div>
+
+        <div className="rs-mini-row">
+          {steps.map((label, i) => {
+            const Icon    = ICONS[i];
+            const isDone  = i < activeStep;
+            const isActive = i === activeStep;
+            const cls = `rs-mini${isDone ? ' is-done' : isActive ? ' is-active' : ''}`;
+            return (
+              <div key={i} className={cls} onClick={() => isDone && onStepClick?.(i)}>
+                {Icon && (
+                  <Icon sx={{ fontSize: 14, color: isDone || isActive ? '#053261' : 'rgba(255,255,255,0.35)' }} />
+                )}
+                <span className="rs-mini-tip">{label}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -1,81 +1,77 @@
-import { useEffect } from 'react';
-import { Box, Container, Divider, Fade } from '@mui/material';
+import { Box, Container, Divider } from '@mui/material';
 
-import { Header } from '../components/Header';
-import { Buttons } from '../components/Buttons';
+import BackgroundImage from '@/assets/pdg-background.png';
+
 import { AgreeCheckbox } from '../components/AgreeCheckbox';
+import { Buttons } from '../components/Buttons';
+import { Header } from '../components/Header';
 import { PrivacyPolicyNotice } from '../components/PrivacyPolicyNotice';
-
 import { usePrivacyNotice } from '../hooks/usePrivacyNotice';
 
-import BackgroundImage from '../../../assets/pdgBG.png';
-
-
-
 export const PrivacyNoticePage = () => {
-
-  const {
-    proceed,
-    showHeader,
-    showDetails,
-    setProceed,
-    handleNext
-  } = usePrivacyNotice()
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  
+  const { 
+    proceed, 
+    setProceed, 
+    handleNext 
+  } = usePrivacyNotice();
 
   return (
-    <Box 
-      sx={{ 
+    <Box
+      sx={{
         minHeight: '100vh',
-        backgroundImage: `url(${BackgroundImage})`, 
+        backgroundImage: `url(${BackgroundImage})`,
         backgroundPosition: 'center',
+        backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
-        
-        py: 6,
+        py: { xs: 5, md: 7 },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
     >
-      <Container maxWidth='lg' sx={{ textAlign: 'center' }}>
+      {/* Subtle dark overlay for legibility */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          bgcolor: 'rgba(3,18,40,0.55)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      <Container
+        maxWidth="lg"
+        sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3, md: 4 } }}
+      >
         {/* Header */}
-        <Fade in={showHeader} timeout={800}>
-          <div>
-          <Header/>
-          </div>
-        </Fade>
+        <Header />
 
-        {/* Privacy Details */}
-        <Fade in={showDetails} timeout={800}>
-          <div>
-          <Box 
-            sx={{ 
-              background: 'white', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              gap: 4, 
-              p: 4, 
-              borderRadius: 2 
-            }}
-          >
-            
-            {/* Privacy Application Notice */}
-            <PrivacyPolicyNotice/>
+        {/* Card */}
+        <Box
+          sx={{
+            bgcolor: '#fff',
+            borderRadius: { xs: 3, md: 3.5 },
+            boxShadow: '0 24px 80px -12px rgba(3,18,40,0.45), 0 4px 20px -4px rgba(3,18,40,0.25)',
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ p: { xs: 3, sm: 4, md: 5 }, display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {/* Privacy notices */}
+            <PrivacyPolicyNotice />
 
-            {/* Checkbox */}
-            <AgreeCheckbox agree={setProceed}/>
+            {/* Checkboxes */}
+            <AgreeCheckbox agree={setProceed} />
 
-            <Divider/>
+            {/* Divider */}
+            <Divider sx={{ borderColor: 'rgba(5,50,97,0.08)' }} />
 
-            {/* Buttons */}
-            <Buttons proceed={proceed} handleNext={handleNext}/>
+            {/* Action buttons */}
+            <Buttons proceed={proceed} handleNext={handleNext} />
           </Box>
-          </div>
-        </Fade>
-      </Container> 
+        </Box>
+      </Container>
     </Box>
-  )
-}
+  );
+};

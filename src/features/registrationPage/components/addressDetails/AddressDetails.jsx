@@ -1,17 +1,13 @@
 import { LocationOn } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
-import { Header } from "../Header";
-import { CustomDropdown, CustomTextField } from "../../../../components/ui/FormFields";
-import { FormButtons } from "../../../../components/ui/FormButtons";
-
-import { useForm } from '../../hooks/useForm';
-import { useAddressOptions } from "../../hooks/useAddressOptions";
+import { FormButtons } from "@/components/ui/buttons/FormButtons";
+import { CustomDropdown, CustomTextField } from "@/components/ui/inputs";
 
 import { AD_REQUIRED_FIELDS } from "../../constants/form";
-
-
-
+import { useAddressOptions } from "../../hooks/useAddressOptions";
+import { useForm } from '../../hooks/useForm';
+import { Header } from "../Header";
 
 export const AddressDetails = ({ handleBack, handleNext }) => {
 
@@ -20,7 +16,7 @@ export const AddressDetails = ({ handleBack, handleNext }) => {
     errors, 
     handleChange, 
     handleSubmit 
-  } = useForm (
+  } = useForm(
     handleNext,
     AD_REQUIRED_FIELDS,
     'addressDetails'
@@ -35,15 +31,16 @@ export const AddressDetails = ({ handleBack, handleNext }) => {
     FILTERED_BARANGAY_OPTIONS,
   } = useAddressOptions(values);
 
-  
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* HEADER */}
-      <Header title={'Address Details'} icon={<LocationOn sx={{ color: '#053261' }}/>} />
+      <Header 
+        title={'Address Details'} 
+        icon={<LocationOn sx={{ color: '#053261' }}/>} 
+      />
       
-       {/* FORM CONTENT */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* FORM CONTENT */}
+      <Stack spacing={2} px={3}>
         <CustomDropdown
           label='Province'
           placeholder='e.g. Rizal'
@@ -53,52 +50,50 @@ export const AddressDetails = ({ handleBack, handleNext }) => {
           error={errors.province}
           required
         />
-        { showMunicipality && (
-          <CustomDropdown
-            label={'City / Municipality'}
-            placeholder={'e.g. Taytay'}
-            onChange={(e, newValue) => handleChange('municipality')(e, newValue)}
-            options={FILTERED_MUNICIPALITY_OPTIONS}
-            value={values.municipality}
-            error={errors.municipality}
-            required
-          />
-        )}
 
-        { showBarangay && (
-          <CustomDropdown
-            label={'Barangay'}
-            placeholder={'e.g. Sta Ana'}
-            onChange={(e, newValue) => handleChange('barangay')(e, newValue)}
-            options={FILTERED_BARANGAY_OPTIONS}
-            value={values.barangay}
-            error={errors.barangay}
-            required
-          />
-        )}
+        <CustomDropdown
+          label='City / Municipality'
+          placeholder='e.g. Taytay'
+          onChange={(e, newValue) => handleChange('municipality')(e, newValue)}
+          options={FILTERED_MUNICIPALITY_OPTIONS}
+          value={values.municipality}
+          error={errors.municipality}
+          disabled={!showMunicipality}
+          required
+        />
 
-        { showStreet && (
-          <>
-            <CustomTextField
-              label={'Street / Sitio / Purok / Subdivision'}
-              placeholder={'e.g. 123 St. '}
-              onChange={handleChange('street')}
-              value={values.street}
-              error={errors.street}
-            />
-            <CustomTextField
-              label={'House / Unit / Building Number'}
-              placeholder={'e.g. Blk 5 Lot 12'}
-              onChange={handleChange('houseNumber')}
-              value={values.houseNumber}
-              error={errors.houseNumber}
-            />
-          </>
-        )}
-      </Box>
+        <CustomDropdown
+          label='Barangay'
+          placeholder='e.g. Sta Ana'
+          onChange={(e, newValue) => handleChange('barangay')(e, newValue)}
+          options={FILTERED_BARANGAY_OPTIONS}
+          value={values.barangay}
+          error={errors.barangay}
+          disabled={!showBarangay}
+          required
+        />
+
+        <CustomTextField
+          label='Street / Sitio / Purok / Subdivision'
+          placeholder='e.g. 123 St.'
+          onChange={handleChange('street')}
+          value={values.street}
+          error={errors.street}
+          disabled={!showStreet}
+        />
+
+        <CustomTextField
+          label='House / Unit / Building Number'
+          placeholder='e.g. Blk 5 Lot 12'
+          onChange={handleChange('houseNumber')}
+          value={values.houseNumber}
+          error={errors.houseNumber}
+          disabled={!showStreet}
+        />
+      </Stack>
 
       {/* FORM BUTTONS */}
       <FormButtons handleBack={handleBack} handleNext={handleSubmit} />      
     </Box>
-  )
-}
+  );
+};

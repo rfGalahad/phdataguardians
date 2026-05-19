@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "../../../services/supabaseClient";
+
 import { useSnackbar } from "../../../hooks/useSnackbar";
+import { supabase } from "../../../services/supabaseClient";
 
 
 export const useMembers = () => {

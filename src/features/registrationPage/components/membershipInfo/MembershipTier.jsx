@@ -1,11 +1,12 @@
-import { Box, Typography } from '@mui/material';
 import { School } from '@mui/icons-material';
+import { Box, Stack, Typography } from '@mui/material';
 
-import { Header } from '../Header';
-import { MembershipTierCard } from './MembershipTierCard';
-import { FormButtons } from '../../../../components/ui/FormButtons';
+import { FormButtons } from '@/components/ui/buttons/FormButtons';
 
 import { useMembership } from '../../hooks/useMembership';
+import { Header } from '../Header';
+
+import { MembershipTierCard } from './MembershipTierCard';
 
 
 
@@ -21,11 +22,14 @@ export const MembershipTier = ({ handleBack, handleNext }) => {
   return (
     <Box sx={{ boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 4 }}>
       {/* HEADER */}
-      <Header title={'Membership Tier'} icon={<School sx={{ color: '#053261' }}/>}/>
+      <Header 
+        title={'Membership Tier'} 
+        icon={<School sx={{ color: '#053261' }}/>}
+      />
       
       {/* FORM CONTENT */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Box sx={{ display: 'flex', flexDirection: {xs: 'column',md: 'row'}, gap: 2 }}> 
+      <Stack spacing={2} px={3}>
+        <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, gap: 2 }}> 
           <MembershipTierCard 
             tier={'Student/Academe'} 
             cost={'300'}
@@ -46,7 +50,7 @@ export const MembershipTier = ({ handleBack, handleNext }) => {
             Please choose a tier
           </Typography>
         )}
-      </Box>
+      </Stack>
 
       {/* FORM BUTTONS */}
       <FormButtons handleBack={handleBack} handleNext={handleSubmit} />      

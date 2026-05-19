@@ -1,99 +1,177 @@
 import { useState } from 'react';
-import { Box, Typography, Button, Grow } from '@mui/material';
-import { ArrowForward } from '@mui/icons-material'
+
+import { ArrowForward } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+import { useAnimation } from '@/hooks/useAnimation';
 
 
 
-export const ServiceCard = ({ icon: Icon, title, description, index, isVisible }) => {
+
+export const ServiceCard = ({ 
+  icon: Icon, 
+  title, 
+  description, 
+  image, 
+  imageLabel, 
+  index, 
+  link 
+}) => {
 
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+
+  const { sectionRef, animate } = useAnimation({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <Grow
-      in={isVisible}
-      timeout={2000 + index * 150}
-      style={{ transformOrigin: '0 0 0' }}
+    <Box
+      ref={sectionRef}
+      onClick={() => navigate(link)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      sx={{
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        borderRadius: 2,
+        backgroundColor: '#FFFFFF',
+
+        ...animate(index * 100),
+
+        transform: isHovered 
+          ? 'translateY(-6px)' 
+          : 'translateY(0)',
+        transition: `
+          transform 0.3s ease, 
+          box-shadow 0.3s ease`,
+        
+        boxShadow: isHovered
+          ? '0px 12px 32px rgba(0,0,0,0.13)'
+          : '0px 2px 8px rgba(0,0,0,0.08)',
+
+        cursor: 'pointer'
+      }}
     >
-      <Box
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        sx={{
-          position: 'relative',
-          overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
-          borderRadius: 2,
-          p: 3,
-          borderLeft: '5px solid #F7CF13',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          height: '100%',
-          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-          transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-          boxShadow: isHovered
-            ? '0px 6px 18px rgba(0,0,0,0.12)'
-            : '0px 2px 8px rgba(0,0,0,0.08)',
-          cursor: 'pointer',
-        }}
-      >
-        {/* BORDER ANIMATION */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
+      {/* ── TOP: IMAGE SECTION ── */}
+      <Box sx={{ position: 'relative', height: 150, overflow: 'visible' }}>
+        {/* Image */}
+        <Box
+          component="img"
+          src={image}
+          alt={title}
+          sx={{
             width: '100%',
-            height: '4px',
-            background: 'linear-gradient(90deg, #F7CF13, #FFD54F)',
-            transform: `scaleX(${isHovered ? 1 : 0})`,
-            transformOrigin: 'left',
-            transition: 'transform 0.4s ease'
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            transition: 'filter 0.4s ease, transform 0.4s ease',
+            filter: isHovered ? 'brightness(1)' : 'brightness(0.5)',
+            transform: isHovered ? 'scale(1)' : 'scale(1.04)',
           }}
         />
 
-        {/* SERVICE ICON */}
+        {/* Dark overlay */}
         <Box
           sx={{
-            backgroundColor: isHovered ? '#053261' : '#F0F4F8',
-            borderRadius: 1,
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: 'rgba(5, 50, 97, 0.35)',
+            transition: 'opacity 0.4s ease',
+            opacity: isHovered ? 0 : 1,
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Optional label badge — top left */}
+        {imageLabel && (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 12,
+              left: 12,
+              backgroundColor: '#F7CF13',
+              color: '#053261',
+              fontSize: 11,
+              fontWeight: 600,
+              px: 1.5,
+              py: 0.4,
+              borderRadius: 10,
+              letterSpacing: 0.5,
+              textTransform: 'uppercase',
+            }}
+          >
+            {imageLabel}
+          </Box>
+        )}
+
+        {/* ── ICON BADGE — bottom left, overlapping the border ── */}
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: -24,
+            left: 24,
+            zIndex: 2,
             width: 48,
-            p: 1,
+            height: 48,
+            borderRadius: '10px',
+            backgroundColor: isHovered ? '#053261' : '#F7CF13',
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
-            transition: 'all 0.35s ease',
-            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+            justifyContent: 'center',
+            transition: 'background-color 0.35s ease, transform 0.35s ease',
+            transform: isHovered ? 'scale(1.12)' : 'scale(1)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           }}
         >
-          <Icon
-            sx={{
-              fontSize: 24,
-              color: isHovered ? '#F7CF13' : '#053261',
-              transition: 'color 0.3s ease',
-            }}
-          />
+          {Icon &&
+            <Icon
+              sx={{
+                fontSize: 24,
+                color: isHovered ? '#F7CF13' : '#053261',
+                transition: 'color 0.3s ease',
+              }}
+            />
+          }
         </Box>
+      </Box>
 
-        {/* SERVICE TITLE */}
-        <Typography variant='h6' sx={{ fontWeight: 600, color: '#053261' }}>
+      {/* ── BOTTOM: CONTENT SECTION ── */}
+      <Box
+        sx={{
+          pt: 5,
+          px: 3,
+          pb: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1.5,
+          flex: 1,
+          borderTop: isHovered ? '3px solid #053261' : '3px solid #F7CF13',
+          transition: 'border-color 0.35s ease',
+        }}
+      >
+        {/* Title */}
+        <Typography variant="subtitle1" sx={{ fontWeight: 600, color: '#053261' }}>
           {title}
         </Typography>
 
-        {/* DESCRIPTION */}
+        {/* Description */}
         <Typography
-          variant='subtitle1'
+          variant="body2"
           sx={{
             color: '#404040',
             wordWrap: 'break-word',
             whiteSpace: 'normal',
             flex: 1,
-            lineHeight: 1.5,
+            lineHeight: 1.6,
           }}
         >
           {description}
         </Typography>
 
-        {/* LEARN MORE BUTTON */}
+        {/* Learn More Button */}
         <Button
           sx={{
             justifyContent: 'flex-start',
@@ -102,6 +180,7 @@ export const ServiceCard = ({ icon: Icon, title, description, index, isVisible }
             textTransform: 'none',
             fontWeight: 500,
             transition: 'all 0.3s ease',
+            minWidth: 0,
           }}
         >
           Learn More
@@ -115,7 +194,6 @@ export const ServiceCard = ({ icon: Icon, title, description, index, isVisible }
           />
         </Button>
       </Box>
-    </Grow>
-    
-  )
-}
+    </Box>
+  );
+};

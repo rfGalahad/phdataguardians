@@ -1,9 +1,23 @@
-import { Box, Container, Divider, Link, Typography, IconButton } from '@mui/material';
-import { Email, Facebook, LinkedIn, LocationOn, Phone } from '@mui/icons-material';
+import { 
+  Email, 
+  Facebook, 
+  LinkedIn, 
+  LocationOn, 
+  Phone 
+} from '@mui/icons-material';
+import { 
+  Box, 
+  Container, 
+  Divider, 
+  IconButton, 
+  Link, 
+  Typography 
+} from '@mui/material';
 
-import Logo from '../../../../assets/pdgLogo.png';
+import { LOGO_PDG_1 } from '@/constants/cloudinaryConstants';
+import { getCloudinaryUrl } from '@/services/cloudinary';
 
-const quickLinks = [
+const QUICK_LINKS = [
   { label: 'Home', id: 'home' },
   { label: 'About', id: 'about' },
   { label: 'Membership', id: 'membership' },
@@ -12,21 +26,13 @@ const quickLinks = [
   { label: 'Contact', id: 'contact' }
 ];  
 
-const services = [
-  { title: 'Privacy Impact Assessment', path: '/' },
-  { title: 'Data Privacy Training', path: '/' },
-  { title: 'Compliance Consulting', path: '/' },
-  { title: 'Policy Development', path: '/' },
-  { title: 'Data Breach Response', path: '/' },
-];
-
-const contactInfo = [
+const CONTACT_INFO = [
   { icon: <LocationOn sx={{ fontSize: 18 }}/>, text: 'C5 Ext. Paranaque City, Metro Manila'},
   { icon: <Phone sx={{ fontSize: 18 }}/>, text: '(+63) 929 344 5296'},
   { icon: <Email sx={{ fontSize: 18 }}/>, text: 'members@phdataguardians.org'}
 ];
 
-const socialLinks = [
+const SOCIAL_LINKS = [
   { 
     icon: <Facebook />, 
     url: 'https://www.facebook.com/profile.php?id=61578893785140',
@@ -41,6 +47,8 @@ const socialLinks = [
 
 export const Footer = () => {
 
+  const PDGLogo = getCloudinaryUrl(LOGO_PDG_1); 
+
   const handleNavClick = (section) => {
     const element = document.getElementById(section);
     if (element) {
@@ -53,13 +61,9 @@ export const Footer = () => {
 
   return (
     <Box sx={{ background: '#053261' }}>
-      <Container 
+      <Container
         maxWidth='lg' 
-        sx={{ 
-          mt: 12,
-          py: 4, 
-          color: '#FFFFFF'
-        }}
+        sx={{ py: 4, color: 'background.paper' }}
       >
         <Box sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'row'}, gap: 4 }}>
           {/* COMPANY LOGO & DESCRIPTION */}
@@ -68,7 +72,7 @@ export const Footer = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Box
                 component='img'
-                src={Logo}
+                src={PDGLogo}
                 alt='Logo'
                 sx={{ height: 24 }}
               />
@@ -86,7 +90,7 @@ export const Footer = () => {
             
             {/* Social Media Icons */}
             <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
-              {socialLinks.map((social) => (
+              {SOCIAL_LINKS.map((social) => (
                 <IconButton
                   key={social.label}
                   component='a'
@@ -118,7 +122,7 @@ export const Footer = () => {
             </Typography>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              {quickLinks.map((link) => (
+              {QUICK_LINKS.map((link) => (
                 <Link
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}
@@ -147,7 +151,7 @@ export const Footer = () => {
               Contact Us
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-              {contactInfo.map((info, index) => (
+              {CONTACT_INFO.map((info, index) => (
                 <Box 
                   key={index} 
                   sx={{ 
@@ -194,7 +198,7 @@ export const Footer = () => {
               }
             }}
           >
-            Admin
+            ®
           </Link>
           <Typography variant='body2' sx={{ color: '#F7CF13', textAlign: { xs: 'center', sm: 'right' } }}>
             Securing your digital future.

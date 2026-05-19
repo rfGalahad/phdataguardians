@@ -1,18 +1,20 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography } from '@mui/material';
 
-import Logo from '../../../../assets/pdgLogo.png';
+import { LOGO_PDG_1 } from '@/constants/cloudinaryConstants';
+import { getCloudinaryUrl } from '@/services/cloudinary';
 
 
 export const CompanyLogo = () => {
+
+  const Logo = getCloudinaryUrl(LOGO_PDG_1);
+  
   return (
     <Box 
       sx={{ 
         display: 'flex', 
         alignItems: 'center', 
-        cursor: 'pointer',
         gap: 2
       }}
-      onClick={() => handleNavClick('home')}
     >
       <Box
         component="img"

@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { Box, useMediaQuery } from "@mui/material";
 
-import { Sidebar } from "./Sidebar";
-import { Topbar } from "./Topbar";
+import { useMediaQuery } from "@mui/material";
+
 
 
 

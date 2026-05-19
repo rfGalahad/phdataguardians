@@ -1,22 +1,20 @@
-import { CheckCircle, ReportProblem } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Typography,
-  Divider,
-} from '@mui/material';
+import { CheckCircle, ReportProblem } from "@mui/icons-material";
+import { Box, Button, Dialog, DialogActions, DialogContent, Divider, Typography } from "@mui/material";
 
-// MODAL COMPONENT
+
+
+
 export const ResultModal = ({ open, type, onClose }) => {
 
   const isSuccess = type === 'success';
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth="sm" 
+      fullWidth
+    >
 
       {/* DIALOG TITLE */}
       <Box sx={{ textAlign: 'center', p: 2 }}>
