@@ -28,29 +28,41 @@ function App() {
     const price = params.get('price');
     const name = params.get('name');
 
-    // Only run if redirected from Google OAuth
     if (!price || !name) return;
 
-    const handleCallback = async () => {
-      setIsCheckingOut(true);
+    setIsCheckingOut(true);
 
-      const { data: { session } } = await supabase.auth.getSession();
+    // Listen for when Supabase finishes processing the OAuth session
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+          subscription.unsubscribe(); // only run once
 
-      if (!session) {
-        setIsCheckingOut(false);
-        return;
+          await initiateCheckout({
+            email: session.user.email,
+            price,
+            name,
+          });
+
+          setIsCheckingOut(false);
+        }
       }
+    );
 
-      await initiateCheckout({
-        email: session.user.email,
-        price,
-        name,
-      });
+    // Timeout fallback — in case user was already logged in
+    // and onAuthStateChange fires INITIAL_SESSION instead of SIGNED_IN
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        subscription.unsubscribe();
+        initiateCheckout({
+          email: session.user.email,
+          price,
+          name,
+        }).then(() => setIsCheckingOut(false));
+      }
+    });
 
-      setIsCheckingOut(false);
-    };
-
-    handleCallback();
+    return () => subscription.unsubscribe();
   }, []);
 
   if (isCheckingOut) return <AuthCallback />;
