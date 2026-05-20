@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { amount, description, successUrl, cancelUrl } = await req.json();
+    const { email, amount, description, successUrl, cancelUrl } = await req.json();
 
     const encoded = btoa(PAYMONGO_SECRET_KEY + ":");
 
