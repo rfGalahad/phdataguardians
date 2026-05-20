@@ -65,14 +65,14 @@ export const PaymentSuccess = () => {
 
       if (!email || !price || !name) { navigate('/'); return; }
 
+      setVerified(true);
+      
       sessionStorage.removeItem('checkout_email');
       sessionStorage.removeItem('checkout_price');
       sessionStorage.removeItem('checkout_name');
-
-      setVerified(true);
     };
     verify();
-  }, [navigate]);
+  }, []);
 
   if (!verified) return null;
 

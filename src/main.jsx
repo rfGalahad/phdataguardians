@@ -12,10 +12,10 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <App />
     </ThemeProvider>
-  </StrictMode>,
+  </>,
 )
