@@ -34,7 +34,7 @@ serve(async (req) => {
             line_items: [
               {
                 currency: "PHP",
-                amount,        // in centavos, e.g. 99900 = ₱999.00
+                amount,        
                 name: description,
                 quantity: 1,
               },
@@ -63,12 +63,18 @@ serve(async (req) => {
     const checkoutUrl = data.data.attributes.checkout_url;
 
     return new Response(JSON.stringify({ checkoutUrl }), {
-      headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
+      headers: { 
+        "Access-Control-Allow-Origin": "*", 
+        "Content-Type": "application/json" 
+      },
     });
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {
       status: 500,
-      headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
+      headers: { 
+        "Access-Control-Allow-Origin": "*", 
+        "Content-Type": "application/json" 
+      },
     });
   }
 });
