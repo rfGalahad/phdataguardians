@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -55,23 +55,22 @@ export const PaymentSuccess = () => {
   const navigate = useNavigate();
   const [verified, setVerified] = useState(false);
 
+  const hasRun = useRef(false);
+
   useEffect(() => {
-    const verify = async () => {
-      const email = sessionStorage.getItem('checkout_email');
-      const price = sessionStorage.getItem('checkout_price');
-      const name  = sessionStorage.getItem('checkout_name');
+    if (hasRun.current) return;
+    hasRun.current = true;
 
-      console.log('checkout data:', { email, price, name }); // debug
+    const email = sessionStorage.getItem('checkout_email');
+    const price = sessionStorage.getItem('checkout_price');
+    const name  = sessionStorage.getItem('checkout_name');
 
-      if (!email || !price || !name) { navigate('/'); return; }
+    if (!email || !price || !name) { navigate('/'); return; }
 
-      setVerified(true);
-      
-      sessionStorage.removeItem('checkout_email');
-      sessionStorage.removeItem('checkout_price');
-      sessionStorage.removeItem('checkout_name');
-    };
-    verify();
+    setVerified(true);
+    sessionStorage.removeItem('checkout_email');
+    sessionStorage.removeItem('checkout_price');
+    sessionStorage.removeItem('checkout_name');
   }, []);
 
   if (!verified) return null;
