@@ -1,6 +1,5 @@
 import { toNumber } from '@/utils/number';
 
-// Extract the anon key from the already-initialized client
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 

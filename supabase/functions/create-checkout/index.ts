@@ -26,7 +26,7 @@ serve(async (req) => {
       body: JSON.stringify({
         data: {
           attributes: {
-            billing: { email: "" }, // optional: pre-fill from user session
+            billing: { email }, // optional: pre-fill from user session
             send_email_receipt: true,
             show_description: true,
             show_line_items: true,
