@@ -76,6 +76,10 @@ export const useEmailDialog = ({ tierName, tierPrice } = {}) => {
     sessionStorage.setItem('checkout_price', tierPrice);
     sessionStorage.setItem('checkout_name', tierName);
 
+    console.log('Email:', email);
+    console.log('Price:', tierPrice);
+    console.log('Name:', tierName);
+
     try {
       await initiateCheckout({ 
         email, 

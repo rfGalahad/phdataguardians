@@ -6,7 +6,6 @@ export const useCheckout = () => {
   const initiateCheckout = async ({ price, name, email }) => { 
     try {
       const { data, error } = await supabase.functions.invoke("create-checkout", {
-        
         body: {
           amount: Math.round(toNumber(price) * 100),          
           description: `${name} Plan — Monthly Subscription`,
@@ -15,6 +14,11 @@ export const useCheckout = () => {
           cancelUrl: `${window.location.origin}/payment/cancelled`,
         },
       });     
+
+      console.log('data:', data);
+      console.log('error:', error);
+      console.log('error details:', JSON.stringify(error, null, 2));
+
       if (error) throw error;
       window.location.href = data.checkoutUrl;
     } catch (err) {
