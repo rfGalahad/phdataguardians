@@ -57,14 +57,22 @@ export const PaymentSuccess = () => {
 
   useEffect(() => {
     const verify = async () => {
-      const pending = sessionStorage.getItem('pendingCheckout');
-      if (!pending) { navigate('/'); return; }
-      
-      sessionStorage.removeItem('pendingCheckout');
+      const email = sessionStorage.getItem('checkout_email');
+      const price = sessionStorage.getItem('checkout_price');
+      const name  = sessionStorage.getItem('checkout_name');
+
+      console.log('checkout data:', { email, price, name }); // debug
+
+      if (!email || !price || !name) { navigate('/'); return; }
+
+      sessionStorage.removeItem('checkout_email');
+      sessionStorage.removeItem('checkout_price');
+      sessionStorage.removeItem('checkout_name');
+
       setVerified(true);
     };
     verify();
-  }, []);
+  }, [navigate]);
 
   if (!verified) return null;
 
