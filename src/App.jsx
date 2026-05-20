@@ -1,71 +1,20 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { DashboardLayout } from './components/layout/DashboardLayout'
 import { ScrollToTop } from './components/layout/ScrollToTop'
 import { EmptyPage } from './components/ui/feedback/EmptyPage'
-import { AuthCallback } from './features/auth/AuthCallback';
 import { LoginPage } from './features/auth/LoginPage'
 import { LandingPage } from './features/landingPage/pages/LandingPage'
 import { ManageMembers } from './features/manageMembers/pages/ManageMembers'
 import { ManagePendingMembers } from './features/manageMembers/pages/ManagePendingMembers'
 import { PaymentSuccess } from './features/payment/PaymentSuccess';
 import { PrivacyImpactAssessment } from './features/privacyImpactAssessment/PrivacyImpactAssessment'
-import { useCheckout } from './features/privacyImpactAssessment/SubsciptionTiers/hooks/useCheckout';
 import { PrivacyNoticePage } from './features/privacyNoticePage/pages/PrivacyNoticePage'
 import { RegistrationPage } from './features/registrationPage/pages/RegistrationPage'
 import { ProtectedRoute } from './routes/ProtectedRoutes'
-import { supabase } from './services/supabaseClient';
 
 
 function App() {
- 
-  const { initiateCheckout } = useCheckout();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const price = params.get('price');
-    const name = params.get('name');
-
-    if (!price || !name) return;
-
-    setIsCheckingOut(true);
-
-    // Listen for when Supabase finishes processing the OAuth session
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-          subscription.unsubscribe(); // only run once
-
-          await initiateCheckout({
-            email: session.user.email,
-            price,
-            name,
-          });
-
-          setIsCheckingOut(false);
-        }
-      }
-    );
-
-    // Timeout fallback — in case user was already logged in
-    // and onAuthStateChange fires INITIAL_SESSION instead of SIGNED_IN
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        subscription.unsubscribe();
-        initiateCheckout({
-          email: session.user.email,
-          price,
-          name,
-        }).then(() => setIsCheckingOut(false));
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  if (isCheckingOut) return <AuthCallback />;
 
   return (
     <BrowserRouter>

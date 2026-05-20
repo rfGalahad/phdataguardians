@@ -3,6 +3,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const PAYMONGO_SECRET_KEY = Deno.env.get("PAYMONGO_SECRET_KEY")!;
 
 serve(async (req) => {
+
   if (req.method === "OPTIONS") {
     return new Response("ok", {
       headers: {
@@ -13,9 +14,18 @@ serve(async (req) => {
   }
 
   try {
-    const { email, amount, description, successUrl, cancelUrl } = await req.json();
+    const { 
+      email, 
+      amount, 
+      description, 
+      successUrl, 
+      cancelUrl 
+    } = await req.json();
 
     const encoded = btoa(PAYMONGO_SECRET_KEY + ":");
+
+    console.log('SUCCESS URL:', successUrl);
+    console.log('CANCEL URL:', cancelUrl);
 
     const response = await fetch("https://api.paymongo.com/v1/checkout_sessions", {
       method: "POST",
@@ -26,7 +36,7 @@ serve(async (req) => {
       body: JSON.stringify({
         data: {
           attributes: {
-            billing: { email }, // optional: pre-fill from user session
+            billing: { email },
             send_email_receipt: true,
             show_description: true,
             show_line_items: true,

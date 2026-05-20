@@ -20,7 +20,7 @@ export const useCheckout = () => {
             description: `${name} Plan — Monthly Subscription`,
             email,
             successUrl: `${window.location.origin}/payment/success`,
-            cancelUrl: `${window.location.origin}/payment/cancelled`,
+            cancelUrl: `${window.location.origin}/privacy-impact-assessment`,
           }),
         }
       );

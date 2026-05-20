@@ -7,16 +7,14 @@ import {
   Launch,
   LockOutlined,
 } from '@mui/icons-material';
-
 import {
   Box,
   Button,
   Typography,
 } from '@mui/material';
 
-import { supabase } from '@/services/supabaseClient';
 
-const steps = [
+const STEPS = [
   {
     icon: <EmailOutlined sx={{ fontSize: 18, color: '#fff' }} />,
     label: 'Check your email',
@@ -53,13 +51,16 @@ const steps = [
 ];
 
 export const PaymentSuccess = () => {
+
   const navigate = useNavigate();
   const [verified, setVerified] = useState(false);
 
   useEffect(() => {
     const verify = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate('/'); return; }
+      const pending = sessionStorage.getItem('pendingCheckout');
+      if (!pending) { navigate('/'); return; }
+      
+      sessionStorage.removeItem('pendingCheckout');
       setVerified(true);
     };
     verify();
@@ -92,7 +93,6 @@ export const PaymentSuccess = () => {
         }}
       >
 
-        {/* ── LEFT: Hero panel ─────────────────────────────────────── */}
         <Box
           sx={{
             flex: { md: '0 0 42%' },
@@ -213,7 +213,7 @@ export const PaymentSuccess = () => {
         >
           {/* Steps */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2.5, md: 3 }, mb: { xs: 3.5, md: 4 } }}>
-            {steps.map((step, i) => (
+            {STEPS.map((step, i) => (
               <Box
                 key={i}
                 sx={{
