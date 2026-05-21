@@ -24,9 +24,6 @@ serve(async (req) => {
 
     const encoded = btoa(PAYMONGO_SECRET_KEY + ":");
 
-    console.log('SUCCESS URL:', successUrl);
-    console.log('CANCEL URL:', cancelUrl);
-
     const response = await fetch("https://api.paymongo.com/v1/checkout_sessions", {
       method: "POST",
       headers: {

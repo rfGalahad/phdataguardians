@@ -1,61 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import {
-  CheckCircleOutlined,
-  EmailOutlined,
-  Launch,
-  LockOutlined,
-} from '@mui/icons-material';
+import { ArrowBack, CheckCircleOutlined } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Container,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 
-
-const STEPS = [
-  {
-    icon: <EmailOutlined sx={{ fontSize: 18, color: '#fff' }} />,
-    label: 'Check your email',
-    body: (
-      <>
-        We&apos;ve sent a <strong>temporary password</strong> to your email address.
-        Check your inbox (and spam folder) for an email from PIA.
-      </>
-    ),
-    delay: '0.45s',
-  },
-  {
-    icon: <Launch sx={{ fontSize: 18, color: '#fff' }} />,
-    label: 'Log in to PIA',
-    body: (
-      <>
-        Click the button below to open the PIA app. Use your email and the
-        temporary password to sign in.
-      </>
-    ),
-    delay: '0.55s',
-  },
-  {
-    icon: <LockOutlined sx={{ fontSize: 18, color: '#fff' }} />,
-    label: 'Set a new password',
-    body: (
-      <>
-        Once logged in, go to your profile settings and choose a permanent password.
-        The temporary password expires in <strong>24 hours</strong>.
-      </>
-    ),
-    delay: '0.65s',
-  },
-];
+const keyframes = `
+  @keyframes ripple {
+    0%   { transform: scale(0.85); opacity: 0.5; }
+    100% { transform: scale(1.9);  opacity: 0;   }
+  }
+  @keyframes popIn {
+    0%   { transform: scale(0);   opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+  @keyframes fadeUp {
+    0%   { transform: translateY(10px); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
+  @keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+`;
 
 export const PaymentSuccess = () => {
 
-  const navigate = useNavigate();
   const [verified, setVerified] = useState(false);
+  const [checkoutData, setCheckoutData] = useState(null);
 
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
   const hasRun = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (hasRun.current) return;
@@ -63,82 +44,72 @@ export const PaymentSuccess = () => {
 
     const email = sessionStorage.getItem('checkout_email');
     const price = sessionStorage.getItem('checkout_price');
-    const name  = sessionStorage.getItem('checkout_name');
+    const name = sessionStorage.getItem('checkout_name');
 
-    if (!email || !price || !name) { navigate('/'); return; }
+    if (!email || !price || !name) {
+      navigate('/');
+      return;
+    }
 
+    setCheckoutData({ email, price, name });
     setVerified(true);
+
     sessionStorage.removeItem('checkout_email');
     sessionStorage.removeItem('checkout_price');
     sessionStorage.removeItem('checkout_name');
-  }, []);
+
+  }, [navigate]);
 
   if (!verified) return null;
 
   return (
-    <Box
-      sx={{
-        minHeight: '100dvh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(160deg, #f0f5ff 0%, #e8f5e9 100%)',
-        px: { xs: 2, md: 4 },
-        py: { xs: 5, md: 6 },
-      }}
-    >
-      <Box
+    <>
+      <style>{keyframes}</style>
+
+      <Container
+        maxWidth='sm'
         sx={{
-          width: '100%',
-          maxWidth: { xs: 440, md: 880 },
-          bgcolor: '#fff',
-          borderRadius: { xs: 3, md: 4 },
-          boxShadow: '0 8px 48px -8px rgba(5,50,97,0.14), 0 2px 12px -2px rgba(5,50,97,0.08)',
-          overflow: 'hidden',
+          height: '100vh',
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 4
         }}
       >
-
         <Box
           sx={{
-            flex: { md: '0 0 42%' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            background: 'linear-gradient(160deg, #053261 0%, #1a6db5 100%)',
-            px: { xs: 3, md: 5 },
-            py: { xs: 4, md: 6 },
           }}
         >
-          {/* Icon with ripple */}
+          {/* Animated check icon */}
           <Box
             sx={{
               position: 'relative',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: { xs: 72, md: 96 },
-              height: { xs: 72, md: 96 },
-              mb: 3,
+              width: { xs: 72, md: 88 },
+              height: { xs: 72, md: 88 },
+              mb: { xs: 2.5, md: 3.5 },
             }}
           >
-            <Box
-              sx={{
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                border: '2px solid rgba(255,255,255,0.6)',
-                opacity: 0,
-                animation: 'ripple 1.4s ease-out 0.35s forwards',
-                '@keyframes ripple': {
-                  '0%':   { transform: 'scale(0.85)', opacity: 0.6 },
-                  '100%': { transform: 'scale(1.8)',  opacity: 0 },
-                },
-              }}
-            />
+            {[{ delay: '0.35s' }, { delay: '0.85s' }].map((r, i) => (
+              <Box
+                key={i}
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '50%',
+                  border: '1.5px solid rgba(34,197,94,0.4)',
+                  opacity: 0,
+                  animation: `ripple 1.6s ease-out ${r.delay} forwards`,
+                }}
+              />
+            ))}
             <Box
               sx={{
                 display: 'flex',
@@ -147,181 +118,99 @@ export const PaymentSuccess = () => {
                 width: '100%',
                 height: '100%',
                 borderRadius: '50%',
-                background: 'rgba(255,255,255,0.15)',
-                border: '2px solid rgba(255,255,255,0.25)',
-                animation: 'popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275) both',
-                '@keyframes popIn': {
-                  '0%':   { transform: 'scale(0)', opacity: 0 },
-                  '100%': { transform: 'scale(1)', opacity: 1 },
-                },
+                background: 'rgba(34,197,94,0.1)',
+                border: '1.5px solid rgba(34,197,94,0.28)',
+                animation: 'popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) both',
               }}
             >
-              <CheckCircleOutlined sx={{ fontSize: { xs: 38, md: 52 }, color: '#fff' }} />
+              <CheckCircleOutlined
+                sx={{ fontSize: { xs: 36, md: 46 }, color: '#22c55e' }}
+              />
             </Box>
           </Box>
 
-          <Typography
-            component="span"
+          {/* Pill badge */}
+          <Box
             sx={{
-              display: 'block',
-              color: 'rgba(255,255,255,0.65)',
-              fontWeight: 800,
-              letterSpacing: 2.5,
-              fontSize: '0.6rem',
-              textTransform: 'uppercase',
-              mb: 1,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 0.75,
+              px: 1.5,
+              py: 0.5,
+              borderRadius: '999px',
+              border: '1px solid rgba(34,197,94,0.22)',
+              bgcolor: 'rgba(34,197,94,0.07)',
+              mb: 2,
               animation: 'fadeUp 0.4s ease 0.2s both',
-              '@keyframes fadeUp': {
-                '0%':   { transform: 'translateY(8px)', opacity: 0 },
-                '100%': { transform: 'translateY(0)',   opacity: 1 },
-              },
             }}
           >
-            Payment Successful
-          </Typography>
+            <Box
+              sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#22c55e' }}
+            />
+            <Typography
+              sx={{
+                fontSize: '0.62rem',
+                fontWeight: 700,
+                letterSpacing: '0.13em',
+                textTransform: 'uppercase',
+                color: '#22c55e',
+              }}
+            >
+              Payment confirmed
+            </Typography>
+          </Box>
 
           <Typography
-            variant="h4"
+            variant={isMobile ? 'h5' : 'h4'}
             sx={{
               fontWeight: 800,
-              lineHeight: 1.2,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              color: '#fff',
-              mb: 1.5,
+              color: 'text.primary',
+              mb: 1,
+              letterSpacing: '-0.02em',
               animation: 'fadeUp 0.4s ease 0.3s both',
             }}
           >
-            You&apos;re officially in! 🎉
+            You&apos;re officially in!
           </Typography>
 
           <Typography
             variant="body2"
             sx={{
-              color: 'rgba(255,255,255,0.75)',
-              lineHeight: 1.7,
-              maxWidth: 260,
+              color: 'text.secondary',
               animation: 'fadeUp 0.4s ease 0.4s both',
             }}
           >
-            Your subscription is now active. Follow the steps on the right to get started.
+            Your subscription is active. We&apos;ve sent a <strong>temporary password</strong> to {checkoutData.email}. Check your inbox and spam folder for a message from PIA.
           </Typography>
         </Box>
 
-        {/* ── RIGHT: Steps panel ───────────────────────────────────── */}
-        <Box
+        <Button
+          component={Link}
+          to="/"
+          startIcon={<ArrowBack sx={{ fontSize: 15 }} />}
           sx={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            px: { xs: 3, sm: 4, md: 5 },
-            py: { xs: 4, md: 5 },
+            mt: 3,
+            textTransform: 'none',
+            fontWeight: 600,
+            color: 'text.secondary',
+            animation: 'fadeUp 0.4s ease 0.55s both',
+            '&:hover': { bgcolor: 'transparent', color: 'text.primary' },
           }}
         >
-          {/* Steps */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2.5, md: 3 }, mb: { xs: 3.5, md: 4 } }}>
-            {STEPS.map((step, i) => (
-              <Box
-                key={i}
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  alignItems: 'flex-start',
-                  animation: `fadeUp 0.4s ease ${step.delay} both`,
-                }}
-              >
-                <Box
-                  sx={{
-                    flexShrink: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #053261 0%, #1a6db5 100%)',
-                    boxShadow: '0 4px 12px -2px rgba(5,50,97,0.28)',
-                  }}
-                >
-                  {step.icon}
-                </Box>
+          Back to Homepage
+        </Button>
 
-                <Box sx={{ pt: 0.25 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: 700, color: 'primary.main', mb: 0.35 }}
-                  >
-                    Step {i + 1} — {step.label}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.65 }}>
-                    {step.body}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-          </Box>
-
-          {/* Divider */}
-          <Box sx={{ height: '1px', bgcolor: 'grey.100', mb: { xs: 3, md: 3.5 } }} />
-
-          {/* CTA */}
-          <Button
-            fullWidth
-            variant="contained"
-            size="large"
-            href="https://app.pia.ph"
-            target="_blank"
-            rel="noopener noreferrer"
-            endIcon={<Launch sx={{ fontSize: 16 }} />}
-            sx={{
-              textTransform: 'none',
-              fontWeight: 700,
-              borderRadius: 2,
-              py: 1.5,
-              fontSize: '0.975rem',
-              background: 'linear-gradient(135deg, #053261 0%, #1a6db5 100%)',
-              boxShadow: '0 4px 18px -2px rgba(5,50,97,0.38)',
-              animation: 'fadeUp 0.4s ease 0.7s both',
-              transition: 'all 0.2s ease',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #042a52 0%, #155fa0 100%)',
-                boxShadow: '0 8px 28px -4px rgba(5,50,97,0.45)',
-                transform: 'translateY(-1px)',
-              },
-              '&:active': { transform: 'translateY(0)' },
-            }}
-          >
-            Go to PIA App
-          </Button>
-
-          {/* Footer note */}
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'block',
-              textAlign: 'center',
-              color: 'text.disabled',
-              mt: 2,
-              lineHeight: 1.6,
-              animation: 'fadeUp 0.4s ease 0.8s both',
-            }}
-          >
-            Need help?{' '}
-            <Box
-              component="a"
-              href="mailto:support@pia.ph"
-              sx={{
-                color: 'primary.main',
-                textDecoration: 'none',
-                fontWeight: 600,
-                '&:hover': { textDecoration: 'underline' },
-              }}
-            >
-              Contact support
-            </Box>
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+        {/* CTA row */}
+        <Typography
+          variant="caption"
+          sx={{ 
+            color: 'text.disabled', 
+            textAlign: 'center',
+            animation: 'fadeUp 0.4s ease 0.75s both', }}
+        >
+          Didn&apos;t get the email? Check your spam folder.
+        </Typography>
+      </Container>
+    </>
   );
 };

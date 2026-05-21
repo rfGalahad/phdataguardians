@@ -3,13 +3,46 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const supabaseAdmin = createClient(
   Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SERVICE_ROLE_KEY")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
 const PAYMONGO_WEBHOOK_SECRET = Deno.env.get("PAYMONGO_WEBHOOK_SECRET")!;
 
+async function verifySignature(req: Request, rawBody: string): Promise<boolean> {
+  const sigHeader = req.headers.get("Paymongo-Signature");
+  if (!sigHeader) return false;
+
+  // Header format: "t=<timestamp>,te=<test_sig>,li=<live_sig>"
+  const parts = Object.fromEntries(
+    sigHeader.split(",").map((p) => p.split("=")),
+  );
+
+  const timestamp = parts["t"];
+  const signature = parts["li"] ?? parts["te"]; // use "li" in prod, "te" in test
+
+  if (!timestamp || !signature) return false;
+
+  const payload = `${timestamp}.${rawBody}`;
+
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(PAYMONGO_WEBHOOK_SECRET),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+
+  const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+  const expected = Array.from(new Uint8Array(mac))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  return expected === signature;
+}
+
 serve(async (req) => {
+  
   if (req.method === "OPTIONS") {
     return new Response("ok", {
       headers: { "Access-Control-Allow-Origin": "*" },
@@ -17,10 +50,17 @@ serve(async (req) => {
   }
 
   try {
-    const body = await req.json();
+    const rawBody = await req.text();
+    const isValid = await verifySignature(req, rawBody);
+
+    if (!isValid) {
+      console.warn("Invalid PayMongo signature");
+      return new Response(JSON.stringify({ error: "Invalid signature" }), { status: 401 });
+    }
+
+    const body = JSON.parse(rawBody);
     const event = body.data;
 
-    // Only handle successful payments
     if (event.attributes.type !== "checkout_session.payment.paid") {
       return new Response(JSON.stringify({ received: true }), { status: 200 });
     }
@@ -29,10 +69,8 @@ serve(async (req) => {
     const email = attributes.billing.email;
     const planName = attributes.description;
 
-    // 1. Generate temp password
     const tempPassword = generatePassword();
 
-    // 2. Create Supabase user
     const { data: user, error } = await supabaseAdmin.auth.admin.createUser({
       email,
       password: tempPassword,
@@ -43,7 +81,6 @@ serve(async (req) => {
       throw error;
     }
 
-    // 3. Send email with credentials
     await sendEmail({ email, tempPassword, planName });
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
@@ -53,38 +90,3 @@ serve(async (req) => {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
 });
-
-function generatePassword() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#$!";
-  return Array.from({ length: 12 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-}
-
-async function sendEmail({ email, tempPassword, planName }: { 
-  email: string; 
-  tempPassword: string; 
-  planName: string; 
-}) {
-  await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${RESEND_API_KEY}`,
-    },
-    body: JSON.stringify({
-      from: "noreply@yourdomain.com",
-      to: email,
-      subject: "Your account is ready!",
-      html: `
-        <h2>Welcome! Your payment was successful 🎉</h2>
-        <p>You're now subscribed to the <strong>${planName}</strong>.</p>
-        <br/>
-        <p>Here are your login credentials:</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Temporary Password:</strong> <code>${tempPassword}</code></p>
-        <br/>
-        <p>Please change your password after your first login.</p>
-        <p><a href="https://your-app.vercel.app/login">Login here</a></p>
-      `,
-    }),
-  });
-}

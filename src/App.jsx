@@ -20,6 +20,7 @@ function App() {
     <BrowserRouter>
       <ScrollToTop/>
       <Routes>
+        
         <Route path='/' element={<LandingPage />} />
         <Route path='/privacy-notice' element={<PrivacyNoticePage />} />
         <Route path='/registration' element={<RegistrationPage />} />
