@@ -63,7 +63,10 @@ serve(async (req) => {
     if (!response.ok) {
       return new Response(JSON.stringify({ error: data }), {
         status: response.status,
-        headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
+        headers: { 
+          "Access-Control-Allow-Origin": "*", 
+          "Content-Type": "application/json" 
+        },
       });
     }
 

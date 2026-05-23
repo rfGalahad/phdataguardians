@@ -26,6 +26,7 @@ export const useCheckout = () => {
       );
 
       const data = await response.json();
+      
       if (!response.ok) throw new Error(data.error || 'Checkout failed');
       window.location.href = data.checkoutUrl;
     } catch (err) {

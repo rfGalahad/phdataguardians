@@ -18,6 +18,7 @@
     "@mui/material": "^7.3.2",
     "@mui/x-data-grid": "^8.18.0",
     "@neondatabase/serverless": "^1.0.2",
+    "@react-email/render": "^2.0.8",
     "@supabase/supabase-js": "^2.83.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "firebase": "^12.3.0",

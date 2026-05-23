@@ -180,7 +180,7 @@ export const PaymentSuccess = () => {
               animation: 'fadeUp 0.4s ease 0.4s both',
             }}
           >
-            Your subscription is active. We&apos;ve sent a <strong>temporary password</strong> to {checkoutData.email}. Check your inbox and spam folder for a message from PIA.
+            Your subscription is now active. We’ve sent a <strong>link</strong> to {checkoutData.email} so you can change your password. Please check your inbox and spam folder for an email from Philippine Data Guardians.
           </Typography>
         </Box>
 

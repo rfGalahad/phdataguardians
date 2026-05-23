@@ -12,6 +12,7 @@ import { PrivacyImpactAssessment } from './features/privacyImpactAssessment/Priv
 import { PrivacyNoticePage } from './features/privacyNoticePage/pages/PrivacyNoticePage'
 import { RegistrationPage } from './features/registrationPage/pages/RegistrationPage'
 import { ProtectedRoute } from './routes/ProtectedRoutes'
+import { SampleEmail } from './features/payment/SampleEmail';
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
     <BrowserRouter>
       <ScrollToTop/>
       <Routes>
+
+        <Route path='/sample' element={<SampleEmail />} />
         
         <Route path='/' element={<LandingPage />} />
         <Route path='/privacy-notice' element={<PrivacyNoticePage />} />
