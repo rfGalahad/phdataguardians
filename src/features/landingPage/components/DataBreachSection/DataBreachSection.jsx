@@ -34,6 +34,7 @@ export const DataBreachSection = ({ id }) => {
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center', 
+          gap: 1,
           color: 'white',
           ...animate(300)
         }}
@@ -44,12 +45,14 @@ export const DataBreachSection = ({ id }) => {
           sx={{ 
             fontsize: { xs: '1.5rem', md: '2.125rem' },
             fontWeight: 'bold', 
-            color: 'secondary.main', 
-            mb: 2, 
+            color: 'secondary.main',  
             textAlign: 'center' 
           }}
         >
-          Report and Track Data Breaches
+          Report and {' '}
+          <Box component="span" sx={{ color: 'secondary.main' }}>
+            Track Data Breaches
+          </Box>
         </Typography>
 
         {/* Sub heading */}

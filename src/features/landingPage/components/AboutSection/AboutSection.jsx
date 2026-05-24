@@ -68,7 +68,7 @@ export const AboutSection = ({ id }) => {
             Philippine Data Guardians
           </Typography>
 
-          {/* Body text */}
+          {/* Body 1 */}
           <Typography 
             variant='body1'
             sx={{ 
@@ -84,7 +84,9 @@ export const AboutSection = ({ id }) => {
             SMEs, and community organizations.
           </Typography>
 
+          {/* Body 2 */}
           <Typography 
+            variant='body1'
             sx={{ 
               fontSize: { xs: '0.875rem', md: '1rem' },
               textAlign: 'justify' 

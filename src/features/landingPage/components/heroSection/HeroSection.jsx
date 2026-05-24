@@ -6,12 +6,12 @@ import { HERO_BACKGROUND } from '@/constants/cloudinaryConstants';
 import { useAnimation } from '@/hooks/useAnimation';
 import { getCloudinaryUrl } from '@/services/cloudinary';
 
-export const HeroSection = ({ id, isMobile }) => {
+export const HeroSection = ({ id }) => {
 
   const {  
     sectionRef,
     animate
-  } = useAnimation({ threshold: 0.3, triggerOnce: true });
+  } = useAnimation({ threshold: 0.1, triggerOnce: true });
 
   const backgroundImage = getCloudinaryUrl(HERO_BACKGROUND)
 
@@ -46,6 +46,7 @@ export const HeroSection = ({ id, isMobile }) => {
             justifyContent: 'center',
           }}
         >
+          {/* Protect your data with */}
           <Typography
             variant='h4'
             sx={{ fontWeight: 'bold', color: 'background.paper' }}
@@ -53,9 +54,11 @@ export const HeroSection = ({ id, isMobile }) => {
             Protect Your Data with
           </Typography>
 
+          {/* Philippine Data */}
           <Typography
-            variant={isMobile ? 'h3' : 'h2'}
+            variant='h2'
             sx={{
+              fontSize: { xs: '3rem', md: '3.75rem' },
               fontWeight: 'bold',
               color: 'secondary.main',
             }}
@@ -63,9 +66,11 @@ export const HeroSection = ({ id, isMobile }) => {
             Philippine Data
           </Typography>
 
+          {/* Guardians */}
           <Typography
-            variant={isMobile ? 'h3' : 'h2'}
+            variant='h2'
             sx={{
+              fontSize: { xs: '3rem', md: '3.75rem' },
               fontWeight: 'bold',
               color: 'secondary.main',
             }}
@@ -73,9 +78,11 @@ export const HeroSection = ({ id, isMobile }) => {
             Guardians
           </Typography>
 
+          {/* Body */}
           <Typography
-            variant={isMobile ? 'subtitle2' : 'subtitle1'}
+            variant='body1'
             sx={{
+              fontSize: { xs: '0.875rem', md: '1rem' },
               color: 'background.paper',
               mt: 2,
               textAlign: 'justify',
@@ -86,6 +93,7 @@ export const HeroSection = ({ id, isMobile }) => {
             building trust in the digital world.
           </Typography>
 
+          {/* CTA Buttons */}
           <Stack
             gap={2} mt={4}
             sx={{ flexDirection: { xs: 'column', md: 'row' } }}

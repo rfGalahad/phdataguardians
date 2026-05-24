@@ -1,25 +1,23 @@
 import { useEffect,useState } from "react"
 
 import { KeyboardArrowUp } from "@mui/icons-material";
-import { Box, Fab, useMediaQuery, Zoom } from "@mui/material";
+import { Box, Fab, Zoom } from "@mui/material";
 
 import { AboutSection } from "../components/AboutSection";
 import { ContactSection } from "../components/ContactSection";
 import { DataBreachSection } from "../components/DataBreachSection";
-import { Footer } from "../components/footerSection/Footer";
-import { HeroSection } from "../components/heroSection/HeroSection";
-import { JoinCommunity } from "../components/membershipSection/JoinCommunity";
-import { MembershipTiers } from "../components/membershipSection/MembershipTiers";
-import { Services } from "../components/serviceSection/Services";
-import { Topbar } from "../components/topbar/Topbar";
+import { FooterSection } from "../components/FooterSection";
+import { HeroSection } from "../components/HeroSection";
+import { JoinCommunity } from "../components/MembershipSection/JoinCommunity";
+import { MembershipTiers } from "../components/MembershipSection/MembershipTiers";
+import { ServiceSection } from "../components/ServiceSection";
+import { Topbar } from "../components/Topbar";
 
 
 
 export const LandingPage = () => {  
 
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
   useEffect(() => {
     let ticking = false;
@@ -55,14 +53,14 @@ export const LandingPage = () => {
       }}
     >
       <Topbar isScrolled={isScrolled}/>
-      <HeroSection id='home' isMobile={isMobile}/>
+      <HeroSection id='home'/>
       <AboutSection id='about'/>  
-      <JoinCommunity id='membership' isMobile={isMobile}/>
-      <MembershipTiers id='membership-tiers' isMobile={isMobile}/>
-      <Services id='services' isMobile={isMobile}/>
+      <JoinCommunity id='membership'/>
+      <MembershipTiers id='membership-tiers'/>
+      <ServiceSection id='services'/>
       <DataBreachSection id='data-breach'/>
       <ContactSection id='contact'/>
-      <Footer/>
+      <FooterSection/>
 
       {/* Floating Scroll-to-Top Button */}
       <Zoom in={isScrolled}>

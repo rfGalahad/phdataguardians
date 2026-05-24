@@ -4,7 +4,7 @@ import {
   useTheme
 } from '@mui/material';
 
-import { Footer } from '../landingPage/components/footerSection/Footer';
+import { FooterSection } from '../landingPage/components/FooterSection';
 
 import { HeroSection } from './HeroSection';
 import { HowItWorks } from './HowItWorks';
@@ -29,7 +29,7 @@ export const PrivacyImpactAssessment = () => {
       <SubscriptionTiers isMobile={isMobile}/>
 
       {/* ── FOOTER ── */}
-      <Footer/>
+      <FooterSection/>
 
     </Box>
   );

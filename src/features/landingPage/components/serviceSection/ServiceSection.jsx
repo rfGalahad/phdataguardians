@@ -6,8 +6,9 @@ import {
   Public as PublicIcon,
   ReportProblem as ReportProblemIcon,
   School as SchoolIcon,
-  Security as SecurityIcon} from "@mui/icons-material"
-import { Box, Container, Grid, Typography } from "@mui/material"
+  Security as SecurityIcon
+} from "@mui/icons-material"
+import { Box, Container, Grid, Stack, Typography } from "@mui/material"
 
 import auditAssessment from '@/assets/services_images/audit-assessment.png';
 import breachResponse from '@/assets/services_images/breach-response.png';
@@ -81,7 +82,7 @@ const SERVICES_ITEM = [
   }
 ];
 
-export const Services = ({ id, isMobile }) => {
+export const ServiceSection = ({ id }) => {
 
   const { 
     isVisible,
@@ -103,23 +104,35 @@ export const Services = ({ id, isMobile }) => {
       }}
     >
       {/* SERVICES - HEADING */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 2,
-          ...animate(300)
-        }}
-      >
-        <Typography variant={isMobile ? 'h5' : 'h4'} sx={{ fontWeight: 'bold', color: '#F7CF13' }}>
-          Our Services
+      <Stack direction='column' spacing={1} sx={{ textAlign: 'center', ...animate(100) }}>
+        {/* Heading */}
+        <Typography 
+          variant='h4' 
+          sx={{ 
+            fontSize: { xs: '1.5rem', md: '2.125rem' },
+            fontWeight: 'bold', 
+            color: 'common.white'
+          }}
+        >
+          Our{' '} 
+          <Box component='span' sx={{ color: 'secondary.main' }}>
+            Services
+          </Box>
         </Typography>
-        <Typography variant={isMobile ? 'body2' : 'body1'} sx={{ fontWeight: 'semi-bold', color: '#FFFFFF', textAlign: 'center' }}>
+
+        {/* Body */}
+        <Typography 
+          variant='body1' 
+          sx={{ 
+            fontSize: { xs: '0.875rem', md: '1rem' },
+            color: 'common.white', 
+            textAlign: 'center' 
+          }}
+        >
           We deliver tailored data privacy and cybersecurity strategies designed to meet 
           the unique needs of government agencies, SMEs, and community organizations.
         </Typography>
-      </Box>
+      </Stack>
     
       {/* SERVICES */}
       <Grid container spacing={2}>

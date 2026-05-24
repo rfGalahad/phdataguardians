@@ -1,12 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ArrowForward } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 import { useAnimation } from '@/hooks/useAnimation';
-
-
 
 
 export const ServiceCard = ({ 
@@ -22,7 +20,10 @@ export const ServiceCard = ({
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
-  const { sectionRef, animate } = useAnimation({ threshold: 0.1, triggerOnce: true });
+  const { 
+    animate, 
+    sectionRef 
+  } = useAnimation({ threshold: 0.1, triggerOnce: true });
 
   return (
     <Box

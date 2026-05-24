@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
 import { useAnimation } from "@/hooks/useAnimation";
 
@@ -12,7 +12,7 @@ const TIER_LIST = [
 ];
 
 
-export const MembershipTiers = ({ id, isMobile }) => {
+export const MembershipTiers = ({ id }) => {
   
   const { 
     sectionRef,
@@ -26,33 +26,56 @@ export const MembershipTiers = ({ id, isMobile }) => {
         ref={sectionRef}
         sx={{ mt: 12 }}
       >
-        {/* HEADER & MEMBERSHIP ID  */}
-        <Box sx={{ textAlign: 'center', color: 'white', ...animate(100) }}>
+        {/* HEADER */}
+        <Stack direction='column' spacing={1} 
+          sx={{ 
+            color: 'common.white',
+             textAlign: 'center', 
+             ...animate(100)
+          }}
+        >
+          {/* Heading  */}
           <Typography
-            variant={isMobile ? 'h5' : 'h4'}
-            sx={{ fontWeight: 600, color: 'white' }}
+            variant='h4'
+            sx={{ 
+              fontSize: { xs: '1.5rem', md: '2.125rem' },
+              fontWeight: 600, 
+              color: 'common.white',
+            }}
           >
             Membership {' '}
             <Box component="span" sx={{ color: 'secondary.main' }}>
               Tiers
             </Box>
           </Typography>
-        </Box>
 
-      <Grid container spacing={2} mt={3}>
-        {TIER_LIST.map((item, index) => (
-          <Grid 
-            key={index} 
-            size={{ xs: 12, sm: 6, lg: 3 }} 
-            sx={{ ...animate(1000 + index * 300) }}
+          {/* Body */}
+          <Typography 
+            variant='body1' 
+            sx={{ 
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              color: 'common.white' 
+            }}
           >
-            <TierCard
-              tier={item.title} 
-              cost={item.cost} 
-            />
-          </Grid>
-        ))}
-      </Grid>   
+            Unlock exclusive features and member benefits.
+          </Typography>
+        </Stack>
+
+        {/* TIER CARDS */}
+        <Grid container spacing={2} mt={3}>
+          {TIER_LIST.map((item, index) => (
+            <Grid 
+              key={index} 
+              size={{ xs: 12, sm: 6, lg: 3 }} 
+              sx={{ ...animate(1000 + index * 300) }}
+            >
+              <TierCard
+                tier={item.title} 
+                cost={item.cost} 
+              />
+            </Grid>
+          ))}
+        </Grid>   
       </Container> 
   )
 }

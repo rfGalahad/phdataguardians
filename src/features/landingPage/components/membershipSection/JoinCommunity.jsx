@@ -11,7 +11,7 @@ import { MembershipTypeCard } from "./MembershipTypeCard";
 
 
 
-export const JoinCommunity = ({ id, isMobile }) => {
+export const JoinCommunity = ({ id }) => {
 
   const { 
     sectionRef,
@@ -43,7 +43,7 @@ export const JoinCommunity = ({ id, isMobile }) => {
           alignItems: { xs: 'stretch', md: 'center' },
         }}
       >
-        {/* Text column */}
+        {/* Heading */}
         <Box
           sx={{
             flex: 2,
@@ -69,26 +69,42 @@ export const JoinCommunity = ({ id, isMobile }) => {
 
           {/* Main heading */}
           <Typography
-            variant={isMobile ? 'h5' : 'h4'}
+            variant='h4'
             sx={{
+              fontSize: { xs: '1.5rem', md: '2.125rem' },
               fontWeight: 700,
-              color: '#fff',
+              color: 'common.white',
             }}
           >
             Join Our Community
           </Typography>
 
-          {/* Body — left-aligned on mobile, justified on desktop */}
-          <Typography variant={isMobile ? 'body2' : 'body1'} sx={{ textAlign: 'justify', color: '#d8e8f4' }}>
+          {/* Body 1 */}
+          <Typography 
+            variant='body1' 
+            sx={{ 
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              textAlign: 'justify', 
+              color: 'common.white' 
+            }}
+          >
             Be part of a community that champions{' '}
-            <Box component='span' sx={{ color: '#F7CF13', fontWeight: 600 }}>
+            <Box component='span' sx={{ color: 'secondary.main', fontWeight: 600 }}>
               data privacy and cybersecurity
             </Box>{' '}
             in the Philippines and take an active role in shaping a safer digital
             environment for everyone.
           </Typography>
 
-          <Typography variant={isMobile ? 'body2' : 'body1'} sx={{ textAlign: 'justify', color: '#d8e8f4' }}>
+          {/* Body 2 */}
+          <Typography 
+            variant='body1' 
+            sx={{ 
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              textAlign: 'justify', 
+              color: 'common.white' 
+            }}
+          >
             We welcome individuals, professionals, organizations, and advocates who
             share our mission of advancing data protection and compliance.
           </Typography>
@@ -98,7 +114,7 @@ export const JoinCommunity = ({ id, isMobile }) => {
         <Box
           sx={{
             flex: 1,
-            minWidth: 0,        // prevents flex child overflow
+            minWidth: 0,    
             ...animate(300),
           }}
         >

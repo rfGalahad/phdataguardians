@@ -26,10 +26,11 @@ export const CompanyLogo = () => {
         variant="h7"
         component="div"
         sx={{
+          color: 'common.white',
           fontWeight: 'bold',
         }}
       >
-        PHILIPPINE DATA <span style={{ color: "#F7CF13" }}>GUARDIANS</span>
+        PHILIPPINE DATA <span style={{ color: "secondary.main" }}>GUARDIANS</span>
       </Typography>
     </Box>
   )
