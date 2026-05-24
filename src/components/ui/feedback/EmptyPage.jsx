@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { ArrowBack } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
 import { keyframes } from '@mui/system';
 
 import pdgBackground from '@/assets/pdg-background.png';
@@ -48,7 +50,7 @@ export const EmptyPage = () => {
 
       {/* Heading */}
       <Typography variant="h5" sx={{ fontWeight: 600, color: '#F7CF13' }}>
-        This page isn't ready yet
+        This page isn&apos;t ready yet
       </Typography>
 
       {/* Subtext */}
@@ -56,7 +58,7 @@ export const EmptyPage = () => {
         variant="body2"
         sx={{ color: 'white', maxWidth: 380, lineHeight: 1.8 }}
       >
-        We're still building this feature. Check back soon.
+        We&apos;re still building this feature. Check back soon.
       </Typography>
 
       {/* Go Back */}

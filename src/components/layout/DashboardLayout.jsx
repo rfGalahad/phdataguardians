@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-import { useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
+
+import { Sidebar } from "./Sidebar";
+import { Topbar } from "./Topbar";
 
 
 
@@ -45,7 +49,7 @@ export const DashboardLayout = () => {
         handleDrawerToggle={handleDrawerToggle}
         isMobile={isMobile}
       />
-      <Box 
+      <Box
         sx={{ 
           gridArea: 'main',
           height: '100%',

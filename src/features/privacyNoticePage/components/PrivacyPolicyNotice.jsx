@@ -1,5 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material';
 import { ArticleOutlined, LockOutlined } from '@mui/icons-material';
+import { Box, Stack, Typography } from '@mui/material';
 
 const NOTICE = [
   {
@@ -44,15 +44,7 @@ export const PrivacyPolicyNotice = () => {
           sx={{
             display: 'flex',
             gap: 2,
-            p: { xs: 2.5, md: 3 },
-            borderRadius: 2.5,
-            border: '1px solid rgba(5,50,97,0.1)',
-            bgcolor: 'rgba(5,50,97,0.02)',
             transition: 'box-shadow 0.2s ease, border-color 0.2s ease',
-            '&:hover': {
-              boxShadow: '0 4px 20px -4px rgba(5,50,97,0.12)',
-              borderColor: 'rgba(5,50,97,0.2)',
-            },
           }}
         >
           {/* Text */}

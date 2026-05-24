@@ -5,10 +5,10 @@ import {
   AppBar,
   Box,
   Button,
+  Container,
   IconButton,
   Menu,
   MenuItem,
-  Toolbar,
   useMediaQuery,
   useTheme
 } from '@mui/material';
@@ -43,7 +43,7 @@ export const Topbar = ({ isScrolled }) => {
     { label: 'About', id: 'about' },
     { label: 'Membership', id: 'membership' },
     { label: 'Services', id: 'services' },
-    { label: 'Data Breach Report', id: 'report' },
+    { label: 'Data Breach Report', id: 'data-breach' },
     { label: 'Contact', id: 'contact' },
     { label: 'Articles', id: 'articles' },
     { label: 'Infographics', id: 'infographics' }
@@ -60,7 +60,7 @@ export const Topbar = ({ isScrolled }) => {
         boxShadow: isScrolled ? 2 : 'none',
       }}
     >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Container sx={{ py: 2, display: 'flex', justifyContent: 'space-between' }}>
           {/* Company Logo */}
           <CompanyLogo/>
 
@@ -73,7 +73,6 @@ export const Topbar = ({ isScrolled }) => {
                   onClick={() => handleNavClick(item.id)}
                   sx={{
                     color: '#e0e0e0',
-                    fontWeight: 500,
                     textTransform: 'none',
                     fontSize: '14px',
                     '&:hover': { 
@@ -135,7 +134,7 @@ export const Topbar = ({ isScrolled }) => {
               </Menu>
             </>
           )}
-        </Toolbar>
+        </Container>
 
     </AppBar>
   );

@@ -1,7 +1,8 @@
 import { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useMediaQuery } from "@mui/material";
+import { ArrowDropDown, Menu as MenuIcon } from '@mui/icons-material';
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useMediaQuery } from "@mui/material";
 
 import { supabase } from '../../services/supabaseClient';
 
@@ -79,7 +80,7 @@ export const Topbar = ({ handleDrawerToggle }) => {
             onClick={(e) => setAnchorEl(e.currentTarget)}
             sx={{ color: '#404040' }}
           >
-            <ArrowDropDownIcon/>
+            <ArrowDropDown/>
           </IconButton>
         </Box>
 

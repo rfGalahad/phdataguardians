@@ -1,13 +1,11 @@
-import { Link } from 'react-router-dom';
-
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 import { DATA_BREACH_DASHBOARD_PREVIEW } from '@/constants/cloudinaryConstants';
 import { useAnimation } from '@/hooks/useAnimation';
 import { getCloudinaryUrl } from '@/services/cloudinary';
 
 
-export const DataBreach = ({ id, isMobile }) => {
+export const DataBreachSection = ({ id }) => {
 
   const {  
     animate,
@@ -25,7 +23,8 @@ export const DataBreach = ({ id, isMobile }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        gap: 6,
+        gap: 3,
+        mt: 12
       }}
     >
       {/* HEADING */}
@@ -39,28 +38,31 @@ export const DataBreach = ({ id, isMobile }) => {
           ...animate(300)
         }}
       >
+        {/* Main heading */}
         <Typography
-          variant= {isMobile ? 'h5' : 'h4'} 
-          sx={{ fontWeight: 'bold', color: '#F7CF13', mb: 2, textAlign: 'center' }}
+          variant= 'h4' 
+          sx={{ 
+            fontsize: { xs: '1.5rem', md: '2.125rem' },
+            fontWeight: 'bold', 
+            color: 'secondary.main', 
+            mb: 2, 
+            textAlign: 'center' 
+          }}
         >
           Report and Track Data Breaches
         </Typography>
-        <Typography variant='subtitle2' sx={{ fontWeight: 'semi-bold', textAlign: {xs: 'center', md: 'justify'}, mb: 2 }}>
+
+        {/* Sub heading */}
+        <Typography 
+          variant='body1' 
+          sx={{ 
+            fontSize: { xs: '0.875rem', md: '1rem' }, 
+            textAlign: 'center' 
+          }}
+        >
           A secure and transparent platform designed to help individuals and organizations report, monitor, 
           and resolve data breaches efficiently.
         </Typography>
-        <Button 
-          component={Link}
-          to='/data-breach-report'
-          variant='contained' 
-          sx={{ 
-            fontWeight: 600, 
-            color: '#053261', 
-            backgroundColor: '#F7CF13'
-          }}
-        >
-          Report a Data Breach 
-        </Button>
       </Box>
 
       {/* IMAGE */}

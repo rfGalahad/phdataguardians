@@ -1,5 +1,6 @@
-import { fadeUp } from '@/styles/animation';
 import { useEffect, useRef,useState } from 'react';
+
+import { fadeUp } from '@/styles/animation';
 
 export const useAnimation = (options = {}) => {
   

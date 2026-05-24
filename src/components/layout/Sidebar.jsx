@@ -1,9 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import collapsedLogo from '@/assets/pdg-logo.png';
-import pdgLogo from '@/assets/pdgLogo-Dashboard.png';
+import { Dashboard, HourglassEmpty, Person } from '@mui/icons-material';
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 
-const navItems = [
+import { LOGO_PDG_1, LOGO_PDG_2 } from '@/constants/cloudinaryConstants';
+import { getCloudinaryUrl } from '@/services/cloudinary';
+
+const NAV_ITEMS = [
   { text: 'Dashboard', icon: <Dashboard />, path: '/admin/dashboard' },
   { text: 'Pending Members', icon: <HourglassEmpty />, path: '/admin/managePendingMembers' },
   { text: 'PDG Members', icon: <Person />, path: '/admin/manageMembers' }
@@ -12,7 +15,8 @@ const navItems = [
 export const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
 
   const { pathname } = useLocation(); 
-
+  const logoPDG1 = getCloudinaryUrl(LOGO_PDG_1);
+  const logoPDG2 = getCloudinaryUrl(LOGO_PDG_2);
   const collapsed = mobileOpen && !isMobile;
 
 
@@ -21,14 +25,14 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
         <Box
           component="img"
-          src={collapsed ? collapsedLogo : pdgLogo}
+          src={collapsed ? logoPDG1 : logoPDG2}
           alt="PDG Logo"
           height={collapsed ? 32 : 64}
         />
       </Box>
 
       <List>
-        {navItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <Tooltip key={item.text} title={item.text}>
             <ListItem disablePadding>
               <ListItemButton

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 
 import { HERO_BACKGROUND } from '@/constants/cloudinaryConstants';
 import { useAnimation } from '@/hooks/useAnimation';
@@ -33,22 +33,22 @@ export const HeroSection = ({ id, isMobile }) => {
         scrollMarginTop: '64px',
       }}
     >
-      <Container maxWidth="lg" sx={{ display: 'flex', overflow: 'hidden', ...animate(300), }}>
+      <Container 
+        maxWidth="lg" 
+        sx={{ display: 'flex', ...animate(300) }}
+      >
         <Box
           ref={sectionRef}
           sx={{
-            maxWidth: '600px',
+            maxWidth: '550px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
           }}
         >
           <Typography
-            variant={isMobile ? 'h4' : 'h4'}
-            sx={{
-              fontWeight: 'bold',
-              color: 'background.paper',
-            }}
+            variant='h4'
+            sx={{ fontWeight: 'bold', color: 'background.paper' }}
           >
             Protect Your Data with
           </Typography>
@@ -68,7 +68,6 @@ export const HeroSection = ({ id, isMobile }) => {
             sx={{
               fontWeight: 'bold',
               color: 'secondary.main',
-              
             }}
           >
             Guardians
@@ -87,13 +86,9 @@ export const HeroSection = ({ id, isMobile }) => {
             building trust in the digital world.
           </Typography>
 
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-              gap: 2,
-              mt: 4,
-            }}
+          <Stack
+            gap={2} mt={4}
+            sx={{ flexDirection: { xs: 'column', md: 'row' } }}
           >
             <Button
               component={Link}
@@ -101,10 +96,8 @@ export const HeroSection = ({ id, isMobile }) => {
               variant="contained"
               sx={{
                 backgroundColor: 'secondary.main',
-                color: '#053261',
+                color: 'primary.main',
                 fontWeight: '600',
-                textTransform: 'none',
-                '&:hover': { backgroundColor: '#e6c210' },
               }}
             >
               Join Us Now
@@ -116,13 +109,11 @@ export const HeroSection = ({ id, isMobile }) => {
               sx={{
                 color: 'secondary.main',
                 borderColor: 'secondary.main',
-                fontWeight: '500',
-                textTransform: 'none',
               }}
             >
               Report a Data Breach
             </Button>
-          </Box>
+          </Stack>
         </Box>
       </Container>
     </Box>

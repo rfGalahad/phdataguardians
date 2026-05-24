@@ -3,12 +3,13 @@ import { useEffect,useState } from "react"
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Fab, useMediaQuery, Zoom } from "@mui/material";
 
-import { About } from "../components/aboutSection/About";
-import { Contact } from "../components/contactSection/Contact";
-import { DataBreach } from "../components/dataBreachSection/DataBreach";
+import { AboutSection } from "../components/AboutSection";
+import { ContactSection } from "../components/ContactSection";
+import { DataBreachSection } from "../components/DataBreachSection";
 import { Footer } from "../components/footerSection/Footer";
 import { HeroSection } from "../components/heroSection/HeroSection";
-import { Membership } from "../components/membershipSection/Membership";
+import { JoinCommunity } from "../components/membershipSection/JoinCommunity";
+import { MembershipTiers } from "../components/membershipSection/MembershipTiers";
 import { Services } from "../components/serviceSection/Services";
 import { Topbar } from "../components/topbar/Topbar";
 
@@ -54,23 +55,13 @@ export const LandingPage = () => {
       }}
     >
       <Topbar isScrolled={isScrolled}/>
-
       <HeroSection id='home' isMobile={isMobile}/>
-
-      <About id='about' isMobile={isMobile}/>
-     
-      <Membership id='membership' isMobile={isMobile}/>
-      
-      <Box id="services" sx={{ scrollMarginTop: '64px', mt: 12 }}>
-        <Services/>
-      </Box>
-      <Box id="report" sx={{ scrollMarginTop: '64px', mt: 12 }}>
-        <DataBreach/>
-      </Box>
-      <Box id="contact" sx={{ scrollMarginTop: '64px', mt: 12, background: 'white' }}>
-        <Contact/>
-      </Box>
-
+      <AboutSection id='about'/>  
+      <JoinCommunity id='membership' isMobile={isMobile}/>
+      <MembershipTiers id='membership-tiers' isMobile={isMobile}/>
+      <Services id='services' isMobile={isMobile}/>
+      <DataBreachSection id='data-breach'/>
+      <ContactSection id='contact'/>
       <Footer/>
 
       {/* Floating Scroll-to-Top Button */}

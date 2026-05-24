@@ -1,4 +1,4 @@
-import { Box, Container, Divider } from '@mui/material';
+import { Box, Container, Divider, useMediaQuery } from '@mui/material';
 
 import BackgroundImage from '@/assets/pdg-background.png';
 
@@ -15,6 +15,8 @@ export const PrivacyNoticePage = () => {
     setProceed, 
     handleNext 
   } = usePrivacyNotice();
+
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 
   return (
     <Box
@@ -46,7 +48,7 @@ export const PrivacyNoticePage = () => {
         sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3, md: 4 } }}
       >
         {/* Header */}
-        <Header />
+        <Header isMobile={isMobile} />
 
         {/* Card */}
         <Box

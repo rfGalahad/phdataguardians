@@ -99,7 +99,7 @@ export const Services = ({ id, isMobile }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        gap: 6
+        gap: 6, mt: 12
       }}
     >
       {/* SERVICES - HEADING */}
@@ -112,10 +112,10 @@ export const Services = ({ id, isMobile }) => {
           ...animate(300)
         }}
       >
-        <Typography variant={isMobile ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: '#F7CF13' }}>
+        <Typography variant={isMobile ? 'h5' : 'h4'} sx={{ fontWeight: 'bold', color: '#F7CF13' }}>
           Our Services
         </Typography>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'semi-bold', color: '#FFFFFF', textAlign: 'center' }}>
+        <Typography variant={isMobile ? 'body2' : 'body1'} sx={{ fontWeight: 'semi-bold', color: '#FFFFFF', textAlign: 'center' }}>
           We deliver tailored data privacy and cybersecurity strategies designed to meet 
           the unique needs of government agencies, SMEs, and community organizations.
         </Typography>

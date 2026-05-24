@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
 
 import BackgroundImage from '@/assets/pdg-background.png';
 import { FormProvider } from '@/context/FormContext';
@@ -29,6 +29,8 @@ export const RegistrationPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [page, setPage] = useState(1);
 
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
   const navigate = useNavigate();
 
   const handleStepClick = (index) => {
@@ -38,9 +40,7 @@ export const RegistrationPage = () => {
     }
   };
 
-  const handleBack = () => {
-    navigate(-1)
-  };
+  const handleBack = () => navigate(-1);
 
   const handleNext = () => {
     setPage((prev) => prev + 1);
@@ -74,7 +74,14 @@ export const RegistrationPage = () => {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3, md: 4 } }}>
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          position: 'relative', 
+          zIndex: 1, 
+          px: { xs: 2, sm: 3, md: 4 } 
+        }}
+      >
         {/* PAGE HEADER */}
         <Box
           sx={{
@@ -109,7 +116,7 @@ export const RegistrationPage = () => {
             Back
           </Button>
           <Typography
-            variant='h4'
+            variant={isMobile ? 'h5' : 'h4'}
             sx={{ fontWeight: 800, mb: 1 }}
           >
             PDG{' '}
@@ -119,8 +126,8 @@ export const RegistrationPage = () => {
           </Typography>
 
           <Typography
-            variant="body2"
-            sx={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, maxWidth: 420 }}
+            variant={isMobile ? 'body2' : 'body1'}
+            sx={{ color: 'rgba(255,255,255,0.55)', textAlign: 'center', maxWidth: 420 }}
           >
             Complete the form below to register for your membership ID.
           </Typography>

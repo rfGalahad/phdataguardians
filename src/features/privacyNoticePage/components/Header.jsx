@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 
-export const Header = () => {
+export const Header = ({ isMobile }) => {
   return (
-    <Box mb={5} sx={{ textAlign: 'left' }}>
+    <Box mb={5} sx={{ textAlign: 'center' }}>
       <Typography
-        variant="h4"
+        variant={isMobile ? 'h5' : 'h4'}
         sx={{
           color: '#fff',
           fontWeight: 800,
@@ -18,7 +18,7 @@ export const Header = () => {
       </Typography>
 
       <Typography
-        variant="subtitle1"
+        variant={isMobile ? 'body2' : 'body1'}
         sx={{ color: 'rgba(255,255,255,0.65)' }}
       >
         Please read the following notice carefully before continuing with your membership application.
