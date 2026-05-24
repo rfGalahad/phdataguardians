@@ -46,7 +46,7 @@ export const ContactSection = ({ id }) => {
           }}
         >
           {/* HEADING */}
-          <Stack spacing={1} sx={{ ...animate(300) }}>
+          <Stack spacing={1} sx={{ ...animate(150) }}>
             <Typography 
               variant='h4' 
               sx={{ 
@@ -71,7 +71,7 @@ export const ContactSection = ({ id }) => {
           </Stack>
 
           {/* CONTACT DETAILS */}
-          <Stack spacing={2} sx={{ ...animate(600) }}>
+          <Stack spacing={2} sx={{ ...animate(300) }}>
             {CONTACT_ITEM.map((item) => (
               <ContactDetailsItem
                 key={item.title}
@@ -83,7 +83,7 @@ export const ContactSection = ({ id }) => {
           </Stack>
 
           {/* BUSINESS HOURS */}
-          <Stack spacing={1} width='100%' sx={{ ...animate(900) }}>
+          <Stack spacing={1} width='100%' sx={{ ...animate(450) }}>
             <Typography 
               variant="subtitle1" 
               sx={{ fontWeight: '600', color: 'primary.main' }}
@@ -111,7 +111,7 @@ export const ContactSection = ({ id }) => {
             border: '1px solid',
             borderColor: 'divider',
             alignSelf: 'stretch',
-            ...animate(1200)
+            ...animate(600)
           }}
         >
           <SendMessageForm/>   
