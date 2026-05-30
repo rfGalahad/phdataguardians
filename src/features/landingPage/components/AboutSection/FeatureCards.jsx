@@ -2,7 +2,6 @@ import {
   BusinessCenterRounded,
   DesignServicesRounded,
   GavelRounded,
-  SchoolRounded,
   SecurityRounded
 } from '@mui/icons-material'
 import {
@@ -22,10 +21,6 @@ const ITEMS = [
   {
     label: 'Gov, SME & community focus',
     icon: <BusinessCenterRounded sx={{ color: 'secondary.main', flexShrink: 0 }} />,
-  },
-  {
-    label: 'CPU-accredited training',
-    icon: <SchoolRounded sx={{ color: 'secondary.main', flexShrink: 0 }} />,
   },
   {
     label: 'Data breach response',

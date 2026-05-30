@@ -37,7 +37,7 @@ const getInitialBenefits = (tier) => {
 
     const studentBenefits = [
       'Access to free training sessions',
-      'Free certificates and CPD units',
+      'Free certificates',
       'Announcements on free events',
       'PDG T-shirt and Membership ID'
     ];

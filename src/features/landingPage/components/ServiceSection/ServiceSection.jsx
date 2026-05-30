@@ -33,7 +33,7 @@ const SERVICES_ITEM = [
   },
   { 
     title: 'Data Privacy & Cybersecurity Trainings', 
-    description: 'Conduct CPU-accredited workshops, webinars, and seminars.', 
+    description: 'Conduct workshops, webinars, and seminars.', 
     icon: SchoolIcon,
     image: privacyTraining,
     link: '/services/privacy-training'
