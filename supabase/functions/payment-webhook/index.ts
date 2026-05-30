@@ -60,8 +60,8 @@ async function sendEmail({ email, planName, actionLink }: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Philippine Data Guardians <onboarding@resend.dev>",
-      to: "rfsolloso03@gmail.com", // ✅ change to `email` once you have a verified domain
+      from: "Philippine Data Guardians <members@phdataguardians.org>",
+      to: email, 
       subject: `Welcome! Your ${planName} account is ready`,
       html: generateEmailHtml(planName, actionLink, LOGO_URL),
     }),

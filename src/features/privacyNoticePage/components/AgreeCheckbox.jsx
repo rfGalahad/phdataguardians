@@ -36,7 +36,7 @@ export const AgreeCheckbox = ({ agree }) => {
             fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: 1.5,
-            color: '#053261',
+            color: 'primary.main',
             opacity: 0.55,
             whiteSpace: 'nowrap',
           }}

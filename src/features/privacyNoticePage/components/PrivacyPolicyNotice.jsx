@@ -53,7 +53,7 @@ export const PrivacyPolicyNotice = () => {
               {item.icon}
               <Typography
                 variant="body1" 
-                sx={{ fontWeight: 700, color: '#053261', mb: 0.75, lineHeight: 1.3 }}
+                sx={{ fontWeight: 700, color: 'primary.main', mb: 0.75, lineHeight: 1.3 }}
               >
                 {item.title}
               </Typography>
