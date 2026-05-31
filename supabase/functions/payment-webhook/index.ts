@@ -61,6 +61,7 @@ async function sendEmail({ email, planName, actionLink }: {
     },
     body: JSON.stringify({
       from: "Philippine Data Guardians <members@phdataguardians.org>",
+      reply_to: "members@phdataguardians.org",
       to: email, 
       subject: `Welcome! Your ${planName} account is ready`,
       html: generateEmailHtml(planName, actionLink, LOGO_URL),
